@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
@@ -11,12 +12,27 @@ namespace WhiteTeam.GameLogic
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField] private GameObject gameSessionPrototype;
         [SerializeField] private Logger logger;
 
         private readonly List<Lobby> _lobbies = new List<Lobby>();
         private Lobby _selectedLobby;
 
         public User LocalUser;
+
+        // EVENTS
+        public readonly ActionsEvents Events = new ActionsEvents();
+
+        public class ActionsEvents
+        {
+            public EventHolderBase OnUserConnectToLobby { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnUserDisconnectFromLobby { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnCreateLobby { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnDeleteLobby { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnUpdateLobbies { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnStartLobby { get; private set; } = new EventHolderBase();
+        }
+
 
         private void Start()
         {
@@ -83,11 +99,13 @@ namespace WhiteTeam.GameLogic
         {
             //LocalUser = new User(GameParameters.Instance.DefaultUserName);
             throw new NotImplementedException();
+            Events.OnUserConnectToLobby.TriggerEvents();
         }
 
         public void OnUserDisconnectFromLobby()
         {
             throw new NotImplementedException();
+            Events.OnUserDisconnectFromLobby.TriggerEvents();
         }
 
         public void OnCreateLobby()
@@ -115,29 +133,42 @@ namespace WhiteTeam.GameLogic
             var lobby = new Lobby(lobbyId, ownerUser, settings, connectedUsers);
             _lobbies.Add(lobby);
             logger.Log($"New lobby {lobby.GetFullName()} created.", Logger.LogLevel.INFO);
+
+            Events.OnCreateLobby.TriggerEvents();
         }
 
         public void OnDeleteLobby()
         {
             // EXAMPLE
             var lobbyId = "321";
-            var lobbyToDelete = NetworkEntity.GetEntityById(_lobbies, lobbyId);
-            if (lobbyToDelete != null)
+            if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToDelete))
             {
                 _lobbies.Remove(lobbyToDelete);
                 logger.Log($"Lobby {lobbyToDelete.GetFullName()} deleted.", Logger.LogLevel.INFO);
             }
+
+            Events.OnDeleteLobby.TriggerEvents();
         }
 
         public void OnUpdateLobbies()
         {
             throw new NotImplementedException();
+            Events.OnUpdateLobbies.TriggerEvents();
         }
 
         public void OnStartLobby()
         {
-            // TODO -- create GameSession, assign admin role
-            throw new NotImplementedException();
+            // EXAMPLE
+            var lobbyId = "321";
+
+            if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToStart))
+            {
+                var gameSessionObject = Instantiate(gameSessionPrototype);
+                var gameSession = gameSessionObject.GetComponent<GameSession>();
+                gameSession.CreateFromLobby(lobbyToStart);
+            }
+
+            Events.OnStartLobby.TriggerEvents();
         }
 
         #endregion

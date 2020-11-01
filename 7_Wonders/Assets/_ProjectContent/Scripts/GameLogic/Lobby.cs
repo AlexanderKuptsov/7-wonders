@@ -45,6 +45,13 @@ namespace WhiteTeam.GameLogic.Managers
             RemoveUser(user);
         }
 
+        public IdentifierInfo GetIdentifierInfo()
+        {
+            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
+        }
+
+        public string GetFullName() => $"(id: {Id}, name: {Settings.Name})";
+
         public int ConnectedUsersCount => ConnectedUsers.Count;
 
         public bool IsFull => ConnectedUsersCount == Settings.MaxPlayers;
@@ -64,12 +71,5 @@ namespace WhiteTeam.GameLogic.Managers
         }
 
         #endregion
-
-        public IdentifierInfo GetIdentifierInfo()
-        {
-            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
-        }
-
-        public string GetFullName() => $"(id: {Id}, name: {Settings.Name})";
     }
 }
