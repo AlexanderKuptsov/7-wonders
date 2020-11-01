@@ -3,18 +3,18 @@ using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
-using WhiteTeam.Network;
+using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
 {
     public class GameSession : MonoBehaviour, INetworkEntity // TODO -- MonoBehaviour?
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+        public string Id { get; private set; }
+        public GameSettings Settings { get; private set; }
         public Player LocalPlayer { get; private set; }
         public List<Player> Players = new List<Player>();
         public Role Role { get; private set; } // TODO
-        
+
         [SerializeField] private Timer timer;
 
         private IdentifierInfo _identifierInfo;
@@ -27,7 +27,7 @@ namespace WhiteTeam.GameLogic
         public void CreateFromLobby(Lobby lobby)
         {
             Id = lobby.Id;
-            Name = lobby.Name;
+            Settings = lobby.Settings;
 
             LocalPlayer = Player.CreateFromUser(GameManager.Instance.LocalUser);
 
@@ -77,7 +77,7 @@ namespace WhiteTeam.GameLogic
 
         public IdentifierInfo GetIdentifierInfo()
         {
-            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Name));
+            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
 
         #endregion

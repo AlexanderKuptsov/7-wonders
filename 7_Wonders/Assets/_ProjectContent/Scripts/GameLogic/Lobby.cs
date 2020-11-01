@@ -1,25 +1,34 @@
 ﻿using System.Collections.Generic;
-using WhiteTeam.Network;
+using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Managers
 {
     public class Lobby : INetworkEntity
     {
+        public string Id { get; private set; }
         public User Owner { get; private set; }
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int MaxPlayers { get; private set; }
+        public GameSettings Settings { get; private set; }
         public List<User> ConnectedUsers { get; private set; }
 
         private IdentifierInfo _identifierInfo;
 
-        public Lobby(User owner, int id, string name, int maxPlayers)
+        public Lobby(string id, User owner, GameSettings settings)
         {
-            Owner = owner;
+            LobbySetup(id, owner, settings);
+        }
+
+        public Lobby(string id, User owner, GameSettings settings, IEnumerable<User> connectedUsers)
+        {
+            LobbySetup(id, owner, settings);
+            ConnectedUsers.AddRange(connectedUsers);
+        }
+
+        private void LobbySetup(string id, User owner, GameSettings settings)
+        {
             Id = id;
-            Name = name;
-            MaxPlayers = maxPlayers;
-            ConnectedUsers = new List<User>(MaxPlayers);
+            Owner = owner;
+            Settings = settings;
+            ConnectedUsers = new List<User>(Settings.MaxPlayers) {Owner};
         }
 
         #region API
@@ -38,7 +47,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         public int ConnectedUsersCount => ConnectedUsers.Count;
 
-        public bool IsFull => ConnectedUsersCount == MaxPlayers;
+        public bool IsFull => ConnectedUsersCount == Settings.MaxPlayers;
 
         #endregion
 
@@ -58,7 +67,9 @@ namespace WhiteTeam.GameLogic.Managers
 
         public IdentifierInfo GetIdentifierInfo()
         {
-            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Name));
+            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
+
+        public string GetFullName() => $"(id: {Id}, name: {Settings.Name})";
     }
 }

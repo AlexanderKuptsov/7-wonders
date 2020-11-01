@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
+using WhiteTeam.Network.Entity;
 using Logger = SK_Engine.Logger;
 
 namespace WhiteTeam.GameLogic
@@ -11,7 +13,7 @@ namespace WhiteTeam.GameLogic
     {
         [SerializeField] private Logger logger;
 
-        private List<Lobby> _lobbies = new List<Lobby>();
+        private readonly List<Lobby> _lobbies = new List<Lobby>();
         private Lobby _selectedLobby;
 
         public User LocalUser;
@@ -37,19 +39,19 @@ namespace WhiteTeam.GameLogic
 
         #endregion
 
-        #region NETWORK API
+        #region NETWORK REQUESTS
 
-        private void ConnectToLobby(Lobby lobby)
+        private void ConnectToLobbyRequest(Lobby lobby)
         {
             throw new NotImplementedException();
         }
 
-        public void DisconnectFromLobby()
+        public void DisconnectFromLobbyRequest()
         {
             throw new NotImplementedException();
         }
 
-        public void CreateLobby()
+        public void CreateLobbyRequest()
         {
             if (_lobbies.Count < GameParameters.Instance.MaxLobbies)
             {
@@ -58,17 +60,17 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        public void DeleteLobby()
+        public void DeleteLobbyRequest()
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateLobby()
+        public void UpdateLobbyRequest()
         {
             throw new NotImplementedException();
         }
 
-        public void StartLobby(Lobby lobby)
+        public void StartLobbyRequest(Lobby lobby)
         {
             throw new NotImplementedException();
         }
@@ -90,12 +92,41 @@ namespace WhiteTeam.GameLogic
 
         public void OnCreateLobby()
         {
-            throw new NotImplementedException();
+            // EXAMPLE
+            var lobbyId = "321";
+
+            var ownerId = "123";
+            var ownerName = "Owner";
+            var ownerUser = new User(ownerId, ownerName);
+
+            var lobbyName = "Lobby";
+            var maxPlayers = 5;
+            var moveTime = 60;
+            var settings = new GameSettings(lobbyName, maxPlayers, moveTime);
+
+            var connectedUsersData = new Dictionary<string, string>
+            {
+                {"325425", "bot1"},
+                {"235552", "bot2"}
+            };
+            var connectedUsers = connectedUsersData
+                .Select(userData => new User(userData.Key, userData.Value));
+
+            var lobby = new Lobby(lobbyId, ownerUser, settings, connectedUsers);
+            _lobbies.Add(lobby);
+            logger.Log($"New lobby {lobby.GetFullName()} created.", Logger.LogLevel.INFO);
         }
 
         public void OnDeleteLobby()
         {
-            throw new NotImplementedException();
+            // EXAMPLE
+            var lobbyId = "321";
+            var lobbyToDelete = NetworkEntity.GetEntityById(_lobbies, lobbyId);
+            if (lobbyToDelete != null)
+            {
+                _lobbies.Remove(lobbyToDelete);
+                logger.Log($"Lobby {lobbyToDelete.GetFullName()} deleted.", Logger.LogLevel.INFO);
+            }
         }
 
         public void OnUpdateLobbies()
