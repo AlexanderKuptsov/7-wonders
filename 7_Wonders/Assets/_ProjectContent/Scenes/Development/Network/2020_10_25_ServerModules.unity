@@ -304,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54118f674d755b418793a7eea0c51df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  url: localhost
+  port: 9002
   connectOnEvent: 1
   connectEvent: {fileID: 524280046}
   logger:
@@ -408,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1780956752
 Transform:
   m_ObjectHideFlags: 0
@@ -435,6 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44e3486106247248ab492c820cf85f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  url: 
+  port: 
   connectOnEvent: 0
   connectEvent: {fileID: 0}
   logger:
