@@ -1,11 +1,11 @@
-﻿namespace WhiteTeam.Network
+﻿namespace WhiteTeam.Network.Entity
 {
     public class IdentifierInfo
     {
-        public int Id { get; private set; }
+        public string Id { get; private set; }
         public string Name { get; private set; }
 
-        public IdentifierInfo(int id, string name)
+        public IdentifierInfo(string id, string name)
         {
             Id = id;
             Name = name;

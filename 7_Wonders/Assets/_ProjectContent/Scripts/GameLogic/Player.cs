@@ -7,11 +7,11 @@
         public Player LeftPlayer { get; private set; }
         public Player RightPlayer { get; private set; }
 
-        private Player(int id, string name) : base(id, name)
+        private Player(string id, string name) : base(id, name)
         {
         }
 
-        public Player(int id, string name, Role role) : base(id, name)
+        public Player(string id, string name, Role role) : base(id, name)
         {
             Role = role;
         }

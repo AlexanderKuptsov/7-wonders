@@ -1,4 +1,4 @@
-﻿namespace WhiteTeam.Network
+﻿namespace WhiteTeam.Network.Entity
 {
     public interface INetworkEntity
     {
