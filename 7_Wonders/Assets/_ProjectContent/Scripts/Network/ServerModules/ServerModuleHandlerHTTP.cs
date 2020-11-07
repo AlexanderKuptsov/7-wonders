@@ -1,87 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using Network.Json;
+using SK_Engine;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ServerModuleHandlerHTTP : MonoBehaviour
+public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
 {
     [SerializeField] private string postURL;
-
     [SerializeField] private string getURL;
+    public readonly ActionsEvents Events = new ActionsEvents();
 
-    // Start is called before the first frame update
+    private readonly string postRegistrationURL = "https://wonders-auth.herokuapp.com/registration";
+    private readonly string postAuthURL = "https://wonders-auth.herokuapp.com/auth";
+    private const string CONTENT_TYPE = "application/json";
+    
+    
     void Start()
     {
+        //Debug.Log(JsonCreator.CreateAuthJson("test2", "test2"));
+        AuthPost("test2", "test2");
     }
 
-    // Update is called once per frame
-    public void OnActionRequest()
+    public void RegisterPost(string username, string password)
     {
-        StartCoroutine(GetRequest());
+        StartCoroutine(PostRequest(postRegistrationURL, JsonCreator.CreateAuthJson(AuthType.register,username, password)));
     }
-
-    IEnumerator GetRequest()
+    
+    public void AuthPost(string username, string password)
     {
-        var result = ""; // or byte[]
-        UnityWebRequest request = UnityWebRequest.Get(getURL);
-
+        StartCoroutine(PostRequest(postAuthURL, JsonCreator.CreateAuthJson(AuthType.auth,username, password)));
+    }
+    
+    IEnumerator PostRequest(string URL, string data)
+    {
+        var request = new UnityWebRequest(URL, "POST");
+        var bytes = Encoding.UTF8.GetBytes(data);
+        request.uploadHandler = new UploadHandlerRaw(bytes);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError)
         {
             Debug.Log(request.error);
+            Events.OnError.TriggerEvents();
         }
         else
         {
-            result = request.downloadHandler.text; // we can use .data to get byte[]
+            Debug.Log("OK");
+            Debug.Log("Status Code: " + request.responseCode);
+            var result = request.downloadHandler.text; // we can use .data to get byte[]
+            Debug.Log("result: " + result);
         }
     }
 
-    IEnumerator PostRequest(string data)
+    public class ActionsEvents
     {
-        var result = ""; // or byte[]
-        List<IMultipartFormSection> postRequest = new List<IMultipartFormSection>();
-        postRequest.Add(new MultipartFormDataSection("KEY", data));
-
-        UnityWebRequest request = UnityWebRequest.Get(postURL);
-
-        yield return request.SendWebRequest();
-
-        if (request.isNetworkError || request.isHttpError)
-        {
-            Debug.Log(request.error);
-        }
-        else
-        {
-            result = request.downloadHandler.text; // we can use .data to get byte[]
-        }
+        public EventHolderBase OnSuccessfulRegister { get; private set; } = new EventHolderBase();
+        public EventHolderBase OnSuccessfulLogin { get; private set; } = new EventHolderBase();
+        public EventHolderBase OnError { get; private set; } = new EventHolderBase();
     }
-
-    IEnumerator SendLoginRequest(string username, string password)
-    {
-        UnityWebRequest req = createLoginRequest(getURL, username, password);
-
-        yield return req.SendWebRequest();
-
-        if (req.isNetworkError || req.isHttpError)
-        {
-            Debug.LogError(req.error);
-        }
-    }
-
-    private UnityWebRequest createLoginRequest(string url, string username, string password)
-    {
-        UnityWebRequest req = UnityWebRequest.Get(url);
-
-        // could also use "US-ASCII" or "ISO-8859-1" encoding
-        string encoding = "UTF-8";
-        string base64 = System.Convert.ToBase64String(
-            System.Text.Encoding.GetEncoding(encoding)
-                .GetBytes(username + ":" + password)
-        );
-
-        req.SetRequestHeader("Authorization", "Basic " + base64);
-
-        return req;
-    }
+    
 }
