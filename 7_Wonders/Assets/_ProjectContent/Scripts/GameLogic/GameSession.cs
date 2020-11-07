@@ -7,44 +7,47 @@ using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
 {
-    public class GameSession : MonoBehaviour, INetworkEntity // TODO -- MonoBehaviour?
+    public class GameSession : MonoBehaviour, INetworkEntity
     {
         public string Id { get; private set; }
         public GameSettings Settings { get; private set; }
-        public Player LocalPlayer { get; private set; }
-        public List<Player> Players = new List<Player>();
+        public PlayerData LocalPlayerData { get; private set; }
+        public List<PlayerData> Players = new List<PlayerData>();
         public Role Role { get; private set; } // TODO
 
-        [SerializeField] private Timer timer;
+        
+        [SerializeField] private Transform playersHolder;
 
         private IdentifierInfo _identifierInfo;
-
-        private void Start()
-        {
-            timer.OnTimerEnd.Subscribe(NextMove);
-        }
-
+        
         public void CreateFromLobby(Lobby lobby)
         {
             Id = lobby.Id;
             Settings = lobby.Settings;
 
-            LocalPlayer = Player.CreateFromUser(GameManager.Instance.LocalUser);
-
-            Players = lobby.ConnectedUsers.Select(Player.CreateFromUser).ToList();
+            Players = lobby.ConnectedUsers.Select(PlayerData.CreateFromUser).ToList();
             Players.Find(player => player.Id == lobby.Owner.Id).MakeAdmin();
 
-            Role = LocalPlayer.Role;
+            LocalPlayerData = Players.Find(player => player.Id == LobbyManager.Instance.LocalUserData.Id);
+
+            Role = LocalPlayerData.Role;
 
             Setup();
         }
 
-        #region ACTIONS
-
         private void Setup()
         {
+            CreatePlayersWrappers();
             ProvideSeats();
-            SetupTimer();
+        }
+
+        private void CreatePlayersWrappers()
+        {
+            var holder = playersHolder ? playersHolder : transform;
+            foreach (var playerData in Players)
+            {
+                PlayerWrapper.CreateFromData(playerData, holder);
+            }
         }
 
         private void ProvideSeats()
@@ -58,28 +61,9 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        private void SetupTimer()
-        {
-            timer.Setup(GameParameters.Instance.MoveTime);
-        }
-
-        private bool IsAdmin() => Role == Role.ADMIN;
-
-        #endregion
-
-        #region NETWORK API
-
-        private void NextMove()
-        {
-            if (!IsAdmin()) return;
-            // TODO
-        }
-
         public IdentifierInfo GetIdentifierInfo()
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
-
-        #endregion
     }
 }

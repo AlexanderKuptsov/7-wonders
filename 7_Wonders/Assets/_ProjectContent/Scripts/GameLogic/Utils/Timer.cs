@@ -2,7 +2,7 @@
 using SK_Engine;
 using UnityEngine;
 
-namespace WhiteTeam.GameLogic
+namespace WhiteTeam.GameLogic.Utils
 {
     public class Timer : MonoBehaviour
     {

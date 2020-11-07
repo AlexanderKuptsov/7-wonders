@@ -10,47 +10,40 @@ using Logger = SK_Engine.Logger;
 
 namespace WhiteTeam.GameLogic
 {
-    public class GameManager : Singleton<GameManager>
+    public class LobbyManager : Singleton<LobbyManager>
     {
-        [SerializeField] private GameObject gameSessionPrototype;
         [SerializeField] private Logger logger;
 
         private readonly List<Lobby> _lobbies = new List<Lobby>();
         private Lobby _selectedLobby;
 
-        public User LocalUser;
+        public UserData LocalUserData;
 
         // EVENTS
         public readonly ActionsEvents Events = new ActionsEvents();
 
         public class ActionsEvents
         {
-            public EventHolderBase OnUserConnectToLobby { get; private set; } = new EventHolderBase();
-            public EventHolderBase OnUserDisconnectFromLobby { get; private set; } = new EventHolderBase();
-            public EventHolderBase OnCreateLobby { get; private set; } = new EventHolderBase();
-            public EventHolderBase OnDeleteLobby { get; private set; } = new EventHolderBase();
-            public EventHolderBase OnUpdateLobbies { get; private set; } = new EventHolderBase();
-            public EventHolderBase OnStartLobby { get; private set; } = new EventHolderBase();
+            public EventHolderBase OnUserConnectToLobby { get; } = new EventHolderBase();
+            public EventHolderBase OnUserDisconnectFromLobby { get; } = new EventHolderBase();
+            public EventHolderBase OnCreateLobby { get; } = new EventHolderBase();
+            public EventHolderBase OnDeleteLobby { get; } = new EventHolderBase();
+            public EventHolderBase OnUpdateLobbies { get; } = new EventHolderBase();
+            public EventHolderBase OnStartLobby { get; } = new EventHolderBase();
         }
-
-
-        private void Start()
-        {
-            //LocalUser = new User(GameParameters.Instance.DefaultUserName);
-        }
-
+        
         #region METHODS
 
         private void ConnectLocalUser(Lobby lobby) // TODO
         {
-            if (lobby.Connect(LocalUser))
-            {
-                logger.Log("Connected to lobby", Logger.LogLevel.INFO);
-            }
-            else
-            {
-                logger.Log("Can't connect to lobby", Logger.LogLevel.INFO);
-            }
+            // if (lobby.Connect(LocalUser))
+            // {
+            //     logger.Log("Connected to lobby", Logger.LogLevel.INFO);
+            // }
+            // else
+            // {
+            //     logger.Log("Can't connect to lobby", Logger.LogLevel.INFO);
+            // }
         }
 
         #endregion
@@ -115,7 +108,7 @@ namespace WhiteTeam.GameLogic
 
             var ownerId = "123";
             var ownerName = "Owner";
-            var ownerUser = new User(ownerId, ownerName);
+            var ownerUser = new UserData(ownerId, ownerName);
 
             var lobbyName = "Lobby";
             var maxPlayers = 5;
@@ -128,7 +121,7 @@ namespace WhiteTeam.GameLogic
                 {"235552", "bot2"}
             };
             var connectedUsers = connectedUsersData
-                .Select(userData => new User(userData.Key, userData.Value));
+                .Select(userData => new UserData(userData.Key, userData.Value));
 
             var lobby = new Lobby(lobbyId, ownerUser, settings, connectedUsers);
             _lobbies.Add(lobby);
@@ -163,9 +156,7 @@ namespace WhiteTeam.GameLogic
 
             if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToStart))
             {
-                var gameSessionObject = Instantiate(gameSessionPrototype);
-                var gameSession = gameSessionObject.GetComponent<GameSession>();
-                gameSession.CreateFromLobby(lobbyToStart);
+                GameManager.Instance.CreateGameSession(lobbyToStart);
             }
 
             Events.OnStartLobby.TriggerEvents();
