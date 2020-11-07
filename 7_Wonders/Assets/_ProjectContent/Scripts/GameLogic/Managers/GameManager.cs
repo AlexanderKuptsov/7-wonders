@@ -3,6 +3,7 @@ using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.Utils;
 using WhiteTeam.Network.ServerModules;
+using Action = WhiteTeam.GameLogic.Actions.Action;
 
 namespace WhiteTeam.GameLogic.Managers
 {
@@ -48,6 +49,11 @@ namespace WhiteTeam.GameLogic.Managers
             ServerGameHandler.Instance.NextMoveRequest();
         }
 
+        public void PlayerActionRequest(Action action)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region NETWORK EVENTS
@@ -55,7 +61,15 @@ namespace WhiteTeam.GameLogic.Managers
         private void OnNextMove()
         {
             throw new NotImplementedException();
+            
             Events.OnNextMove.TriggerEvents();
+        }
+
+        private void OnPlayerAction()
+        {
+            throw new NotImplementedException();
+            
+            Events.OnPlayerAction.TriggerEvents();
         }
 
         #endregion
@@ -63,6 +77,7 @@ namespace WhiteTeam.GameLogic.Managers
         public class ActionsEvents
         {
             public EventHolderBase OnNextMove { get; } = new EventHolderBase();
+            public EventHolderBase OnPlayerAction { get; } = new EventHolderBase();
         }
 
         private bool IsAdmin() => _currentSession.Role == Role.ADMIN;

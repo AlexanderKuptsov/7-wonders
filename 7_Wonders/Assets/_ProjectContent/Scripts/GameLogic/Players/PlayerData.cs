@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic
 {
     [Serializable]
-    public class PlayerData : UserData
+    public class PlayerData : BaseUserData
     {
         [SerializeField] private Role role;
         public Role Role => role;
-
         public PlayerData LeftPlayerData { get; private set; }
         public PlayerData RightPlayerData { get; private set; }
+
+        [SerializeField] private MoveStateType moveState; // TODO
+        public MoveStateType MoveState => moveState;
 
         [SerializeField] private PlayerResources resources = new PlayerResources
         {
@@ -25,6 +29,14 @@ namespace WhiteTeam.GameLogic
             IncomeProducts = new Resource(0) // TODO
         };
 
+        public PlayerResources Resources => resources;
+
+        [SerializeField] private List<Card> inHandCards = new List<Card>();
+        public List<Card> InHandCards => inHandCards;
+
+        [SerializeField] private List<Card> activeCards = new List<Card>();
+        public List<Card> ActiveCards => activeCards;
+
         private PlayerData(string id, string name) : base(id, name)
         {
         }
@@ -32,6 +44,12 @@ namespace WhiteTeam.GameLogic
         public PlayerData(string id, string name, Role role) : base(id, name)
         {
             this.role = role;
+        }
+
+        public static PlayerData CreateFromUser(UserData userData)
+        {
+            var player = new PlayerData(userData.Id, userData.Name);
+            return player;
         }
 
         public void MakeAdmin()
@@ -50,10 +68,21 @@ namespace WhiteTeam.GameLogic
             RightPlayerData = rightPlayerData;
         }
 
-        public static PlayerData CreateFromUser(UserData userData)
+        public void GiveCards(List<Card> cards)
         {
-            var player = new PlayerData(userData.Id, userData.Name);
-            return player;
+            inHandCards = cards;
+        }
+
+        public void ActivateCard(Card card)
+        {
+            inHandCards.Remove(card);
+            activeCards.Add(card);
+        }
+
+        public enum MoveStateType
+        {
+            IN_PROGRESS,
+            COMPLETED
         }
     }
 }

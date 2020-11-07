@@ -1,5 +1,6 @@
 ﻿using MyBox;
 using UnityEngine;
+using WhiteTeam.GameLogic.Actions;
 
 namespace WhiteTeam.GameLogic.Cards
 {
@@ -11,5 +12,7 @@ namespace WhiteTeam.GameLogic.Cards
 
         [SerializeField] private Sprite background;
         public Sprite Background => background;
+
+        public abstract Action Use();
     }
 }

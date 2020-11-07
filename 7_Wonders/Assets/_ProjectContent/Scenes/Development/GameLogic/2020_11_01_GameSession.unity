@@ -327,14 +327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59ca0a11684f5d478a1ce77b4239f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSessionPrototype: {fileID: 6891579221335391313, guid: de8bfca9cabb85b45b3f19df776ea972,
-    type: 3}
   logger:
     Level: 1
     Name: GameManager
   LocalUserData:
     id: 
     name: 
+    state: 0
 --- !u!4 &1854241327
 Transform:
   m_ObjectHideFlags: 0
@@ -396,6 +395,7 @@ MonoBehaviour:
     id: 
     name: 
     role: 0
+    moveState: 0
     resources:
       Money:
         value: 0
@@ -502,6 +502,7 @@ MonoBehaviour:
     id: 
     name: 
     role: 0
+    moveState: 0
     resources:
       Money:
         value: 0

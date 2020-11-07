@@ -1,29 +1,32 @@
 ﻿using System;
 using UnityEngine;
-using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
 {
     [Serializable]
-    public class UserData : INetworkEntity
+    public class UserData : BaseUserData
     {
-        [SerializeField] private string id;
-        public string Id => id;
+        [SerializeField] private ReadyState state; // TODO
+        public ReadyState State => state;
 
-        [SerializeField] private string name;
-        public string Name => name;
-
-        private IdentifierInfo _identifierInfo;
-        
-        public UserData(string id, string name)
+        public UserData(string id, string name) : base(id, name)
         {
-            this.id = id;
-            this.name = name;
         }
 
-        public IdentifierInfo GetIdentifierInfo()
+        public void SetReady()
         {
-            return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Name));
+            state = ReadyState.READY;
+        }
+
+        public void SetWaiting()
+        {
+            state = ReadyState.WAITING;
+        }
+
+        public enum ReadyState
+        {
+            READY,
+            WAITING
         }
     }
 }
