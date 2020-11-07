@@ -15,12 +15,15 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
     private readonly string postRegistrationURL = "https://wonders-auth.herokuapp.com/registration";
     private readonly string postAuthURL = "https://wonders-auth.herokuapp.com/auth";
     private const string CONTENT_TYPE = "application/json";
+
+    private const string successResult =
+        "{\"status\":\"SUCCESS\",\"results\":[],\"module\":\"Authorization\",\"type\":\"register\"}";
     
     
     void Start()
     {
-        //Debug.Log(JsonCreator.CreateAuthJson("test2", "test2"));
-        AuthPost("test2", "test2");
+        var result = AuthJsonReceiver.Instance.Deserialize(successResult);
+        //AuthPost("test2", "test2");
     }
 
     public void RegisterPost(string username, string password)
@@ -51,8 +54,14 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
         {
             Debug.Log("OK");
             Debug.Log("Status Code: " + request.responseCode);
-            var result = request.downloadHandler.text; // we can use .data to get byte[]
-            Debug.Log("result: " + result);
+            Debug.Log(request.downloadHandler.text);
+            //var result = AuthJsonReceiver.Instance.Deserialize(request.downloadHandler.text);
+            // Debug.Log("status: " + result.status);
+            // Debug.Log("module: " + result.module);
+            // Debug.Log("type: " + result.type);
+            // Debug.Log("results: " + result.results);
+            
+            
         }
     }
 
