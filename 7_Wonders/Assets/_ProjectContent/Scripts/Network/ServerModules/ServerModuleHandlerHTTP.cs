@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using Network.Json;
 using SK_Engine;
@@ -12,31 +11,31 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
     [SerializeField] private string getURL;
     public readonly ActionsEvents Events = new ActionsEvents();
 
-    private readonly string postRegistrationURL = "https://wonders-auth.herokuapp.com/registration";
-    private readonly string postAuthURL = "https://wonders-auth.herokuapp.com/auth";
+    private const string POST_REGISTRATION_URL = "https://wonders-auth.herokuapp.com/registration";
+    private const string POST_AUTH_URL = "https://wonders-auth.herokuapp.com/auth";
     private const string CONTENT_TYPE = "application/json";
 
-    private const string successResult =
+    private const string SUCCESS_RESULT =
         "{\"status\":\"SUCCESS\",\"results\":[],\"module\":\"Authorization\",\"type\":\"register\"}";
-    
-    
-    void Start()
+
+
+    private void Start()
     {
-        var result = AuthJsonReceiver.Instance.Deserialize(successResult);
+        var result = AuthJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
         //AuthPost("test2", "test2");
     }
 
     public void RegisterPost(string username, string password)
     {
-        StartCoroutine(PostRequest(postRegistrationURL, JsonCreator.CreateAuthJson(AuthType.register,username, password)));
+        StartCoroutine(PostRequest(POST_REGISTRATION_URL, JsonCreator.CreateAuthJson(AuthType.register,username, password)));
     }
     
     public void AuthPost(string username, string password)
     {
-        StartCoroutine(PostRequest(postAuthURL, JsonCreator.CreateAuthJson(AuthType.auth,username, password)));
+        StartCoroutine(PostRequest(POST_AUTH_URL, JsonCreator.CreateAuthJson(AuthType.auth,username, password)));
     }
-    
-    IEnumerator PostRequest(string URL, string data)
+
+    private IEnumerator PostRequest(string URL, string data)
     {
         var request = new UnityWebRequest(URL, "POST");
         var bytes = Encoding.UTF8.GetBytes(data);
@@ -67,9 +66,9 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
 
     public class ActionsEvents
     {
-        public EventHolderBase OnSuccessfulRegister { get; private set; } = new EventHolderBase();
-        public EventHolderBase OnSuccessfulLogin { get; private set; } = new EventHolderBase();
-        public EventHolderBase OnError { get; private set; } = new EventHolderBase();
+        public EventHolderBase OnSuccessfulRegister { get; } = new EventHolderBase();
+        public EventHolder<string> OnSuccessfulLogin { get; } = new EventHolder<string>();
+        public EventHolderBase OnError { get; } = new EventHolderBase();
     }
     
 }
