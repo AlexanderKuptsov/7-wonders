@@ -21,7 +21,6 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
 
     private void Start()
     {
-        var result = AuthJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
         //AuthPost("test2", "test2");
     }
 
@@ -51,16 +50,27 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
         }
         else
         {
-            Debug.Log("OK");
             Debug.Log("Status Code: " + request.responseCode);
-            Debug.Log(request.downloadHandler.text);
-            //var result = AuthJsonReceiver.Instance.Deserialize(request.downloadHandler.text);
-            // Debug.Log("status: " + result.status);
-            // Debug.Log("module: " + result.module);
-            // Debug.Log("type: " + result.type);
-            // Debug.Log("results: " + result.results);
-            
-            
+            Debug.Log($"Whole response : {request.downloadHandler.text}");
+            var result = ResultJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
+            Debug.Log($"Response status: \"{result.status}\" module: \"{result.module}\" type: \"{result.type}\"");
+            if (result.IsCorrect)
+            {
+                if (result.type == "register")
+                {
+                    //register was ok
+                    Events.OnSuccessfulRegister.TriggerEvents();
+                }
+
+                if (result.type == "auth")
+                {
+                    //login was ok & need to take token
+                    var authResult = AuthJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
+                    var token = authResult.results.accessToken;
+                    Debug.Log($"Received token \"{token}\"");
+                    Events.OnSuccessfulLogin.TriggerEvents(token);
+                }
+            }
         }
     }
 
