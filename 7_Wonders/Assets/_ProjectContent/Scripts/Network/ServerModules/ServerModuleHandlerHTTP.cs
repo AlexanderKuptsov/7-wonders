@@ -21,17 +21,17 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
 
     private void Start()
     {
-        //AuthPost("test2", "test2");
+        AuthPost("test2", "test2");
     }
 
     public void RegisterPost(string username, string password)
     {
-        StartCoroutine(PostRequest(POST_REGISTRATION_URL, JsonCreator.CreateAuthJson(AuthType.register,username, password)));
+        StartCoroutine(PostRequest(POST_REGISTRATION_URL, AuthJsonCreator.CreateRegisterJson(username, password)));
     }
     
     public void AuthPost(string username, string password)
     {
-        StartCoroutine(PostRequest(POST_AUTH_URL, JsonCreator.CreateAuthJson(AuthType.auth,username, password)));
+        StartCoroutine(PostRequest(POST_AUTH_URL, AuthJsonCreator.CreateLoginJson(username, password)));
     }
 
     private IEnumerator PostRequest(string URL, string data)

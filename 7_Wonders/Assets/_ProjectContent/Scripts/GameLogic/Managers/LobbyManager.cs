@@ -88,7 +88,7 @@ namespace WhiteTeam.GameLogic
 
         #region NETWORK EVENTS
 
-        public void OnUserConnectToLobby()
+        public void OnUserConnectToLobby() // we need to get special playerID only for lobby // TODO
         {
             //LocalUser = new User(GameParameters.Instance.DefaultUserName);
             throw new NotImplementedException();
@@ -123,7 +123,7 @@ namespace WhiteTeam.GameLogic
             var connectedUsers = connectedUsersData
                 .Select(userData => new UserData(userData.Key, userData.Value));
 
-            var lobby = new Lobby(lobbyId, ownerUser, settings, connectedUsers);
+            var lobby = new Lobby(lobbyId, ownerUser, settings);
             _lobbies.Add(lobby);
             logger.Log($"New lobby {lobby.GetFullName()} created.", Logger.LogLevel.INFO);
 

@@ -3,11 +3,7 @@
 namespace Network.Json
 {
 
-    public enum AuthType
-    {
-        register,
-        auth
-    }
+
     public class JsonCreator
     {
         public static string CreateJson(string type, string attributes)
@@ -25,16 +21,7 @@ namespace Network.Json
             return jsonString;
         }
 
-        public static string CreateAuthJson(AuthType authType, string username, string password)
-        {
-            var authAttributes = new AuthAttributes()
-            {
-                username = username,
-                password = password
-            };
-            var jsonString = JsonConvert.SerializeObject(authAttributes);
-            return RemoveSlash(CreateJson(authType.ToString(), jsonString));
-        }
+        
         
         public static string RemoveSlash(string pack)
         {
@@ -44,10 +31,7 @@ namespace Network.Json
         }
     }
 
-    public class AuthAttributes    {
-        public string username { get; set; } 
-        public string password { get; set; } 
-    }
+
 
     public class Data    {
         public string type { get; set; } 
