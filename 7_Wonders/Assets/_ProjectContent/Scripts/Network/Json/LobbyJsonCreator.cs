@@ -4,17 +4,11 @@ using Network.Json;
 using Newtonsoft.Json;
 using UnityEngine;
 using WhiteTeam.GameLogic;
+using WhiteTeam.Network.ServerModules;
 
 public static class LobbyJsonCreator
 {
-    public enum LobbyType
-    {
-        connect,
-        disconnect,
-        create,
-        delete,
-        start
-    }
+
 
     private static string CreateLobbyIdJson(LobbyType lobbyType, string lobbyId)
     {
@@ -39,6 +33,18 @@ public static class LobbyJsonCreator
         };
         var jsonString = JsonConvert.SerializeObject(lobbyInfoJson);
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.create.ToString(), jsonString));
+    }
+    
+    private static string CreateUpdateLobbyInfoJson(string lobbyId, string playerId, string state)
+    {
+        var lobbyIdJson = new UpdateLobby()
+        {
+            lobbyId = lobbyId,
+            playerId = playerId,
+            state = state
+        };
+        var jsonString = JsonConvert.SerializeObject(lobbyIdJson);
+        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.update.ToString(), jsonString));
     }
 
     public static string CreateConnectToLobbyJson(string lobbyId)
@@ -67,6 +73,11 @@ public static class LobbyJsonCreator
         return CreateLobbyIdJson(LobbyType.start, lobbyId);
     }
 
+    public static string CreateUpdateLobbyJson(string lobbyId, string playerId, string state)
+    {
+        return CreateUpdateLobbyInfoJson(lobbyId, playerId, state);
+    }
+
     private class LobbyId
     {
         public string lobbyId { get; set; }
@@ -74,10 +85,16 @@ public static class LobbyJsonCreator
 
     private class LobbyInfo
     {
-        public string ownerId;
-        public string ownerName;
-        public string lobbyName;
-        public string maxPlayers;
-        public string moveTime;
+        public string ownerId { get; set; }
+        public string ownerName { get; set; }
+        public string lobbyName { get; set; }
+        public string maxPlayers { get; set; }
+        public string moveTime { get; set; }
+    }
+
+    private class UpdateLobby: LobbyId
+    {
+        public string playerId { get; set; }
+        public string state { get; set; }
     }
 }

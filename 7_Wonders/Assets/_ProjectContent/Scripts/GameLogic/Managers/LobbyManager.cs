@@ -88,31 +88,31 @@ namespace WhiteTeam.GameLogic
 
         #region NETWORK EVENTS
 
-        public void OnUserConnectToLobby() // we need to get special playerID only for lobby // TODO
+        public void OnUserConnectToLobby(string lobbyId, string playerId) // we need to get special playerID only for lobby // TODO
         {
             //LocalUser = new User(GameParameters.Instance.DefaultUserName);
             throw new NotImplementedException();
             Events.OnUserConnectToLobby.TriggerEvents();
         }
 
-        public void OnUserDisconnectFromLobby()
+        public void OnUserDisconnectFromLobby(string lobbyId, string playerId)
         {
             throw new NotImplementedException();
             Events.OnUserDisconnectFromLobby.TriggerEvents();
         }
 
-        public void OnCreateLobby()
+        public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers, int moveTime)
         {
             // EXAMPLE
-            var lobbyId = "321";
-
-            var ownerId = "123";
-            var ownerName = "Owner";
+            // var lobbyId = "321";
+            //
+            // var ownerId = "123";
+            // var ownerName = "Owner";
             var ownerUser = new UserData(ownerId, ownerName);
 
-            var lobbyName = "Lobby";
-            var maxPlayers = 5;
-            var moveTime = 60;
+            // var lobbyName = "Lobby";
+            // var maxPlayers = 5;
+            // var moveTime = 60;
             var settings = new GameSettings(lobbyName, maxPlayers, moveTime);
 
             var connectedUsersData = new Dictionary<string, string>
@@ -130,10 +130,10 @@ namespace WhiteTeam.GameLogic
             Events.OnCreateLobby.TriggerEvents();
         }
 
-        public void OnDeleteLobby()
+        public void OnDeleteLobby(string lobbyId)
         {
             // EXAMPLE
-            var lobbyId = "321";
+            //var lobbyId = "321";
             if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToDelete))
             {
                 _lobbies.Remove(lobbyToDelete);
@@ -143,16 +143,16 @@ namespace WhiteTeam.GameLogic
             Events.OnDeleteLobby.TriggerEvents();
         }
 
-        public void OnUpdateLobbies()
+        public void OnUpdateLobbies(string lobbyId, string playerId, string state)
         {
             throw new NotImplementedException();
             Events.OnUpdateLobbies.TriggerEvents();
         }
 
-        public void OnStartLobby()
+        public void OnStartLobby(string lobbyId)
         {
             // EXAMPLE
-            var lobbyId = "321";
+            //var lobbyId = "321";
 
             if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToStart))
             {
