@@ -1,18 +1,25 @@
-﻿using MyBox;
-using UnityEngine;
+﻿using UnityEngine;
 using WhiteTeam.GameLogic.Actions;
+using WhiteTeam.GameLogic.Managers;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public abstract class Card : ScriptableObject
+    public abstract class Card : MonoBehaviour
     {
-        [Foldout("Main settings")] 
-        [SerializeField] private string title;
-        public string Title => title;
+        [SerializeField] private CardData data;
 
-        [SerializeField] private Sprite background;
-        public Sprite Background => background;
+        public CardData Data
+        {
+            get => data;
+            set => data = value;
+        }
 
-        public abstract Action Use();
+        public void Use()
+        {
+            var action = GetAction();
+            GameManager.Instance.PlayerActionRequest(action);
+        }
+
+        protected abstract Action GetAction();
     }
 }
