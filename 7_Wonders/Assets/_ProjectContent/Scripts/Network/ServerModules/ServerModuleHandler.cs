@@ -12,7 +12,7 @@ namespace WhiteTeam.Network.ServerModules
     {
         [SerializeField] private string url;
         [SerializeField] private string port;
-
+        
         [SerializeField] private bool connectOnEvent;
 
         [SerializeField] [ConditionalField(nameof(connectOnEvent))]

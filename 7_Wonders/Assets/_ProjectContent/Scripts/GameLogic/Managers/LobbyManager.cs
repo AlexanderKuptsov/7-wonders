@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SK_Engine;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.Network.Entity;
+using WhiteTeam.Network.ServerModules;
 using Logger = SK_Engine.Logger;
 
 namespace WhiteTeam.GameLogic
@@ -50,48 +52,56 @@ namespace WhiteTeam.GameLogic
 
         #region NETWORK REQUESTS
 
-        private void ConnectToLobbyRequest(Lobby lobby)
+        private void ConnectToLobbyRequest(Lobby lobby, UserData player)
         {
-            throw new NotImplementedException();
+            var json = LobbyJsonCreator.CreateConnectToLobbyJson(lobby.Id, player.Name);
+            ServerLobbyHandler.Instance.Send(json);
         }
 
-        public void DisconnectFromLobbyRequest()
+        public void DisconnectFromLobbyRequest(string lobbyId, string playerId)
         {
-            throw new NotImplementedException();
+            var json = LobbyJsonCreator.CreateDisconnectLobbyJson(lobbyId, playerId);
+            ServerLobbyHandler.Instance.Send(json);
         }
 
-        public void CreateLobbyRequest()
+        public void CreateLobbyRequest(UserData userData, GameSettings gameSettings)
         {
             if (_lobbies.Count < GameParameters.Instance.MaxLobbies)
             {
-                // TODO -- lobby creation request
-                throw new NotImplementedException();
+                var json = LobbyJsonCreator.CreateCreateLobbyJson(userData, gameSettings);
+                ServerLobbyHandler.Instance.Send(json);
             }
         }
 
-        public void DeleteLobbyRequest()
+        public void DeleteLobbyRequest(string lobbyId)
         {
-            throw new NotImplementedException();
+            var json = LobbyJsonCreator.CreateDeleteLobbyJson(lobbyId);
+            ServerLobbyHandler.Instance.Send(json);
         }
 
-        public void UpdateLobbyRequest()
+        public void UpdateLobbyRequest(string lobbyId, string playerId, bool state)
         {
-            throw new NotImplementedException();
+            var json = LobbyJsonCreator.CreateUpdateLobbyJson(lobbyId, playerId, state.ToString());
+            ServerLobbyHandler.Instance.Send(json);
         }
 
         public void StartLobbyRequest(Lobby lobby)
         {
-            throw new NotImplementedException();
+            if (lobby.ConnectedUsers.Count > 1)
+            {
+                var json = LobbyJsonCreator.CreateStartLobbyJson(lobby.Id);
+                ServerLobbyHandler.Instance.Send(json);
+            }
         }
 
         #endregion
 
         #region NETWORK EVENTS
 
-        public void OnUserConnectToLobby(string lobbyId, string playerId) // we need to get special playerID only for lobby // TODO
+        public void OnUserConnectToLobby(string lobbyId, string playerId, string playerName) // we need to get special playerID only for lobby // TODO
         {
             //LocalUser = new User(GameParameters.Instance.DefaultUserName);
-            throw new NotImplementedException();
+            var newUser = new UserData(playerId, playerName);
             Events.OnUserConnectToLobby.TriggerEvents();
         }
 

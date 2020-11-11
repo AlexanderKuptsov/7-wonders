@@ -23,7 +23,7 @@ namespace WhiteTeam.Network.ServerModules
             switch (type)
             {
                 case LobbyType.connect:
-                    LobbyManager.Instance.OnUserConnectToLobby(result.results.lobbyId, result.results.playerId);
+                    LobbyManager.Instance.OnUserConnectToLobby(result.results.lobbyId, result.results.playerId, result.results.connectInfo.playerName);
                     break;
                 case LobbyType.disconnect:
                     LobbyManager.Instance.OnUserDisconnectFromLobby(result.results.lobbyId, result.results.playerId);

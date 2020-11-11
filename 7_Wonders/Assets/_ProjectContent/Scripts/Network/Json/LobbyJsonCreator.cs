@@ -10,7 +10,7 @@ public static class LobbyJsonCreator
 {
 
 
-    private static string CreateLobbyIdJson(LobbyType lobbyType, string lobbyId)
+    private static string LobbyIdJson(LobbyType lobbyType, string lobbyId)
     {
         var lobbyIdJson = new LobbyId()
         {
@@ -20,7 +20,7 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(lobbyType.ToString(), jsonString));
     }
 
-    private static string CreateLobbyInfoJson(string ownerId, string ownerName, string lobbyName, int maxPlayers,
+    private static string LobbyInfoJson(string ownerId, string ownerName, string lobbyName, int maxPlayers,
         int moveTime)
     {
         var lobbyInfoJson = new LobbyInfo()
@@ -35,7 +35,7 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.create.ToString(), jsonString));
     }
     
-    private static string CreateUpdateLobbyInfoJson(string lobbyId, string playerId, string state)
+    private static string UpdateLobbyInfoJson(string lobbyId, string playerId, string state)
     {
         var lobbyIdJson = new UpdateLobby()
         {
@@ -47,35 +47,58 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.update.ToString(), jsonString));
     }
 
-    public static string CreateConnectToLobbyJson(string lobbyId)
+    private static string DisconnectFromLobbyJson(string lobbyId, string playerId)
     {
-        return CreateLobbyIdJson(LobbyType.connect, lobbyId);
+        var lobbyIdJson = new PlayerIdLobby()
+        {
+            lobbyId = lobbyId,
+            playerId = playerId,
+        };
+        var jsonString = JsonConvert.SerializeObject(lobbyIdJson);
+        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.disconnect.ToString(), jsonString));
+    }
+    
+    private static string ConnectToLobbyJson(string lobbyId, string playerName)
+    {
+        var lobbyIdJson = new PlayerConnectLobby()
+        {
+            lobbyId = lobbyId,
+            playerName = playerName,
+        };
+        var jsonString = JsonConvert.SerializeObject(lobbyIdJson);
+        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.connect.ToString(), jsonString));
     }
 
-    public static string CreateDisconnectLobbyJson(string lobbyId)
+    public static string CreateConnectToLobbyJson(string lobbyId, string playerName)
     {
-        return CreateLobbyIdJson(LobbyType.disconnect, lobbyId);
+        return ConnectToLobbyJson(lobbyId, playerName);
+    }
+    
+
+    public static string CreateDisconnectLobbyJson(string lobbyId, string playerId)
+    {
+        return DisconnectFromLobbyJson( lobbyId, playerId);
     }
 
     public static string CreateCreateLobbyJson(UserData userData, GameSettings gameSettings)
     {
-        return CreateLobbyInfoJson(userData.Id, userData.Name, gameSettings.Name, gameSettings.MaxPlayers,
+        return LobbyInfoJson(userData.Id, userData.Name, gameSettings.Name, gameSettings.MaxPlayers,
             gameSettings.MoveTime);
     }
 
     public static string CreateDeleteLobbyJson(string lobbyId)
     {
-        return CreateLobbyIdJson(LobbyType.delete, lobbyId);
+        return LobbyIdJson(LobbyType.delete, lobbyId);
     }
 
     public static string CreateStartLobbyJson(string lobbyId)
     {
-        return CreateLobbyIdJson(LobbyType.start, lobbyId);
+        return LobbyIdJson(LobbyType.start, lobbyId);
     }
 
     public static string CreateUpdateLobbyJson(string lobbyId, string playerId, string state)
     {
-        return CreateUpdateLobbyInfoJson(lobbyId, playerId, state);
+        return UpdateLobbyInfoJson(lobbyId, playerId, state);
     }
 
     private class LobbyId
@@ -92,9 +115,18 @@ public static class LobbyJsonCreator
         public string moveTime { get; set; }
     }
 
-    private class UpdateLobby: LobbyId
+    private class PlayerIdLobby: LobbyId
     {
         public string playerId { get; set; }
+    }
+
+    private class UpdateLobby : PlayerIdLobby
+    {
         public string state { get; set; }
+    }
+
+    private class PlayerConnectLobby : LobbyId
+    {
+        public string playerName { get; set; }
     }
 }
