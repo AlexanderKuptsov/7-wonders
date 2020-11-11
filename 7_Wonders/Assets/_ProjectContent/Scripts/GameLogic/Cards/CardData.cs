@@ -14,6 +14,7 @@ namespace WhiteTeam.GameLogic.Cards
         [ReadOnly] public Resource.CurrencyItem[] CostInfo;
         [ReadOnly] public string RequirementBuildCard; // TODO
         [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
+        [ReadOnly] public CardActionDirection ActionDirection;
     }
 
     public enum CardType
@@ -26,5 +27,12 @@ namespace WhiteTeam.GameLogic.Cards
         COMMERCIAL,
         MILITARY,
         GUILDS
+    }
+
+    public enum CardActionDirection
+    {
+        LEFT,
+        RIGHT,
+        SELF
     }
 }

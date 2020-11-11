@@ -12,7 +12,7 @@ namespace WhiteTeam.GameLogic.Resources
         private Resource _money = new Resource(GameParameters.Instance.DefaultResources.Money);
 
         public Resource _military = new Resource(GameParameters.Instance.DefaultResources.War);
-        public Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
+        public Resource _civilian = new Resource(GameParameters.Instance.DefaultResources.Victory);
 
         private Dictionary<Resource.Currency, int> _science = new Dictionary<Resource.Currency, int>
         {
@@ -66,9 +66,9 @@ namespace WhiteTeam.GameLogic.Resources
             _military.Increase(amount);
         }
 
-        public void AddVictory(int amount)
+        public void AddCivilian(int amount)
         {
-            _victory.Increase(amount);
+            _civilian.Increase(amount);
         }
 
         public void AddProduction(Resource.CurrencyItem newProduction)
@@ -97,7 +97,7 @@ namespace WhiteTeam.GameLogic.Resources
 
         public int GetVictory()
         {
-            return _victory.Value;
+            return _civilian.Value;
         }
 
         public int GetProduction(Resource.Currency currency)

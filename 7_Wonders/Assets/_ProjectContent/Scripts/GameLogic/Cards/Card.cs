@@ -7,7 +7,7 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public abstract class Card : MonoBehaviour
     {
-        [SerializeField] private CardData data;
+        [SerializeField] protected CardData data;
 
         public CardData Data
         {
