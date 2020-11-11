@@ -397,19 +397,9 @@ MonoBehaviour:
     role: 0
     moveState: 0
     resources:
-      Money:
+      _military:
         value: 0
-      Science:
-        value: 0
-      War:
-        value: 0
-      Victory:
-        value: 0
-      Conflict:
-        value: 0
-      IncomeResources:
-        value: 0
-      IncomeProducts:
+      _victory:
         value: 0
     inHandCards: []
     activeCards: []
@@ -507,19 +497,9 @@ MonoBehaviour:
     role: 0
     moveState: 0
     resources:
-      Money:
+      _military:
         value: 0
-      Science:
-        value: 0
-      War:
-        value: 0
-      Victory:
-        value: 0
-      Conflict:
-        value: 0
-      IncomeResources:
-        value: 0
-      IncomeProducts:
+      _victory:
         value: 0
     inHandCards: []
     activeCards: []

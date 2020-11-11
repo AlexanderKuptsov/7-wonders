@@ -2,13 +2,13 @@
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class MilitaryCard : CardData
+    public class CommercialMoneyCard : CommercialCard
     {
-        [ReadOnly] public int Shilds;
+        [ReadOnly] public int Coins;
         
         public override void Use(PlayerData player)
         {
-            player.Resources.AddMilitary(Shilds);
+            player.Resources.AddMoney(Coins);
         }
     }
 }

@@ -7,13 +7,7 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public abstract class Card : MonoBehaviour
     {
-        [SerializeField] protected CardData data;
-
-        public CardData Data
-        {
-            get => data;
-            set => data = value;
-        }
+        public CardData Data;
 
         #region NETWORK REQUESTS
 
@@ -42,10 +36,8 @@ namespace WhiteTeam.GameLogic.Cards
         public void Use(PlayerData player)
         {
             player.ActivateCard(this);
-            UseAction(player);
+            Data.Use(player);
         }
-
-        protected abstract void UseAction(PlayerData player);
 
         #endregion
     }
