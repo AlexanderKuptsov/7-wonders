@@ -1,13 +1,14 @@
-﻿namespace WhiteTeam.GameLogic.Cards
+﻿using MyBox;
+
+namespace WhiteTeam.GameLogic.Cards
 {
-    public class CivilianCard : Card
+    public class CivilianCard : CardData
     {
-        protected override void UseAction(PlayerData player)
+        [ReadOnly] public int VictoryPoints;
+        
+        public override void Use(PlayerData player)
         {
-            foreach (var currencyItem in data.ActionInfo)
-            {
-                player.Resources.AddCivilian(currencyItem.Amount);
-            }
+            player.Resources.AddCivilian(VictoryPoints);
         }
     }
 }

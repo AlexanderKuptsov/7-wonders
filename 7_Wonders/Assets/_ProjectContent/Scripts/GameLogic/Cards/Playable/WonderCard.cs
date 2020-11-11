@@ -1,8 +1,8 @@
 ﻿namespace WhiteTeam.GameLogic.Cards
 {
-    public class WonderCard : Card
+    public class WonderCard : CardData
     {
-        protected override void UseAction(PlayerData player)
+        public override void Use(PlayerData player)
         {
             throw new System.NotImplementedException();
         }

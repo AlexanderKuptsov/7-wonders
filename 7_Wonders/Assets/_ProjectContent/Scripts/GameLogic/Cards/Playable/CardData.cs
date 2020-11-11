@@ -5,7 +5,7 @@ using WhiteTeam.GameLogic.Resources;
 namespace WhiteTeam.GameLogic.Cards
 {
     [Serializable]
-    public class CardData
+    public abstract class CardData
     {
         [ReadOnly] public string Id;
         [ReadOnly] public string Name;
@@ -13,8 +13,8 @@ namespace WhiteTeam.GameLogic.Cards
         [ReadOnly] public int Epoch;
         [ReadOnly] public Resource.CurrencyItem[] CostInfo;
         [ReadOnly] public string RequirementBuildCard; // TODO
-        [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
-        [ReadOnly] public CardActionDirection[] ActionDirection;
+
+        public abstract void Use(PlayerData player);
     }
 
     public enum CardType

@@ -1,6 +1,6 @@
 ﻿namespace WhiteTeam.GameLogic.Cards
 {
-    public class GuildsCard : CardData
+    public class CommercialBonusCard : CommercialCard
     {
         public override void Use(PlayerData player)
         {
