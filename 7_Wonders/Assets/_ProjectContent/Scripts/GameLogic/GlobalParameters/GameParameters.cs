@@ -9,6 +9,24 @@ namespace WhiteTeam.GameLogic.GlobalParameters
         [PositiveValueOnly] public int MaxLobbyUsers = 7;
         public string DefaultUserName = "User";
 
-        [PositiveValueOnly] public int MoveTime = 60;
+        [PositiveValueOnly] public int DefaultMoveTime = 60;
+
+        public StartResources DefaultResources = new StartResources
+        {
+            Money = 3,
+            Science = 0,
+            War = 0,
+            Victory = 0,
+            Conflict = 0
+        };
+
+        public struct StartResources
+        {
+            public int Money;
+            public int Science;
+            public int War;
+            public int Victory;
+            public int Conflict;
+        }
     }
 }

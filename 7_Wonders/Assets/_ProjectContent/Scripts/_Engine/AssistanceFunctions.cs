@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SK_Engine
@@ -40,6 +41,16 @@ namespace SK_Engine
             }
 
             return transforms;
+        }
+        
+        public static T GetEnumByName<T>(string eName)
+        {
+            return (T) Enum.Parse(typeof(T), eName.ToUpper());
+        }
+        
+        public static T GetEnumByNameUsual<T>(string eName)
+        {
+            return (T) Enum.Parse(typeof(T), eName);
         }
     }
 }

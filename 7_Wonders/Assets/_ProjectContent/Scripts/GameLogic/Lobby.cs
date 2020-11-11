@@ -6,43 +6,43 @@ namespace WhiteTeam.GameLogic.Managers
     public class Lobby : INetworkEntity
     {
         public string Id { get; private set; }
-        public User Owner { get; private set; }
+        public UserData Owner { get; private set; }
         public GameSettings Settings { get; private set; }
-        public List<User> ConnectedUsers { get; private set; }
+        public List<UserData> ConnectedUsers { get; private set; }
 
         private IdentifierInfo _identifierInfo;
 
-        public Lobby(string id, User owner, GameSettings settings)
+        public Lobby(string id, UserData owner, GameSettings settings)
         {
             LobbySetup(id, owner, settings);
         }
 
-        public Lobby(string id, User owner, GameSettings settings, IEnumerable<User> connectedUsers)
+        public Lobby(string id, UserData owner, GameSettings settings, IEnumerable<UserData> connectedUsers)
         {
             LobbySetup(id, owner, settings);
             ConnectedUsers.AddRange(connectedUsers);
         }
 
-        private void LobbySetup(string id, User owner, GameSettings settings)
+        private void LobbySetup(string id, UserData owner, GameSettings settings)
         {
             Id = id;
             Owner = owner;
             Settings = settings;
-            ConnectedUsers = new List<User>(Settings.MaxPlayers) {Owner};
+            ConnectedUsers = new List<UserData>(Settings.MaxPlayers) {Owner};
         }
 
         #region API
 
-        public bool Connect(User user)
+        public bool Connect(UserData userData)
         {
-            if (IsFull || ConnectedUsers.Contains(user)) return false;
-            AddUser(user);
+            if (IsFull || ConnectedUsers.Contains(userData)) return false;
+            AddUser(userData);
             return true;
         }
 
-        public void Leave(User user)
+        public void Leave(UserData userData)
         {
-            RemoveUser(user);
+            RemoveUser(userData);
         }
 
         public IdentifierInfo GetIdentifierInfo()
@@ -60,14 +60,14 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region METHODS
 
-        private void AddUser(User user)
+        private void AddUser(UserData userData)
         {
-            ConnectedUsers.Add(user);
+            ConnectedUsers.Add(userData);
         }
 
-        private void RemoveUser(User user)
+        private void RemoveUser(UserData userData)
         {
-            ConnectedUsers.Remove(user);
+            ConnectedUsers.Remove(userData);
         }
 
         #endregion

@@ -7,44 +7,48 @@ using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
 {
-    public class GameSession : MonoBehaviour, INetworkEntity // TODO -- MonoBehaviour?
+    public class GameSession : MonoBehaviour, INetworkEntity
     {
         public string Id { get; private set; }
         public GameSettings Settings { get; private set; }
-        public Player LocalPlayer { get; private set; }
-        public List<Player> Players = new List<Player>();
+        public PlayerData LocalPlayerData { get; private set; }
+        public List<PlayerData> Players = new List<PlayerData>();
         public Role Role { get; private set; } // TODO
 
-        [SerializeField] private Timer timer;
+        [SerializeField] private Transform playersHolder;
 
+        private SwipeDirection _swipeDirection;
         private IdentifierInfo _identifierInfo;
-
-        private void Start()
-        {
-            timer.OnTimerEnd.Subscribe(NextMove);
-        }
 
         public void CreateFromLobby(Lobby lobby)
         {
             Id = lobby.Id;
             Settings = lobby.Settings;
 
-            LocalPlayer = Player.CreateFromUser(GameManager.Instance.LocalUser);
-
-            Players = lobby.ConnectedUsers.Select(Player.CreateFromUser).ToList();
+            Players = lobby.ConnectedUsers.Select(PlayerData.CreateFromUser).ToList();
             Players.Find(player => player.Id == lobby.Owner.Id).MakeAdmin();
 
-            Role = LocalPlayer.Role;
+            LocalPlayerData = Players.Find(player => player.Id == LobbyManager.Instance.LocalUserData.Id);
+
+            Role = LocalPlayerData.Role;
 
             Setup();
         }
 
-        #region ACTIONS
-
         private void Setup()
         {
+            CreatePlayersWrappers();
             ProvideSeats();
-            SetupTimer();
+            _swipeDirection = RulesParameters.Instance.FirstSwipeDirection;
+        }
+
+        private void CreatePlayersWrappers()
+        {
+            var holder = playersHolder ? playersHolder : transform;
+            foreach (var playerData in Players)
+            {
+                PlayerWrapper.CreateFromData(playerData, holder);
+            }
         }
 
         private void ProvideSeats()
@@ -58,28 +62,29 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        private void SetupTimer()
+        public void SwipeCards()
         {
-            timer.Setup(GameParameters.Instance.MoveTime);
-        }
+            foreach (var player in Players)
+            {
+                (_swipeDirection == SwipeDirection.RIGHT
+                    ? player.RightPlayerData
+                    : player.LeftPlayerData).GiveCards(player.InHandCards);
+            }
 
-        private bool IsAdmin() => Role == Role.ADMIN;
-
-        #endregion
-
-        #region NETWORK API
-
-        private void NextMove()
-        {
-            if (!IsAdmin()) return;
-            // TODO
+            _swipeDirection = _swipeDirection == SwipeDirection.RIGHT
+                ? SwipeDirection.LEFT
+                : SwipeDirection.RIGHT;
         }
 
         public IdentifierInfo GetIdentifierInfo()
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
-
-        #endregion
+        
+        public enum SwipeDirection
+        {
+            RIGHT,
+            LEFT
+        }
     }
 }
