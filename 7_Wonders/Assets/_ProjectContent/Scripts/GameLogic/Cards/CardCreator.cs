@@ -1,24 +1,40 @@
 ﻿using System;
-using SK_Engine;
 using UnityEngine;
 
 namespace WhiteTeam.GameLogic.Cards
 {
     public class CardCreator
     {
-        public Card Create(string cardTypeName, CardData data, Transform parent = null)
+        public Card Create(CardData data, Transform parent = null)
         {
-            var cardType = AssistanceFunctions.GetEnumByName<Type>(cardTypeName);
-            var cardObject = new GameObject(cardTypeName);
+            var cardObject = new GameObject(data.Name);
             cardObject.transform.SetParent(parent);
 
-            switch (cardType)
+            switch (data.Type)
             {
-                case Type.WONDER:
+                case CardType.WONDER:
                     cardObject.AddComponent<WonderCard>();
                     break;
-                case Type.TODO:
-                    cardObject.AddComponent<WonderCard>(); // TODO
+                case CardType.RAW_MATERIALS:
+                    cardObject.AddComponent<RawMaterialsCard>();
+                    break;
+                case CardType.MANUFACTURE:
+                    cardObject.AddComponent<ManufactureCard>();
+                    break;
+                case CardType.CIVILIAN:
+                    cardObject.AddComponent<CivilianCard>();
+                    break;
+                case CardType.SCIENTIFIC:
+                    cardObject.AddComponent<ScientificCard>();
+                    break;
+                case CardType.COMMERCIAL:
+                    cardObject.AddComponent<CommercialCard>();
+                    break;
+                case CardType.MILITARY:
+                    cardObject.AddComponent<MilitaryCard>();
+                    break;
+                case CardType.GUILDS:
+                    cardObject.AddComponent<GuildsCard>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -28,12 +44,6 @@ namespace WhiteTeam.GameLogic.Cards
             card.Data = data;
             
             return card;
-        }
-
-        public enum Type
-        {
-            WONDER,
-            TODO
         }
     }
 }

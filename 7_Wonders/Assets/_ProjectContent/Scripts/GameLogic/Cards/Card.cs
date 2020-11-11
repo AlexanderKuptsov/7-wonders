@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using WhiteTeam.GameLogic.Actions;
+using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -14,12 +15,38 @@ namespace WhiteTeam.GameLogic.Cards
             set => data = value;
         }
 
-        public void Use()
+        #region NETWORK REQUESTS
+
+        public void ExchangeRequest()
         {
-            var action = GetAction();
+            var action = new ExchangeAction(this);
             GameManager.Instance.PlayerActionRequest(action);
         }
 
-        protected abstract Action GetAction();
+        public void UseRequest()
+        {
+            var action = new UseAction(this);
+            GameManager.Instance.PlayerActionRequest(action);
+        }
+
+        #endregion
+
+        #region ACTIONS
+
+        public void Exchange(PlayerData player)
+        {
+            player.ThrowCard(this);
+            player.Resources.Money.Increase(RulesParameters.Instance.CardExchangeAmount);
+        }
+
+        public void Use(PlayerData player)
+        {
+            player.ActivateCard(this);
+            UseAction(player);
+        }
+
+        protected abstract void UseAction(PlayerData player);
+
+        #endregion
     }
 }

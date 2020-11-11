@@ -77,6 +77,15 @@ namespace WhiteTeam.GameLogic
         {
             inHandCards.Remove(card);
             activeCards.Add(card);
+
+            // TODO -- ui event/action
+        }
+
+        public void ThrowCard(Card card)
+        {
+            inHandCards.Remove(card);
+            
+            // TODO -- ui event/action
         }
 
         public enum MoveStateType
