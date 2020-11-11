@@ -4,7 +4,10 @@
     {
         protected override void UseAction(PlayerData player)
         {
-            throw new System.NotImplementedException();
+            foreach (var currencyItem in data.ActionInfo)
+            {
+                player.Resources.AddMoney(currencyItem.Amount);
+            }
         }
     }
 }
