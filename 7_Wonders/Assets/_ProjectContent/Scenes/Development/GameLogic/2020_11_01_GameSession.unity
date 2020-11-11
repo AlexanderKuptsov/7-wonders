@@ -411,6 +411,8 @@ MonoBehaviour:
         value: 0
       IncomeProducts:
         value: 0
+    inHandCards: []
+    activeCards: []
 --- !u!1001 &6891579219751717902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -518,3 +520,5 @@ MonoBehaviour:
         value: 0
       IncomeProducts:
         value: 0
+    inHandCards: []
+    activeCards: []

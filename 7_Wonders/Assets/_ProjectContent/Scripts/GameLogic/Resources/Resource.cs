@@ -33,5 +33,28 @@ namespace WhiteTeam.GameLogic.Resources
         {
             value = Mathf.Max(value - amount, 0);
         }
+
+        public enum Currency
+        {
+            MONEY,
+
+            // RawMaterial
+            WOOD,
+            ORE,
+            CLAY,
+            STONE,
+
+            // Products
+            PAPYRUS,
+            CLOTH,
+            GLASS
+        }
+
+        // public enum Products
+        // {
+        //     PAPYRUS,
+        //     CLOTH,
+        //     GLASS
+        // }
     }
 }

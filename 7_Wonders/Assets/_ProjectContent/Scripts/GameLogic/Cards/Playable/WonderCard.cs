@@ -1,10 +1,8 @@
-﻿using WhiteTeam.GameLogic.Actions;
-
-namespace WhiteTeam.GameLogic.Cards
+﻿namespace WhiteTeam.GameLogic.Cards
 {
     public class WonderCard : Card
     {
-        protected override Action GetAction()
+        protected override void UseAction(PlayerData player)
         {
             throw new System.NotImplementedException();
         }
