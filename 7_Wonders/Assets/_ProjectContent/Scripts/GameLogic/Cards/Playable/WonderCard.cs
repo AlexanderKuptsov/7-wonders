@@ -6,5 +6,9 @@
         {
             throw new System.NotImplementedException();
         }
+
+        public class StepBuild // TODO
+        {
+        }
     }
 }

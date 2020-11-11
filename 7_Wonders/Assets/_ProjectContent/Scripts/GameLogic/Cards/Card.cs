@@ -7,7 +7,7 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public abstract class Card : MonoBehaviour
     {
-        [SerializeField] private CardData data;
+        [SerializeField] protected CardData data;
 
         public CardData Data
         {
@@ -36,7 +36,7 @@ namespace WhiteTeam.GameLogic.Cards
         public void Exchange(PlayerData player)
         {
             player.ThrowCard(this);
-            player.Resources.Money.Increase(RulesParameters.Instance.CardExchangeAmount);
+            player.Resources.AddMoney(RulesParameters.Instance.CardExchangeAmount);
         }
 
         public void Use(PlayerData player)

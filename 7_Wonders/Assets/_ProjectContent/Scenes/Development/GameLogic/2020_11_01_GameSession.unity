@@ -413,6 +413,7 @@ MonoBehaviour:
         value: 0
     inHandCards: []
     activeCards: []
+    ResourceBuyCost: 0
 --- !u!1001 &6891579219751717902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -522,3 +523,4 @@ MonoBehaviour:
         value: 0
     inHandCards: []
     activeCards: []
+    ResourceBuyCost: 0

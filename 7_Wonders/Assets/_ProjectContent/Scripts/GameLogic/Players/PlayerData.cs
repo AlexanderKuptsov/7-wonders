@@ -18,16 +18,7 @@ namespace WhiteTeam.GameLogic
         [SerializeField] private MoveStateType moveState; // TODO
         public MoveStateType MoveState => moveState;
 
-        [SerializeField] private PlayerResources resources = new PlayerResources
-        {
-            Money = new Resource(GameParameters.Instance.DefaultResources.Money),
-            Science = new Resource(GameParameters.Instance.DefaultResources.Science),
-            War = new Resource(GameParameters.Instance.DefaultResources.War),
-            Victory = new Resource(GameParameters.Instance.DefaultResources.Victory),
-            Conflict = new Resource(GameParameters.Instance.DefaultResources.Conflict),
-            IncomeResources = new Resource(0), // TODO
-            IncomeProducts = new Resource(0) // TODO
-        };
+        [SerializeField] private PlayerResources resources = new PlayerResources();
 
         public PlayerResources Resources => resources;
 
@@ -36,6 +27,8 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private List<Card> activeCards = new List<Card>();
         public List<Card> ActiveCards => activeCards;
+
+        [SerializeField] private int ResourceBuyCost = RulesParameters.Instance.ResourceDefaultBuyCost;
 
         private PlayerData(string id, string name) : base(id, name)
         {
@@ -84,7 +77,7 @@ namespace WhiteTeam.GameLogic
         public void ThrowCard(Card card)
         {
             inHandCards.Remove(card);
-            
+
             // TODO -- ui event/action
         }
 
