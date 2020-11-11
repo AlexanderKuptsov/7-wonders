@@ -94,6 +94,12 @@ namespace WhiteTeam.Network.ServerModules
         {
             var message = System.Text.Encoding.UTF8.GetString(bytes);
             logger.Log($"Message received from server: {message}");
+            OnTextMessageReceived(message);
+        }
+
+        protected virtual void OnTextMessageReceived(string text)
+        {
+            
         }
 
         protected virtual void OnWebSocketError(string error)

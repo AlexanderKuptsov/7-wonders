@@ -47,5 +47,10 @@ namespace SK_Engine
         {
             return (T) Enum.Parse(typeof(T), eName.ToUpper());
         }
+        
+        public static T GetEnumByNameUsual<T>(string eName)
+        {
+            return (T) Enum.Parse(typeof(T), eName);
+        }
     }
 }
