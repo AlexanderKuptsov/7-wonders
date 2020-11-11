@@ -14,6 +14,12 @@ namespace WhiteTeam.GameLogic.Managers
         [SerializeField] private Timer timer;
 
         public readonly ActionsEvents Events = new ActionsEvents();
+        
+        public class ActionsEvents
+        {
+            public EventHolderBase OnNextMove { get; } = new EventHolderBase();
+            public EventHolderBase OnPlayerAction { get; } = new EventHolderBase();
+        }
 
         private GameSession _currentSession;
 
@@ -73,12 +79,6 @@ namespace WhiteTeam.GameLogic.Managers
         }
 
         #endregion
-
-        public class ActionsEvents
-        {
-            public EventHolderBase OnNextMove { get; } = new EventHolderBase();
-            public EventHolderBase OnPlayerAction { get; } = new EventHolderBase();
-        }
 
         private bool IsAdmin() => _currentSession.Role == Role.ADMIN;
     }

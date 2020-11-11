@@ -6,5 +6,6 @@ namespace WhiteTeam.GameLogic.GlobalParameters
     {
         public GameSession.SwipeDirection FirstSwipeDirection = GameSession.SwipeDirection.LEFT;
         [PositiveValueOnly] public int CardExchangeAmount = 3;
+        [PositiveValueOnly] public int ResourceDefaultBuyCost = 2;
     }
 }

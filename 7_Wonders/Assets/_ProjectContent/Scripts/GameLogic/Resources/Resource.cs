@@ -9,6 +9,8 @@ namespace WhiteTeam.GameLogic.Resources
     {
         [SerializeField] [PositiveValueOnly] private int value;
 
+        private const int MIN_VALUE = 0;
+
         public int Value
         {
             get => value;
@@ -17,6 +19,7 @@ namespace WhiteTeam.GameLogic.Resources
 
         public Resource()
         {
+            value = MIN_VALUE;
         }
 
         public Resource(int value)
@@ -31,12 +34,19 @@ namespace WhiteTeam.GameLogic.Resources
 
         public void Decrease(int amount)
         {
-            value = Mathf.Max(value - amount, 0);
+            value = Mathf.Max(value - amount, MIN_VALUE);
+        }
+
+        public void Clear()
+        {
+            value = MIN_VALUE;
         }
 
         public enum Currency
         {
             MONEY,
+            MILITARY,
+            VICTORY,
 
             // RawMaterial
             WOOD,
@@ -47,14 +57,19 @@ namespace WhiteTeam.GameLogic.Resources
             // Products
             PAPYRUS,
             CLOTH,
-            GLASS
+            GLASS,
+
+            //Science
+            RUNE_1,
+            RUNE_2,
+            RUNE_3
         }
 
-        // public enum Products
-        // {
-        //     PAPYRUS,
-        //     CLOTH,
-        //     GLASS
-        // }
+        [Serializable]
+        public struct CurrencyItem
+        {
+            [ReadOnly] public Currency Currency;
+            [ReadOnly] public int Amount;
+        }
     }
 }

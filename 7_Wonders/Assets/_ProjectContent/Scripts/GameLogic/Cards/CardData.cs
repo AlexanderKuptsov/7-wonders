@@ -7,19 +7,13 @@ namespace WhiteTeam.GameLogic.Cards
     [Serializable]
     public class CardData
     {
+        [ReadOnly] public string Id;
         [ReadOnly] public string Name;
-        [ReadOnly] public string SpritePath;
         [ReadOnly] public CardType Type;
         [ReadOnly] public int Epoch;
-        [ReadOnly] public Info CostInfo;
-        [ReadOnly] public Info[] ActionInfo;
-
-        [Serializable]
-        public struct Info
-        {
-            [ReadOnly] public Resource.Currency Data;
-            [ReadOnly] public int Value;
-        }
+        [ReadOnly] public Resource.CurrencyItem[] CostInfo;
+        [ReadOnly] public string RequirementBuildCard; // TODO
+        [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
     }
 
     public enum CardType

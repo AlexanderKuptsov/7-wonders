@@ -6,7 +6,14 @@ namespace WhiteTeam.GameLogic.Auth
     public class AuthManager : Singleton<AuthManager>
     {
         public readonly ActionsEvents Events = new ActionsEvents();
-        
+
+        public class ActionsEvents
+        {
+            public EventHolderBase OnLogin { get; } = new EventHolderBase();
+            public EventHolderBase OnSignUp { get; } = new EventHolderBase();
+            public EventHolderBase OnError { get; } = new EventHolderBase();
+        }
+
         private void Start()
         {
             SubscribeEvents();
@@ -57,12 +64,5 @@ namespace WhiteTeam.GameLogic.Auth
         }
 
         #endregion
-
-        public class ActionsEvents
-        {
-            public EventHolderBase OnLogin { get; } = new EventHolderBase();
-            public EventHolderBase OnSignUp { get; } = new EventHolderBase();
-            public EventHolderBase OnError { get; } = new EventHolderBase();
-        }
     }
 }

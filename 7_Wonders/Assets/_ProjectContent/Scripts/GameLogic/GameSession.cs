@@ -80,7 +80,7 @@ namespace WhiteTeam.GameLogic
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
-
+        
         public enum SwipeDirection
         {
             RIGHT,
