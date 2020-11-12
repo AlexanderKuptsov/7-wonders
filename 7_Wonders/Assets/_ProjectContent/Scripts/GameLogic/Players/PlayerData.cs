@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
-using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic
@@ -10,6 +10,7 @@ namespace WhiteTeam.GameLogic
     [Serializable]
     public class PlayerData : BaseUserData
     {
+        // ----- MAIN -----
         [SerializeField] private Role role;
         public Role Role => role;
         public PlayerData LeftPlayerData { get; private set; }
@@ -18,17 +19,25 @@ namespace WhiteTeam.GameLogic
         [SerializeField] private MoveStateType moveState; // TODO
         public MoveStateType MoveState => moveState;
 
-        [SerializeField] private PlayerResources resources = new PlayerResources();
-
-        public PlayerResources Resources => resources;
-
+        // ----- CARDS -----
         [SerializeField] private List<Card> inHandCards = new List<Card>();
         public List<Card> InHandCards => inHandCards;
 
         [SerializeField] private List<Card> activeCards = new List<Card>();
         public List<Card> ActiveCards => activeCards;
 
-        [SerializeField] private int ResourceBuyCost = RulesParameters.Instance.ResourceDefaultBuyCost;
+        [SerializeField] private Card tempActiveCard;
+
+        // ----- RESOURCES -----
+        [SerializeField] private PlayerResources resources = new PlayerResources();
+        public PlayerResources Resources => resources;
+        public ResourcesCost ResourcesBuyCost { get; } = new ResourcesCost();
+
+        public enum MoveStateType
+        {
+            IN_PROGRESS,
+            COMPLETED
+        }
 
         private PlayerData(string id, string name) : base(id, name)
         {
@@ -68,9 +77,8 @@ namespace WhiteTeam.GameLogic
 
         public void ActivateCard(Card card)
         {
+            tempActiveCard = card;
             inHandCards.Remove(card);
-            activeCards.Add(card);
-
             // TODO -- ui event/action
         }
 
@@ -81,10 +89,42 @@ namespace WhiteTeam.GameLogic
             // TODO -- ui event/action
         }
 
-        public enum MoveStateType
+        public void EndUpMove()
         {
-            IN_PROGRESS,
-            COMPLETED
+            resources.HandleTemp();
+            HandleTempActiveCard();
+        }
+
+        public void ActivateEndGameBonuses()
+        {
+            foreach (var activeCard in activeCards)
+            {
+                activeCard.Data.ActivateEndGameEffect(this);
+            }
+        }
+
+        public PlayerData GetNeighborByDirection(PlayerDirection playerDirection)
+        {
+            switch (playerDirection)
+            {
+                case PlayerDirection.RIGHT:
+                    return RightPlayerData;
+                case PlayerDirection.LEFT:
+                    return LeftPlayerData;
+                case PlayerDirection.SELF:
+                    return this;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerDirection), playerDirection, null);
+            }
+        }
+
+        public int GetActiveCardCountByType(CardType cardType) =>
+            activeCards.Count(card => card.Data.Type == cardType);
+
+        private void HandleTempActiveCard()
+        {
+            activeCards.Add(tempActiveCard);
+            tempActiveCard = null;
         }
     }
 }

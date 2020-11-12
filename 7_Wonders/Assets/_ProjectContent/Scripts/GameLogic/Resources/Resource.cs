@@ -42,12 +42,8 @@ namespace WhiteTeam.GameLogic.Resources
             value = MIN_VALUE;
         }
 
-        public enum Currency
+        public enum CurrencyProducts
         {
-            MONEY,
-            MILITARY,
-            VICTORY,
-
             // RawMaterial
             WOOD,
             ORE,
@@ -58,18 +54,28 @@ namespace WhiteTeam.GameLogic.Resources
             PAPYRUS,
             CLOTH,
             GLASS,
+        }
 
-            //Science
+        public enum Science
+        {
             RUNE_1,
             RUNE_2,
             RUNE_3
         }
 
         [Serializable]
-        public struct CurrencyItem
+        public abstract class CurrencyBaseData<T>
         {
-            [ReadOnly] public Currency Currency;
+            [ReadOnly] public T Currency;
             [ReadOnly] public int Amount;
+        }
+
+        public class CurrencyItem : CurrencyBaseData<CurrencyProducts>
+        {
+        }
+
+        public class ScienceItem : CurrencyBaseData<Science>
+        {
         }
     }
 }

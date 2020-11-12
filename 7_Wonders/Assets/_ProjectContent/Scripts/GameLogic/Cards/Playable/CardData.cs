@@ -15,6 +15,10 @@ namespace WhiteTeam.GameLogic.Cards
         [ReadOnly] public string RequirementBuildCard; // TODO
 
         public abstract void Use(PlayerData player);
+
+        public virtual void ActivateEndGameEffect(PlayerData player)
+        {
+        }
     }
 
     public enum CardType
@@ -27,12 +31,5 @@ namespace WhiteTeam.GameLogic.Cards
         COMMERCIAL,
         MILITARY,
         GUILDS
-    }
-
-    public enum CardActionDirection
-    {
-        LEFT,
-        RIGHT,
-        SELF
     }
 }

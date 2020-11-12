@@ -8,7 +8,7 @@ namespace WhiteTeam.GameLogic.Cards
         
         public override void Use(PlayerData player)
         {
-            player.Resources.AddCivilian(VictoryPoints);
+            player.Resources.AddVictory(VictoryPoints);
         }
     }
 }

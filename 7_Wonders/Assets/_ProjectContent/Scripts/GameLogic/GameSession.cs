@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WhiteTeam.GameLogic;
 using UnityEngine;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
@@ -17,7 +18,7 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private Transform playersHolder;
 
-        private SwipeDirection _swipeDirection;
+        private PlayerDirection _swipeDirection;
         private IdentifierInfo _identifierInfo;
 
         public void CreateFromLobby(Lobby lobby)
@@ -66,25 +67,19 @@ namespace WhiteTeam.GameLogic
         {
             foreach (var player in Players)
             {
-                (_swipeDirection == SwipeDirection.RIGHT
+                (_swipeDirection == PlayerDirection.RIGHT
                     ? player.RightPlayerData
                     : player.LeftPlayerData).GiveCards(player.InHandCards);
             }
 
-            _swipeDirection = _swipeDirection == SwipeDirection.RIGHT
-                ? SwipeDirection.LEFT
-                : SwipeDirection.RIGHT;
+            _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
+                ? PlayerDirection.LEFT
+                : PlayerDirection.RIGHT;
         }
 
         public IdentifierInfo GetIdentifierInfo()
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
-        }
-        
-        public enum SwipeDirection
-        {
-            RIGHT,
-            LEFT
         }
     }
 }

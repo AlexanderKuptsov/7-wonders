@@ -5,7 +5,7 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public class ScientificCard : CardData
     {
-        [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
+        [ReadOnly] public Resource.ScienceItem[] ActionInfo;
 
         public override void Use(PlayerData player)
         {

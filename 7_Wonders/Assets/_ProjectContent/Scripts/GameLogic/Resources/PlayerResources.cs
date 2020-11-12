@@ -12,44 +12,43 @@ namespace WhiteTeam.GameLogic.Resources
         private Resource _money = new Resource(GameParameters.Instance.DefaultResources.Money);
 
         public Resource _military = new Resource(GameParameters.Instance.DefaultResources.War);
-        public Resource _civilian = new Resource(GameParameters.Instance.DefaultResources.Victory);
+        public Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
+        public Resource _loseTokens = new Resource(GameParameters.Instance.DefaultResources.LoseTokens);
 
-        private Dictionary<Resource.Currency, int> _science = new Dictionary<Resource.Currency, int>
+        private Dictionary<Resource.Science, int> _science = new Dictionary<Resource.Science, int>
         {
-            {Resource.Currency.RUNE_1, START_RESOURCE_AMOUNT},
-            {Resource.Currency.RUNE_2, START_RESOURCE_AMOUNT},
-            {Resource.Currency.RUNE_3, START_RESOURCE_AMOUNT},
+            {Resource.Science.RUNE_1, START_RESOURCE_AMOUNT},
+            {Resource.Science.RUNE_2, START_RESOURCE_AMOUNT},
+            {Resource.Science.RUNE_3, START_RESOURCE_AMOUNT},
         };
 
-        private Dictionary<Resource.Currency, int> _production = new Dictionary<Resource.Currency, int>
+        private Dictionary<Resource.CurrencyProducts, int> _production = new Dictionary<Resource.CurrencyProducts, int>
         {
             // RawMaterial
-            {Resource.Currency.WOOD, START_RESOURCE_AMOUNT},
-            {Resource.Currency.ORE, START_RESOURCE_AMOUNT},
-            {Resource.Currency.CLAY, START_RESOURCE_AMOUNT},
-            {Resource.Currency.STONE, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
 
             // Products
-            {Resource.Currency.PAPYRUS, START_RESOURCE_AMOUNT},
-            {Resource.Currency.CLOTH, START_RESOURCE_AMOUNT},
-            {Resource.Currency.GLASS, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
         };
 
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();
 
-        private Dictionary<Resource.Currency, int> _tempProduction = new Dictionary<Resource.Currency, int>
+        private Dictionary<Resource.CurrencyProducts, int> _tempProduction = new Dictionary<Resource.CurrencyProducts, int>
         {
             // RawMaterial
-            {Resource.Currency.WOOD, START_RESOURCE_AMOUNT},
-            {Resource.Currency.ORE, START_RESOURCE_AMOUNT},
-            {Resource.Currency.CLAY, START_RESOURCE_AMOUNT},
-            {Resource.Currency.STONE, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
 
             // Products
-            {Resource.Currency.PAPYRUS, START_RESOURCE_AMOUNT},
-            {Resource.Currency.CLOTH, START_RESOURCE_AMOUNT},
-            {Resource.Currency.GLASS, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.PAPYRUS, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.CLOTH, START_RESOURCE_AMOUNT},
+            {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
         };
 
         private const int START_RESOURCE_AMOUNT = 0;
@@ -66,9 +65,14 @@ namespace WhiteTeam.GameLogic.Resources
             _military.Increase(amount);
         }
 
-        public void AddCivilian(int amount)
+        public void AddVictory(int amount)
         {
-            _civilian.Increase(amount);
+            _victory.Increase(amount);
+        }
+        
+        public void AddLoseTokens(int amount)
+        {
+            _loseTokens.Increase(amount);
         }
 
         public void AddProduction(Resource.CurrencyItem newProduction)
@@ -76,9 +80,9 @@ namespace WhiteTeam.GameLogic.Resources
             _production[newProduction.Currency] += newProduction.Amount;
         }
 
-        public void AddScience(Resource.CurrencyItem newScience)
+        public void AddScience(Resource.ScienceItem newScience)
         {
-            _production[newScience.Currency] += newScience.Amount;
+            _science[newScience.Currency] += newScience.Amount;
         }
 
         #endregion
@@ -97,10 +101,15 @@ namespace WhiteTeam.GameLogic.Resources
 
         public int GetVictory()
         {
-            return _civilian.Value;
+            return _victory.Value;
+        }
+        
+        public int GetLoseTokens()
+        {
+            return _loseTokens.Value;
         }
 
-        public int GetProduction(Resource.Currency currency)
+        public int GetProduction(Resource.CurrencyProducts currency)
         {
             var amount = START_RESOURCE_AMOUNT;
 
@@ -116,7 +125,7 @@ namespace WhiteTeam.GameLogic.Resources
             return amount;
         }
 
-        public int GetScience(Resource.Currency currency)
+        public int GetScience(Resource.Science currency)
         {
             if (!_science.ContainsKey(currency))
             {
@@ -155,7 +164,7 @@ namespace WhiteTeam.GameLogic.Resources
 
         #region METHODS
 
-        private void ResetProduction(Dictionary<Resource.Currency, int> production)
+        private void ResetProduction(Dictionary<Resource.CurrencyProducts, int> production)
         {
             foreach (var currency in production.Keys)
             {

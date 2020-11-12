@@ -17,7 +17,8 @@ namespace WhiteTeam.GameLogic.GlobalParameters
             Science = 0,
             War = 0,
             Victory = 0,
-            Conflict = 0
+            Conflict = 0,
+            LoseTokens = 0
         };
 
         public struct StartResources
@@ -27,6 +28,7 @@ namespace WhiteTeam.GameLogic.GlobalParameters
             public int War;
             public int Victory;
             public int Conflict;
+            public int LoseTokens;
         }
     }
 }
