@@ -2,7 +2,9 @@
 {
     public abstract class GuildsCard : CardData
     {
-        public enum  GuildsType
+        public GuildsInfo GuildsType;
+        
+        public enum  GuildsInfo
         {
             OWNING,
             STRATEGY,

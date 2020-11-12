@@ -2,7 +2,9 @@
 {
     public abstract class CommercialCard : CardData
     {
-        public enum CommercialType
+        public CommercialInfo CommercialType;
+        
+        public enum CommercialInfo
         {
             MONEY,
             TRADE,

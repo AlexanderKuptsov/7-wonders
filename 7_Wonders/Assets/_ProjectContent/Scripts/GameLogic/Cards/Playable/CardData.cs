@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using MyBox;
 using WhiteTeam.GameLogic.Resources;
 
@@ -19,11 +22,18 @@ namespace WhiteTeam.GameLogic.Cards
         public virtual void ActivateEndGameEffect(PlayerData player)
         {
         }
+
+        public IEnumerable<PropertyInfo> GetSelfProperties()
+        {
+            return Assembly
+                .GetAssembly(typeof(CardData))
+                .GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(CardData))).SelectMany(t => t.GetProperties());
+        }
     }
 
     public enum CardType
     {
-        WONDER,
         RAW_MATERIALS,
         MANUFACTURE,
         CIVILIAN,
