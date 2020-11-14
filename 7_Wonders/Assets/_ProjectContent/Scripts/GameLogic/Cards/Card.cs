@@ -39,6 +39,11 @@ namespace WhiteTeam.GameLogic.Cards
             Data.Use(player);
         }
 
+        public void ActivateEndGameEffect(PlayerData player)
+        {
+            Data.ActivateEndGameEffect(player);
+        }
+
         #endregion
     }
 }

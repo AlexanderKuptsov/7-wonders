@@ -1,11 +1,24 @@
-﻿using MyBox;
-using WhiteTeam.GameLogic.Resources;
+﻿using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
     public class GuildsScienceCard : GuildsCard
     {
         private Resource.Science _selectedScience;
+
+        public GuildsScienceCard(
+            string id,
+            string name,
+            CardType type,
+            int epoch,
+            Resource.CurrencyItem[] costInfo,
+            string requirementBuildCard,
+            GuildsInfo guildsType,
+            Resource.Science selectedScience)
+            : base(id, name, type, epoch, costInfo, requirementBuildCard, guildsType)
+        {
+            _selectedScience = selectedScience;
+        }
 
         public override void Use(PlayerData player) // TODO -- select
         {

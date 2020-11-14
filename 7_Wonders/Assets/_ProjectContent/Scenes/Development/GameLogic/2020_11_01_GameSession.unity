@@ -492,14 +492,16 @@ MonoBehaviour:
     name: 
     role: 0
     moveState: 0
+    inHandCards: []
+    activeCards: []
+    tempActiveCard: {fileID: 0}
     resources:
       _military:
         value: 0
       _victory:
         value: 0
-    inHandCards: []
-    activeCards: []
-    tempActiveCard: {fileID: 0}
+      _loseTokens:
+        value: 0
 --- !u!1001 &6891579219751717902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -592,11 +594,13 @@ MonoBehaviour:
     name: 
     role: 0
     moveState: 0
+    inHandCards: []
+    activeCards: []
+    tempActiveCard: {fileID: 0}
     resources:
       _military:
         value: 0
       _victory:
         value: 0
-    inHandCards: []
-    activeCards: []
-    tempActiveCard: {fileID: 0}
+      _loseTokens:
+        value: 0

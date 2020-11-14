@@ -1,4 +1,5 @@
 ﻿using MyBox;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
@@ -6,6 +7,22 @@ namespace WhiteTeam.GameLogic.Cards
     {
         [ReadOnly] public PlayerDirection[] PlayerDirection;
         [ReadOnly] public int CurrentVictoryBonus;
+
+        public GuildsStrategyCard(
+            string id,
+            string name,
+            CardType type,
+            int epoch,
+            Resource.CurrencyItem[] costInfo,
+            string requirementBuildCard,
+            GuildsInfo guildsType,
+            PlayerDirection[] playerDirection,
+            int currentVictoryBonus)
+            : base(id, name, type, epoch, costInfo, requirementBuildCard, guildsType)
+        {
+            PlayerDirection = playerDirection;
+            CurrentVictoryBonus = currentVictoryBonus;
+        }
 
         public override void Use(PlayerData player)
         {

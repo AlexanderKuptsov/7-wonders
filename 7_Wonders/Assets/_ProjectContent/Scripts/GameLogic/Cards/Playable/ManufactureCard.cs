@@ -6,7 +6,20 @@ namespace WhiteTeam.GameLogic.Cards
     public class ManufactureCard : CardData
     {
         [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
-        
+
+        public ManufactureCard(
+            string id,
+            string name,
+            CardType type,
+            int epoch,
+            Resource.CurrencyItem[] costInfo,
+            string requirementBuildCard,
+            Resource.CurrencyItem[] actionInfo)
+            : base(id, name, type, epoch, costInfo, requirementBuildCard)
+        {
+            ActionInfo = actionInfo;
+        }
+
         public override void Use(PlayerData player)
         {
             foreach (var currencyItem in ActionInfo)

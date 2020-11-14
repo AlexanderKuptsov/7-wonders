@@ -17,6 +17,16 @@ namespace WhiteTeam.GameLogic.Cards
         [ReadOnly] public Resource.CurrencyItem[] CostInfo;
         [ReadOnly] public string RequirementBuildCard; // TODO
 
+        public CardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo, string requirementBuildCard)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+            Epoch = epoch;
+            CostInfo = costInfo;
+            RequirementBuildCard = requirementBuildCard;
+        }
+        
         public abstract void Use(PlayerData player);
 
         public virtual void ActivateEndGameEffect(PlayerData player)

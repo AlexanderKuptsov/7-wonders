@@ -99,7 +99,7 @@ namespace WhiteTeam.GameLogic
         {
             foreach (var activeCard in activeCards)
             {
-                activeCard.Data.ActivateEndGameEffect(this);
+                activeCard.ActivateEndGameEffect(this);
             }
         }
 
