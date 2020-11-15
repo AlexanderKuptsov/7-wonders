@@ -14,14 +14,14 @@ namespace WhiteTeam.GameLogic.Managers
         [SerializeField] private Timer timer;
 
         public readonly ActionsEvents Events = new ActionsEvents();
-        
+
         public class ActionsEvents
         {
             public EventHolderBase OnNextMove { get; } = new EventHolderBase();
             public EventHolderBase OnPlayerAction { get; } = new EventHolderBase();
         }
 
-        private GameSession _currentSession;
+        public GameSession CurrentSession { get; private set; }
 
         private void Start()
         {
@@ -33,10 +33,10 @@ namespace WhiteTeam.GameLogic.Managers
         public void CreateGameSession(Lobby lobby)
         {
             var gameSessionObject = Instantiate(gameSessionPrototype);
-            _currentSession = gameSessionObject.GetComponent<GameSession>();
-            _currentSession.CreateFromLobby(lobby);
+            CurrentSession = gameSessionObject.GetComponent<GameSession>();
+            CurrentSession.CreateFromLobby(lobby);
 
-            SetupTimer(_currentSession.Settings.MoveTime);
+            SetupTimer(CurrentSession.Settings.MoveTime);
         }
 
         private void SetupTimer(int moveTime)
@@ -67,19 +67,19 @@ namespace WhiteTeam.GameLogic.Managers
         private void OnNextMove()
         {
             throw new NotImplementedException();
-            
+
             Events.OnNextMove.TriggerEvents();
         }
 
         private void OnPlayerAction()
         {
             throw new NotImplementedException();
-            
+
             Events.OnPlayerAction.TriggerEvents();
         }
 
         #endregion
 
-        private bool IsAdmin() => _currentSession.Role == Role.ADMIN;
+        private bool IsAdmin() => CurrentSession.Role == Role.ADMIN;
     }
 }

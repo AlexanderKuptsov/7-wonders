@@ -28,7 +28,7 @@ namespace WhiteTeam.GameLogic.Cards
         {
             foreach (var playerDirection in PlayerDirection)
             {
-                var bonusCardsCount = player.GetNeighborByDirection(playerDirection).Resources.GetLoseTokens();
+                var bonusCardsCount = player.GetNeighborByDirection(playerDirection).Resources.GetWarLoseTokens();
                 var totalBonus = bonusCardsCount * CurrentVictoryBonus;
                 player.Resources.AddVictory(totalBonus);
             }

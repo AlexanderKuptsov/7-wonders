@@ -11,9 +11,11 @@ namespace WhiteTeam.GameLogic.Resources
         // ----- MAIN -----
         private Resource _money = new Resource(GameParameters.Instance.DefaultResources.Money);
 
-        public Resource _military = new Resource(GameParameters.Instance.DefaultResources.War);
+        public Resource _military = new Resource(GameParameters.Instance.DefaultResources.Military);
         public Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
-        public Resource _loseTokens = new Resource(GameParameters.Instance.DefaultResources.LoseTokens);
+
+        public Resource _warVictoryTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
+        public Resource _warLoseTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
 
         private Dictionary<Resource.Science, int> _science = new Dictionary<Resource.Science, int>
         {
@@ -65,6 +67,12 @@ namespace WhiteTeam.GameLogic.Resources
             return currencyAmount >= requiredCurrencyAmount;
         }
 
+        public void ConvertWarTokensToVictory()
+        {
+            var warProfit = GetWarVictoryTokens() - GetWarLoseTokens();
+            AddVictory(warProfit);
+        }
+
         #region ADDITION
 
         public void AddMoney(int amount)
@@ -82,9 +90,14 @@ namespace WhiteTeam.GameLogic.Resources
             _victory.Increase(amount);
         }
 
-        public void AddLoseTokens(int amount)
+        public void AddWarVictoryTokens(int amount)
         {
-            _loseTokens.Increase(amount);
+            _warVictoryTokens.Increase(amount);
+        }
+
+        public void AddWarLoseTokens(int amount)
+        {
+            _warLoseTokens.Increase(amount);
         }
 
         public void AddProduction(Resource.CurrencyItem newProduction)
@@ -116,9 +129,14 @@ namespace WhiteTeam.GameLogic.Resources
             return _victory.Value;
         }
 
-        public int GetLoseTokens()
+        public int GetWarVictoryTokens()
         {
-            return _loseTokens.Value;
+            return _warVictoryTokens.Value;
+        }
+
+        public int GetWarLoseTokens()
+        {
+            return _warLoseTokens.Value;
         }
 
         public int GetProduction(Resource.CurrencyProducts currency)

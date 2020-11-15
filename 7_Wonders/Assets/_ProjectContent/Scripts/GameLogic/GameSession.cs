@@ -18,6 +18,8 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private Transform playersHolder;
 
+        public GameState GameState { get; private set; }
+
         private PlayerDirection _swipeDirection;
         private IdentifierInfo _identifierInfo;
 
@@ -40,7 +42,9 @@ namespace WhiteTeam.GameLogic
         {
             CreatePlayersWrappers();
             ProvideSeats();
+
             _swipeDirection = RulesParameters.Instance.FirstSwipeDirection;
+            GameState = new GameState();
         }
 
         private void CreatePlayersWrappers()

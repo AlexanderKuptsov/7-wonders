@@ -9,7 +9,7 @@ namespace WhiteTeam.GameLogic.Resources
     {
         [SerializeField] [PositiveValueOnly] private int value;
 
-        private const int MIN_VALUE = 0;
+        private const int DEFAULT_VALUE = 0;
 
         public int Value
         {
@@ -19,7 +19,7 @@ namespace WhiteTeam.GameLogic.Resources
 
         public Resource()
         {
-            value = MIN_VALUE;
+            value = DEFAULT_VALUE;
         }
 
         public Resource(int value)
@@ -34,12 +34,13 @@ namespace WhiteTeam.GameLogic.Resources
 
         public void Decrease(int amount)
         {
-            value = Mathf.Max(value - amount, MIN_VALUE);
+            //value = Mathf.Max(value - amount, DEFAULT_VALUE);
+            value -= amount;
         }
 
         public void Clear()
         {
-            value = MIN_VALUE;
+            value = DEFAULT_VALUE;
         }
 
         public enum CurrencyProducts
