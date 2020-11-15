@@ -4,33 +4,52 @@ using System.Linq;
 using System.Reflection;
 using MyBox;
 using WhiteTeam.GameLogic.Resources;
+using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
 {
     [Serializable]
-    public abstract class CardData
+    public abstract class CardData : INetworkEntity
     {
         [ReadOnly] public string Id;
         [ReadOnly] public string Name;
         [ReadOnly] public CardType Type;
         [ReadOnly] public int Epoch;
         [ReadOnly] public Resource.CurrencyItem[] CostInfo;
-        [ReadOnly] public string RequirementBuildCard; // TODO
+        [ReadOnly] public string RequirementBuildCardId; // TODO
 
-        public CardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo, string requirementBuildCard)
+        private IdentifierInfo _identifierInfo;
+
+        public CardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId)
         {
             Id = id;
             Name = name;
             Type = type;
             Epoch = epoch;
             CostInfo = costInfo;
-            RequirementBuildCard = requirementBuildCard;
+            RequirementBuildCardId = requirementBuildCardId;
+
+            _identifierInfo = new IdentifierInfo(Id, Name);
         }
-        
+
         public abstract void Use(PlayerData player);
 
         public virtual void ActivateEndGameEffect(PlayerData player)
         {
+        }
+
+        public bool CanActivate(PlayerData player)
+        {
+            // Check special requirement for free card activation 
+            if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard))
+            {
+                return true;
+            }
+
+            // Check player for card activation requirement resources
+            var haveEnoughResources = CostInfo.All(currencyItem => player.Resources.HasEnoughCurrency(currencyItem));
+            return haveEnoughResources;
         }
 
         public IEnumerable<PropertyInfo> GetSelfProperties()
@@ -40,6 +59,8 @@ namespace WhiteTeam.GameLogic.Cards
                 .GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(CardData))).SelectMany(t => t.GetProperties());
         }
+
+        public IdentifierInfo GetIdentifierInfo() => _identifierInfo;
     }
 
     public enum CardType

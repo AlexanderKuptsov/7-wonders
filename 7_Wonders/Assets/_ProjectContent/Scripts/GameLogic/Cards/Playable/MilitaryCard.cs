@@ -13,8 +13,8 @@ namespace WhiteTeam.GameLogic.Cards
             CardType type,
             int epoch,
             Resource.CurrencyItem[] costInfo,
-            string requirementBuildCard,
-            int shields) : base(id, name, type, epoch, costInfo, requirementBuildCard)
+            string requirementBuildCardId,
+            int shields) : base(id, name, type, epoch, costInfo, requirementBuildCardId)
         {
             Shields = shields;
         }

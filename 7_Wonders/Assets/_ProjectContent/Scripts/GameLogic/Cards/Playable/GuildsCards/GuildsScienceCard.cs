@@ -12,10 +12,10 @@ namespace WhiteTeam.GameLogic.Cards
             CardType type,
             int epoch,
             Resource.CurrencyItem[] costInfo,
-            string requirementBuildCard,
+            string requirementBuildCardId,
             GuildsInfo guildsType,
             Resource.Science selectedScience)
-            : base(id, name, type, epoch, costInfo, requirementBuildCard, guildsType)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType)
         {
             _selectedScience = selectedScience;
         }

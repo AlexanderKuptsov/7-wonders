@@ -2,10 +2,11 @@
 using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
+using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public abstract class Card : MonoBehaviour
+    public abstract class Card : MonoBehaviour, INetworkEntity
     {
         public CardData Data;
 
@@ -45,5 +46,7 @@ namespace WhiteTeam.GameLogic.Cards
         }
 
         #endregion
+
+        public IdentifierInfo GetIdentifierInfo() => Data.GetIdentifierInfo();
     }
 }

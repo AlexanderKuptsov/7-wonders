@@ -15,12 +15,12 @@ namespace WhiteTeam.GameLogic.Cards
             CardType type,
             int epoch,
             Resource.CurrencyItem[] costInfo,
-            string requirementBuildCard,
+            string requirementBuildCardId,
             GuildsInfo guildsType,
             PlayerDirection[] playerDirections,
             CardType cardType,
             int currentVictoryBonus)
-            : base(id, name, type, epoch, costInfo, requirementBuildCard, guildsType)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType)
         {
             PlayerDirections = playerDirections;
             CardType = cardType;

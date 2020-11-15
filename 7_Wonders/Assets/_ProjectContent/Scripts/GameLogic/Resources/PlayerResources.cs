@@ -37,21 +37,33 @@ namespace WhiteTeam.GameLogic.Resources
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();
 
-        private Dictionary<Resource.CurrencyProducts, int> _tempProduction = new Dictionary<Resource.CurrencyProducts, int>
-        {
-            // RawMaterial
-            {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
+        private Dictionary<Resource.CurrencyProducts, int> _tempProduction =
+            new Dictionary<Resource.CurrencyProducts, int>
+            {
+                // RawMaterial
+                {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
+                {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
+                {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
+                {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
 
-            // Products
-            {Resource.CurrencyProducts.PAPYRUS, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.CLOTH, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
-        };
+                // Products
+                {Resource.CurrencyProducts.PAPYRUS, START_RESOURCE_AMOUNT},
+                {Resource.CurrencyProducts.CLOTH, START_RESOURCE_AMOUNT},
+                {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
+            };
 
         private const int START_RESOURCE_AMOUNT = 0;
+
+        public bool HasEnoughCurrency(Resource.CurrencyItem currencyItem)
+        {
+            var requiredCurrencyType = currencyItem.Currency;
+            var requiredCurrencyAmount = currencyItem.Amount;
+            var currencyAmount = requiredCurrencyType == Resource.CurrencyProducts.MONEY
+                ? GetMoney()
+                : GetProduction(requiredCurrencyType);
+
+            return currencyAmount >= requiredCurrencyAmount;
+        }
 
         #region ADDITION
 
@@ -69,7 +81,7 @@ namespace WhiteTeam.GameLogic.Resources
         {
             _victory.Increase(amount);
         }
-        
+
         public void AddLoseTokens(int amount)
         {
             _loseTokens.Increase(amount);
@@ -103,7 +115,7 @@ namespace WhiteTeam.GameLogic.Resources
         {
             return _victory.Value;
         }
-        
+
         public int GetLoseTokens()
         {
             return _loseTokens.Value;

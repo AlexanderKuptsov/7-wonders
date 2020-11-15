@@ -44,6 +44,8 @@ namespace WhiteTeam.GameLogic.Resources
 
         public enum CurrencyProducts
         {
+            MONEY,
+            
             // RawMaterial
             WOOD,
             ORE,

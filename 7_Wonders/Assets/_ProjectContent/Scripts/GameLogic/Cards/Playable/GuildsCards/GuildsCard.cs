@@ -12,9 +12,9 @@ namespace WhiteTeam.GameLogic.Cards
             CardType type,
             int epoch,
             Resource.CurrencyItem[] costInfo,
-            string requirementBuildCard,
+            string requirementBuildCardId,
             GuildsInfo guildsType)
-            : base(id, name, type, epoch, costInfo, requirementBuildCard)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId)
         {
             GuildsType = guildsType;
         }

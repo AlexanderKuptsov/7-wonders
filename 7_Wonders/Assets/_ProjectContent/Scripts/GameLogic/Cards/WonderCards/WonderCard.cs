@@ -1,4 +1,5 @@
-﻿using MyBox;
+﻿using System.Linq;
+using MyBox;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -10,20 +11,35 @@ namespace WhiteTeam.GameLogic.Cards
 
         private StepBuild[] _stepBuilds;
 
+        private int _completedSteps;
+
+        public StepBuild CurrentStepBuild => _completedSteps < _stepBuilds.Length ? _stepBuilds[_completedSteps] : null;
+
+        public bool IsCompleted => _stepBuilds.All(build => build.IsCompleted);
+
         public WonderCard(string id, string name, StepBuild[] stepBuilds)
         {
             Id = id;
             Name = name;
             _stepBuilds = stepBuilds;
+            _completedSteps = 0;
         }
 
         public void Build(PlayerData player, Card cardToThrow)
         {
             player.ThrowCard(cardToThrow);
-            NextBuild(player);
+            var currentStepBuild = CurrentStepBuild;
+            NextBuild(player, currentStepBuild);
+            CompleteStep(currentStepBuild);
         }
 
-        protected abstract void NextBuild(PlayerData player);
+        private void CompleteStep(StepBuild stepBuild)
+        {
+            stepBuild.Complete();
+            _completedSteps++;
+        }
+
+        protected abstract void NextBuild(PlayerData player, StepBuild stepBuild);
         public abstract void ActivateStartGameEffect(PlayerData player);
         public abstract void ActivateEndGameEffect(PlayerData player);
 
@@ -31,9 +47,16 @@ namespace WhiteTeam.GameLogic.Cards
         {
             [ReadOnly] public Resource.CurrencyItem[] CostInfo;
 
+            public bool IsCompleted { get; private set; }
+
             public StepBuild(Resource.CurrencyItem[] costInfo)
             {
                 CostInfo = costInfo;
+            }
+
+            public void Complete()
+            {
+                IsCompleted = true;
             }
         }
     }

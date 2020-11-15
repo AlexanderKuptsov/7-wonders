@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Resources;
+using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
 {
@@ -121,10 +123,19 @@ namespace WhiteTeam.GameLogic
         public int GetActiveCardCountByType(CardType cardType) =>
             activeCards.Count(card => card.Data.Type == cardType);
 
+        public bool FindInHandCardById(string cardId, out Card foundCard) =>
+            FindCardById(InHandCards, cardId, out foundCard);
+
+        public bool FindActiveCardById(string cardId, out Card foundCard) =>
+            FindCardById(ActiveCards, cardId, out foundCard);
+
         private void HandleTempActiveCard()
         {
             activeCards.Add(tempActiveCard);
             tempActiveCard = null;
         }
+
+        private bool FindCardById(IEnumerable<Card> cardsStack, string cardId, out Card foundCard) =>
+            NetworkEntity.FindEntityById(cardsStack, cardId, out foundCard);
     }
 }

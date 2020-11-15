@@ -13,9 +13,9 @@ namespace WhiteTeam.GameLogic.Cards
             CardType type,
             int epoch,
             Resource.CurrencyItem[] costInfo,
-            string requirementBuildCard,
+            string requirementBuildCardId,
             int victoryPoints)
-            : base(id, name, type, epoch, costInfo, requirementBuildCard)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId)
         {
             VictoryPoints = victoryPoints;
         }
