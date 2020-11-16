@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using MyBox;
-using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {

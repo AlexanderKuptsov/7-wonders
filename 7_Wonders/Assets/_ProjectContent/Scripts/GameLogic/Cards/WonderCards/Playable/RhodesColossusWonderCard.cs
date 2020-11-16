@@ -1,7 +1,7 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Cards.Wonder;
 
-namespace WhiteTeam.GameLogic.Cards
+namespace WhiteTeam.GameLogic.Cards.Wonder
 {
     public class CollossWonderCard : SpecialWonderCard<VictoryEffect, MilitaryEffect, VictoryEffect>
     {

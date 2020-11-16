@@ -36,6 +36,9 @@ namespace WhiteTeam.GameLogic.Resources
             {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
         };
 
+        // SPECIAL
+        public Resource _freeBuildTokens = new Resource(GameParameters.Instance.DefaultResources.FreeBuildTokens);
+
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();
 
@@ -104,7 +107,7 @@ namespace WhiteTeam.GameLogic.Resources
         {
             _production[newProduction.Currency] += newProduction.Amount;
         }
-        
+
         public void SpendProduction(Resource.CurrencyItem newProduction)
         {
             _production[newProduction.Currency] -= newProduction.Amount;
@@ -114,7 +117,12 @@ namespace WhiteTeam.GameLogic.Resources
         {
             _science[newScience.Currency] += newScience.Amount;
         }
-        
+
+        public void AddFreeBuildTokens(int amount)
+        {
+            _freeBuildTokens.Increase(amount);
+        }
+
         #endregion
 
         #region GETTERS
@@ -169,6 +177,11 @@ namespace WhiteTeam.GameLogic.Resources
             }
 
             return _science[currency];
+        }
+
+        public int GetFreeBuildTokens()
+        {
+            return _freeBuildTokens.Value;
         }
 
         #endregion
