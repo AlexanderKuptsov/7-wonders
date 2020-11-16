@@ -1,31 +1,14 @@
-﻿using MyBox;
+﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class ManufactureCard : CardData
+    public class ManufactureCard : SpecialCard<ProductionCardEffect>
     {
-        [ReadOnly] public Resource.CurrencyItem[] ActionInfo;
-
-        public ManufactureCard(
-            string id,
-            string name,
-            CardType type,
-            int epoch,
-            Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId,
-            Resource.CurrencyItem[] actionInfo)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId)
+        public ManufactureCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId, ProductionCardEffect currentEffect) : base(id, name, type, epoch, costInfo,
+            requirementBuildCardId, currentEffect)
         {
-            ActionInfo = actionInfo;
-        }
-
-        public override void Use(PlayerData player)
-        {
-            foreach (var currencyItem in ActionInfo)
-            {
-                player.Resources.AddProduction(currencyItem);
-            }
         }
     }
 }

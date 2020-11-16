@@ -1,31 +1,14 @@
-﻿using MyBox;
+﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class ScientificCard : CardData
+    public class ScientificCard : SpecialCard<ScienceEffect>
     {
-        [ReadOnly] public Resource.ScienceItem[] ActionInfo;
-
-        public ScientificCard(
-            string id,
-            string name,
-            CardType type,
-            int epoch,
-            Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId,
-            Resource.ScienceItem[] actionInfo)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId)
+        public ScientificCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId, ScienceEffect currentEffect) : base(id, name, type, epoch, costInfo,
+            requirementBuildCardId, currentEffect)
         {
-            ActionInfo = actionInfo;
-        }
-
-        public override void Use(PlayerData player)
-        {
-            foreach (var currencyItem in ActionInfo)
-            {
-                player.Resources.AddScience(currencyItem);
-            }
         }
     }
 }

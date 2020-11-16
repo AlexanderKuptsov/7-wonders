@@ -1,11 +1,15 @@
 ﻿using MyBox;
+using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public abstract class CommercialCard : CardData
+    public abstract class
+        CommercialCard<TEffect, TEndGameEffect> : SpecialCardWithEndGameEffect<TEffect, TEndGameEffect>
+        where TEffect : CardEffect
+        where TEndGameEffect : CardEffect
     {
-        [ReadOnly] public CommercialInfo CommercialType;
+        [ReadOnly] public readonly CommercialInfo CommercialType;
 
         protected CommercialCard(
             string id,
@@ -14,8 +18,10 @@ namespace WhiteTeam.GameLogic.Cards
             int epoch,
             Resource.CurrencyItem[] costInfo,
             string requirementBuildCardId,
-            CommercialInfo commercialType)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId)
+            CommercialInfo commercialType,
+            TEffect currentEffect,
+            TEndGameEffect endGameEffect = null)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect, endGameEffect)
         {
             CommercialType = commercialType;
         }

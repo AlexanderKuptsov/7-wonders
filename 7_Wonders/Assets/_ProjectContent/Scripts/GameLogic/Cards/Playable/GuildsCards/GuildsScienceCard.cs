@@ -1,38 +1,20 @@
-﻿using WhiteTeam.GameLogic.Resources;
+﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class GuildsScienceCard : GuildsCard
+    public class GuildsScienceCard : GuildsCard<ScienceEffect, ScienceEffect> // TODO -- currentEffect - selection
     {
-        private Resource.Science _selectedScience;
-
-        public GuildsScienceCard(
-            string id,
-            string name,
-            CardType type,
-            int epoch,
-            Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId,
-            GuildsInfo guildsType,
-            Resource.Science selectedScience)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType)
-        {
-            _selectedScience = selectedScience;
-        }
-
-        public override void Use(PlayerData player) // TODO -- select
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Select(Resource.Science science)
         {
-            _selectedScience = science;
+            EndGameEffect.ScienceInfo.Currency = science;
         }
 
-        public override void ActivateEndGameEffect(PlayerData player)
+        public GuildsScienceCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId, GuildsInfo guildsType, ScienceEffect currentEffect,
+            ScienceEffect endGameEffect) : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType,
+            currentEffect, endGameEffect)
         {
-            player.Resources.AddScience(new Resource.ScienceItem {Currency = _selectedScience, Amount = 1});
         }
     }
 }

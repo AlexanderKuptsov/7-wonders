@@ -1,9 +1,10 @@
 ﻿using MyBox;
+using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class CommercialTradeCard : CommercialCard
+    public class CommercialTradeCard : CommercialCard<TradeEffect, TradeEffect>
     {
         [ReadOnly] public PlayerDirection[] DiscountPlayerDirections;
         [ReadOnly] public Resource.CurrencyProducts[] DiscountResources;
@@ -19,23 +20,13 @@ namespace WhiteTeam.GameLogic.Cards
             CommercialInfo commercialType,
             PlayerDirection[] discountPlayerDirections,
             Resource.CurrencyProducts[] discountResources,
-            int discountCost)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, commercialType)
+            int discountCost,
+            TradeEffect tradeEffect)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, commercialType, tradeEffect)
         {
             DiscountPlayerDirections = discountPlayerDirections;
             DiscountResources = discountResources;
             DiscountCost = discountCost;
-        }
-
-        public override void Use(PlayerData player)
-        {
-            foreach (var playerDirection in DiscountPlayerDirections)
-            {
-                foreach (var discountResource in DiscountResources)
-                {
-                    player.ResourcesBuyCost.SetCost(playerDirection, discountResource, DiscountCost);
-                }
-            }
         }
     }
 }

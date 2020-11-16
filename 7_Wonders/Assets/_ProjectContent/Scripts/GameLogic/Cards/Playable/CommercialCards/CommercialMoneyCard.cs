@@ -1,29 +1,14 @@
-﻿using MyBox;
+﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class CommercialMoneyCard : CommercialCard
+    public class CommercialMoneyCard : CommercialCard<MoneyEffect, MoneyEffect>
     {
-        [ReadOnly] public int Coins;
-
-        public CommercialMoneyCard(
-            string id,
-            string name,
-            CardType type,
-            int epoch,
-            Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId,
-            CommercialInfo commercialType,
-            int coins)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, commercialType)
+        public CommercialMoneyCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId, CommercialInfo commercialType, MoneyEffect currentEffect)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, commercialType, currentEffect)
         {
-            Coins = coins;
-        }
-
-        public override void Use(PlayerData player)
-        {
-            player.Resources.AddMoney(Coins);
         }
     }
 }

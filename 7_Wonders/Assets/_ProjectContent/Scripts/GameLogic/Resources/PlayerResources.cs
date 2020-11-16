@@ -73,7 +73,7 @@ namespace WhiteTeam.GameLogic.Resources
             AddVictory(warProfit);
         }
 
-        #region ADDITION
+        #region CHANGE
 
         public void AddMoney(int amount)
         {
@@ -104,12 +104,17 @@ namespace WhiteTeam.GameLogic.Resources
         {
             _production[newProduction.Currency] += newProduction.Amount;
         }
+        
+        public void SpendProduction(Resource.CurrencyItem newProduction)
+        {
+            _production[newProduction.Currency] -= newProduction.Amount;
+        }
 
         public void AddScience(Resource.ScienceItem newScience)
         {
             _science[newScience.Currency] += newScience.Amount;
         }
-
+        
         #endregion
 
         #region GETTERS

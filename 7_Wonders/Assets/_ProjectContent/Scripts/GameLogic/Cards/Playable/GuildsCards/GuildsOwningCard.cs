@@ -1,40 +1,14 @@
-﻿using MyBox;
+﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class GuildsOwningCard : GuildsCard
+    public class GuildsOwningCard : GuildsCard<CardTypeOwnVictoryEffect, CardTypeOwnVictoryEffect>
     {
-        [ReadOnly] public PlayerDirection[] PlayerDirections;
-        [ReadOnly] public CardType CardType;
-        [ReadOnly] public int CurrentVictoryBonus;
-
-        public GuildsOwningCard(
-            string id,
-            string name,
-            CardType type,
-            int epoch,
-            Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId,
-            GuildsInfo guildsType,
-            PlayerDirection[] playerDirections,
-            CardType cardType,
-            int currentVictoryBonus)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType)
+        public GuildsOwningCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId, GuildsInfo guildsType, CardTypeOwnVictoryEffect currentEffect)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType, currentEffect)
         {
-            PlayerDirections = playerDirections;
-            CardType = cardType;
-            CurrentVictoryBonus = currentVictoryBonus;
-        }
-
-        public override void Use(PlayerData player)
-        {
-            foreach (var playerDirection in PlayerDirections)
-            {
-                var bonusCardsCount = player.GetNeighborByDirection(playerDirection).GetActiveCardCountByType(CardType);
-                var totalBonus = bonusCardsCount * CurrentVictoryBonus;
-                player.Resources.AddVictory(totalBonus);
-            }
         }
     }
 }
