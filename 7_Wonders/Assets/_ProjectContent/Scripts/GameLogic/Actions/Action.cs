@@ -11,6 +11,13 @@ namespace WhiteTeam.GameLogic.Actions
             Card = card;
         }
 
+        public void SendRequest()
+        {
+            
+        }
+
+        protected abstract void SendRequest(Card card, Command command);
+
         public abstract Command GetCommand();
 
         public enum Command

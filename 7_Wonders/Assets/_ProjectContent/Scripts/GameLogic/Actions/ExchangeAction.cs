@@ -8,6 +8,11 @@ namespace WhiteTeam.GameLogic.Actions
         {
         }
 
+        protected override void SendRequest(Card card, Command command)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override Command GetCommand() => Command.EXCHANGE;
     }
 }
