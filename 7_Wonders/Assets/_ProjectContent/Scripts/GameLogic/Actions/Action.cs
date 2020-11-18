@@ -1,29 +1,12 @@
-﻿using WhiteTeam.GameLogic.Cards;
+﻿using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Actions
 {
-    public abstract class Action
+    public abstract class Action<T>
+        where T : INetworkEntity
     {
-        public Card Card { get; private set; }
+        protected abstract void SendRequest(T entity, string command);
 
-        public Action(Card card)
-        {
-            Card = card;
-        }
-
-        public void SendRequest()
-        {
-            
-        }
-
-        protected abstract void SendRequest(Card card, Command command);
-
-        public abstract Command GetCommand();
-
-        public enum Command
-        {
-            USE,
-            EXCHANGE
-        }
+        public abstract string GetCommand();
     }
 }

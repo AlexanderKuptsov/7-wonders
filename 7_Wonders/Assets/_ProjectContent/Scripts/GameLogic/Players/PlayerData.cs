@@ -39,6 +39,9 @@ namespace WhiteTeam.GameLogic
         // ----- EVENTS -----
         public List<EffectEvent> NextEpochEffectEvents;
         
+        
+        
+        
         public enum MoveStateType
         {
             IN_PROGRESS,

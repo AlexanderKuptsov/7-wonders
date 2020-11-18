@@ -2,17 +2,17 @@
 
 namespace WhiteTeam.GameLogic.Actions
 {
-    public class ExchangeAction : Action
+    public class ExchangeAction : CardAction
     {
         public ExchangeAction(Card card) : base(card)
         {
         }
 
-        protected override void SendRequest(Card card, Command command)
+        protected override void SendRequest(Card card, string command)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Command GetCommand() => Command.EXCHANGE;
+        public override string GetCommand() => Command.EXCHANGE.ToString();
     }
 }
