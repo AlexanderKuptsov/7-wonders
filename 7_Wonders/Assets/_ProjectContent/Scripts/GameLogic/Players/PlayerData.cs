@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 using WhiteTeam.Network.Entity;
 
@@ -35,6 +36,9 @@ namespace WhiteTeam.GameLogic
         public PlayerResources Resources => resources;
         public ResourcesCost ResourcesBuyCost { get; } = new ResourcesCost();
 
+        // ----- EVENTS -----
+        public List<EffectEvent> NextEpochEffectEvents;
+        
         public enum MoveStateType
         {
             IN_PROGRESS,
@@ -43,7 +47,7 @@ namespace WhiteTeam.GameLogic
 
         private PlayerData(string id, string name) : base(id, name)
         {
-        }
+        } 
 
         public PlayerData(string id, string name, Role role) : base(id, name)
         {
@@ -95,6 +99,19 @@ namespace WhiteTeam.GameLogic
         {
             resources.HandleTemp();
             HandleTempActiveCard();
+        }
+
+        public void NextEpoch()
+        {
+            foreach (var effectEvent in NextEpochEffectEvents)
+            {
+                effectEvent.Effect.Activate(this);
+            }
+
+            if (NextEpochEffectEvents.Any(effectEvent => !effectEvent.IsRepeatable))
+            {
+                NextEpochEffectEvents = NextEpochEffectEvents.Where(effectEvent => effectEvent.IsRepeatable).ToList();
+            }
         }
 
         public void ActivateEndGameBonuses()
