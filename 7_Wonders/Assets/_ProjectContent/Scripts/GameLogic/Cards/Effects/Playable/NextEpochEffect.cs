@@ -17,7 +17,7 @@
         public override void Activate(PlayerData player)
         {
             var effectEvent = new EffectEvent {Effect = Effect, IsRepeatable = IsRepeatable};
-            player.NextEpochEffectEvents.Add(effectEvent);
+            player.Events.NextEpochEffects.Add(effectEvent);
             if (IsInstant)
             {
                 Effect.Activate(player);

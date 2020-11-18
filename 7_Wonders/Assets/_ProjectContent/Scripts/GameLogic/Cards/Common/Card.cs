@@ -31,7 +31,7 @@ namespace WhiteTeam.GameLogic.Cards
         public void Exchange(PlayerData player)
         {
             player.ThrowCard(this);
-            player.Resources.AddMoney(RulesParameters.Instance.CardExchangeAmount);
+            player.Resources.ChangeMoney(RulesParameters.Instance.CardExchangeAmount);
         }
 
         public void Use(PlayerData player)

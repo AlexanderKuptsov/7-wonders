@@ -21,13 +21,13 @@ namespace WhiteTeam.GameLogic
             var opponentWarPower = opponent.Resources.GetMilitary();
             if (invaderWarPower > opponentWarPower)
             {
-                invader.Resources.AddWarVictoryTokens(
+                invader.Resources.ChangeWarVictoryTokens(
                     RulesParameters.Instance.EpochWarVictoryTokens[
                         GameManager.Instance.CurrentSession.GameState.Epoch]);
             }
             else if (invaderWarPower < opponentWarPower)
             {
-                invader.Resources.AddWarLoseTokens(
+                invader.Resources.ChangeWarLoseTokens(
                     RulesParameters.Instance.EpochWarLoseTokens[
                         GameManager.Instance.CurrentSession.GameState.Epoch]);
             }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.Actions;
+using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Utils;
+using WhiteTeam.Network.Entity;
 using WhiteTeam.Network.ServerModules;
 
 namespace WhiteTeam.GameLogic.Managers
@@ -27,6 +30,25 @@ namespace WhiteTeam.GameLogic.Managers
         {
             timer.OnTimerEnd.Subscribe(NextMoveRequest);
         }
+
+        #region METHODS
+
+        public Dictionary<PlayerData, IEnumerable<Card>> CreatePlayerCardsData(
+            Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
+        {
+            var playersCardsData = new Dictionary<PlayerData, IEnumerable<Card>>();
+            foreach (var playerId in rawPlayersCardsData.Keys)
+            {
+                NetworkEntity.FindEntityById(CurrentSession.Players, playerId, out var player);
+                var cards = CardsStack.GetCards(rawPlayersCardsData[playerId]);
+
+                playersCardsData.Add(player, cards);
+            }
+
+            return playersCardsData;
+        }
+
+        #endregion
 
         #region ACTIONS
 

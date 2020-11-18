@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Cards.Effects;
@@ -37,11 +38,8 @@ namespace WhiteTeam.GameLogic
         public ResourcesCost ResourcesBuyCost { get; } = new ResourcesCost();
 
         // ----- EVENTS -----
-        public List<EffectEvent> NextEpochEffectEvents;
-        
-        
-        
-        
+        public EffectsEvents Events = new EffectsEvents();
+
         public enum MoveStateType
         {
             IN_PROGRESS,
@@ -50,7 +48,7 @@ namespace WhiteTeam.GameLogic
 
         private PlayerData(string id, string name) : base(id, name)
         {
-        } 
+        }
 
         public PlayerData(string id, string name, Role role) : base(id, name)
         {
@@ -79,9 +77,12 @@ namespace WhiteTeam.GameLogic
             RightPlayerData = rightPlayerData;
         }
 
-        public void GiveCards(List<Card> cards)
+        public void GiveCards(IEnumerable<Card> cards)
         {
-            inHandCards = cards;
+            foreach (var card in cards)
+            {
+                inHandCards.Add(card);
+            }
         }
 
         public void ActivateCard(Card card)
@@ -102,19 +103,18 @@ namespace WhiteTeam.GameLogic
         {
             resources.HandleTemp();
             HandleTempActiveCard();
+
+            Events.NextMoveEffects.Trigger(this);
         }
 
         public void NextEpoch()
         {
-            foreach (var effectEvent in NextEpochEffectEvents)
+            foreach (var activeCard in activeCards)
             {
-                effectEvent.Effect.Activate(this);
+                ThrowCard(activeCard);
             }
 
-            if (NextEpochEffectEvents.Any(effectEvent => !effectEvent.IsRepeatable))
-            {
-                NextEpochEffectEvents = NextEpochEffectEvents.Where(effectEvent => effectEvent.IsRepeatable).ToList();
-            }
+            Events.NextEpochEffects.Trigger(this);
         }
 
         public void ActivateEndGameBonuses()
@@ -123,6 +123,8 @@ namespace WhiteTeam.GameLogic
             {
                 activeCard.ActivateEndGameEffect(this);
             }
+
+            Events.EndGameEffects.Trigger(this);
         }
 
         public PlayerData GetNeighborByDirection(PlayerDirection playerDirection)

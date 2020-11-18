@@ -11,7 +11,7 @@
 
         public override void Activate(PlayerData player)
         {
-            player.Resources.AddMilitary(Shields);
+            player.Resources.ChangeMilitary(Shields);
         }
     }
 }

@@ -11,7 +11,7 @@
 
         public override void Activate(PlayerData player)
         {
-            player.Resources.AddMoney(Coins);
+            player.Resources.ChangeMoney(Coins);
         }
     }
 }

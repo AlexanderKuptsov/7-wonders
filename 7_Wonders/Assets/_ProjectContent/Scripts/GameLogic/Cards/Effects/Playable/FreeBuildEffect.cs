@@ -11,7 +11,12 @@
 
         public override void Activate(PlayerData player)
         {
-            player.Resources.AddFreeBuildTokens(FreeBuildAmount);
+            var freeBuildTokens = player.Resources.GetFreeBuildTokens();
+            if (freeBuildTokens < FreeBuildAmount)
+            {
+                var remainingFreeBuildTokens = FreeBuildAmount - freeBuildTokens;
+                player.Resources.ChangeFreeBuildTokens(remainingFreeBuildTokens);
+            }
         }
     }
 }

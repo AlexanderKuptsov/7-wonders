@@ -11,10 +11,10 @@ namespace WhiteTeam.GameLogic.Resources
         // ----- MAIN -----
         private Resource _money = new Resource(GameParameters.Instance.DefaultResources.Money);
 
-        public Resource _military = new Resource(GameParameters.Instance.DefaultResources.Military);
-        public Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
+        private Resource _military = new Resource(GameParameters.Instance.DefaultResources.Military);
+        private Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
 
-        public Resource _warVictoryTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
+        private Resource _warVictoryTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
         public Resource _warLoseTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
 
         private Dictionary<Resource.Science, int> _science = new Dictionary<Resource.Science, int>
@@ -37,7 +37,7 @@ namespace WhiteTeam.GameLogic.Resources
         };
 
         // SPECIAL
-        public Resource _freeBuildTokens = new Resource(GameParameters.Instance.DefaultResources.FreeBuildTokens);
+        private Resource _freeBuildTokens = new Resource(GameParameters.Instance.DefaultResources.FreeBuildTokens);
 
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();
@@ -70,40 +70,54 @@ namespace WhiteTeam.GameLogic.Resources
             return currencyAmount >= requiredCurrencyAmount;
         }
 
+        public void Buy(Resource.CurrencyItem currencyItem)
+        {
+            var requiredCurrencyType = currencyItem.Currency;
+            var requiredCurrencyAmount = currencyItem.Amount;
+            if (requiredCurrencyType == Resource.CurrencyProducts.MONEY)
+            {
+                _money.Decrease(requiredCurrencyAmount);
+            }
+            else
+            {
+                _production[requiredCurrencyType] -= requiredCurrencyAmount;
+            }
+        }
+
         public void ConvertWarTokensToVictory()
         {
             var warProfit = GetWarVictoryTokens() - GetWarLoseTokens();
-            AddVictory(warProfit);
+            ChangeVictory(warProfit);
         }
 
         #region CHANGE
 
-        public void AddMoney(int amount)
+        public void ChangeMoney(int amount)
         {
             _money.Increase(amount);
         }
 
-        public void AddMilitary(int amount)
+        public void ChangeMilitary(int amount)
         {
             _military.Increase(amount);
         }
 
-        public void AddVictory(int amount)
+        public void ChangeVictory(int amount)
         {
             _victory.Increase(amount);
         }
 
-        public void AddWarVictoryTokens(int amount)
+        public void ChangeWarVictoryTokens(int amount)
         {
             _warVictoryTokens.Increase(amount);
         }
 
-        public void AddWarLoseTokens(int amount)
+        public void ChangeWarLoseTokens(int amount)
         {
             _warLoseTokens.Increase(amount);
         }
 
-        public void AddProduction(Resource.CurrencyItem newProduction)
+        public void ChangeProduction(Resource.CurrencyItem newProduction)
         {
             _production[newProduction.Currency] += newProduction.Amount;
         }
@@ -118,7 +132,7 @@ namespace WhiteTeam.GameLogic.Resources
             _science[newScience.Currency] += newScience.Amount;
         }
 
-        public void AddFreeBuildTokens(int amount)
+        public void ChangeFreeBuildTokens(int amount)
         {
             _freeBuildTokens.Increase(amount);
         }
@@ -201,7 +215,7 @@ namespace WhiteTeam.GameLogic.Resources
         public void HandleTemp()
         {
             // MONEY
-            AddMoney(_tempMoney.Value);
+            ChangeMoney(_tempMoney.Value);
             _tempMoney.Clear();
 
             // PRODUCTION

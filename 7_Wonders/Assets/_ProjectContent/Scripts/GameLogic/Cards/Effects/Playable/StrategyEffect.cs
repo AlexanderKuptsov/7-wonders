@@ -17,7 +17,7 @@
             {
                 var bonusCardsCount = player.GetNeighborByDirection(playerDirection).Resources.GetWarLoseTokens();
                 var totalBonus = bonusCardsCount * CurrentVictoryBonus;
-                player.Resources.AddVictory(totalBonus);
+                player.Resources.ChangeVictory(totalBonus);
             }
         }
     }

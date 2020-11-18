@@ -39,7 +39,25 @@ namespace WhiteTeam.GameLogic.Cards
         {
         }
 
-        public bool CanActivate(PlayerData player)
+        public void Buy(PlayerData player)
+        {
+            if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard))
+            {
+                return;
+            }
+
+            foreach (var currencyItem in CostInfo)
+            {
+                player.Resources.Buy(currencyItem);
+            }
+        }
+
+        public void UseFreeBuyToken(PlayerData player)
+        {
+            player.Resources.ChangeFreeBuildTokens(-1);
+        }
+
+        public bool CanBuy(PlayerData player)
         {
             // Check special requirement for free card activation 
             if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard))
@@ -51,6 +69,8 @@ namespace WhiteTeam.GameLogic.Cards
             var haveEnoughResources = CostInfo.All(currencyItem => player.Resources.HasEnoughCurrency(currencyItem));
             return haveEnoughResources;
         }
+
+        public bool HasFreeBuildToken(PlayerData player) => player.Resources.GetFreeBuildTokens() > 0;
 
         public IEnumerable<PropertyInfo> GetSelfProperties()
         {

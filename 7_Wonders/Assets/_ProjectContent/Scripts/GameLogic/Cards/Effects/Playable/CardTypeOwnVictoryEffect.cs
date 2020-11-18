@@ -9,7 +9,7 @@
 
         protected override void ApplyBonus(PlayerData player, int bonus)
         {
-            player.Resources.AddVictory(bonus);
+            player.Resources.ChangeVictory(bonus);
         }
     }
 }

@@ -11,7 +11,7 @@
 
         public override void Activate(PlayerData player)
         {
-            player.Resources.AddVictory(VictoryPoints);
+            player.Resources.ChangeVictory(VictoryPoints);
         }
     }
 }
