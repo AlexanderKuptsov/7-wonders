@@ -4,13 +4,10 @@ namespace WhiteTeam.GameLogic.Actions
 {
     public abstract class CardAction : Action<Card>
     {
-        protected Card _card { get; }
-
-        public CardAction(Card card)
+        protected CardAction(Card entity) : base(entity)
         {
-            _card = card;
         }
-
+        
         protected enum Command
         {
             USE,
