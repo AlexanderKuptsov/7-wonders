@@ -1,9 +1,9 @@
 ﻿using System;
 using SK_Engine;
 using UnityEngine;
+using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.Utils;
 using WhiteTeam.Network.ServerModules;
-using Action = WhiteTeam.GameLogic.Actions.Action;
 
 namespace WhiteTeam.GameLogic.Managers
 {
@@ -55,9 +55,9 @@ namespace WhiteTeam.GameLogic.Managers
             ServerGameHandler.Instance.NextMoveRequest();
         }
 
-        public void PlayerActionRequest(Action action)
+        public void PlayerActionRequest(CardAction action)
         {
-            throw new NotImplementedException();
+            action.SenRequest();
         }
 
         #endregion
