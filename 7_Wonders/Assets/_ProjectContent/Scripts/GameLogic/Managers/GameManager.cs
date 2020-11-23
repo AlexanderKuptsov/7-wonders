@@ -33,10 +33,10 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region METHODS
 
-        public Dictionary<PlayerData, IEnumerable<Card>> CreatePlayerCardsData(
+        public Dictionary<PlayerData, IEnumerable<CommonCard>> CreatePlayerCardsData(
             Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
         {
-            var playersCardsData = new Dictionary<PlayerData, IEnumerable<Card>>();
+            var playersCardsData = new Dictionary<PlayerData, IEnumerable<CommonCard>>();
             foreach (var playerId in rawPlayersCardsData.Keys)
             {
                 NetworkEntity.FindEntityById(CurrentSession.Players, playerId, out var player);

@@ -15,7 +15,7 @@ namespace WhiteTeam.GameLogic.Cards.Effects
         {
             foreach (var currencyItem in ActionInfo)
             {
-                player.Resources.ChangeProduction(currencyItem);
+                player.Resources.AddProduction(currencyItem);
             }
         }
     }

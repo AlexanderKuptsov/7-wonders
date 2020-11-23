@@ -68,7 +68,7 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        public void GiveCards(Dictionary<PlayerData, IEnumerable<Card>> playersCardsData)
+        public void GiveCards(Dictionary<PlayerData, IEnumerable<CommonCard>> playersCardsData)
         {
             foreach (var player in playersCardsData.Keys)
             {

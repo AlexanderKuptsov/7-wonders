@@ -6,32 +6,32 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public static class CardsStack
     {
-        private static List<Card> Cards;
+        private static List<CommonCard> Cards;
 
-        private static readonly List<Card> ThrownCards = new List<Card>();
+        private static readonly List<CommonCard> ThrownCards = new List<CommonCard>();
 
-        public static void LoadCards(List<Card> cards)
+        public static void LoadCards(List<CommonCard> cards)
         {
             Cards = cards;
         }
 
-        public static IEnumerable<Card> GetCards(IEnumerable<string> cardsId)
+        public static IEnumerable<CommonCard> GetCards(IEnumerable<string> cardsId)
         {
             return cardsId.Select(GetCard);
         }
 
-        public static Card GetCard(string id)
+        public static CommonCard GetCard(string id)
         {
             NetworkEntity.FindEntityById(Cards, id, out var card);
             return card;
         }
 
-        public static void ThrowCard(Card card)
+        public static void ThrowCard(CommonCard card)
         {
             ThrownCards.Add(card);
         }
 
-        public static IEnumerable<Card> GetThrownCards()
+        public static IEnumerable<CommonCard> GetThrownCards()
         {
             return ThrownCards;
         }

@@ -24,13 +24,13 @@ namespace WhiteTeam.GameLogic
         public MoveStateType MoveState => moveState;
 
         // ----- CARDS -----
-        [SerializeField] private List<Card> inHandCards = new List<Card>();
-        public List<Card> InHandCards => inHandCards;
+        [SerializeField] private List<CommonCard> inHandCards = new List<CommonCard>();
+        public List<CommonCard> InHandCards => inHandCards;
 
-        [SerializeField] private List<Card> activeCards = new List<Card>();
-        public List<Card> ActiveCards => activeCards;
+        [SerializeField] private List<CommonCard> activeCards = new List<CommonCard>();
+        public List<CommonCard> ActiveCards => activeCards;
 
-        [SerializeField] private Card tempActiveCard;
+        [SerializeField] private CommonCard tempActiveCard;
 
         // ----- RESOURCES -----
         [SerializeField] private PlayerResources resources = new PlayerResources();
@@ -77,7 +77,7 @@ namespace WhiteTeam.GameLogic
             RightPlayerData = rightPlayerData;
         }
 
-        public void GiveCards(IEnumerable<Card> cards)
+        public void GiveCards(IEnumerable<CommonCard> cards)
         {
             foreach (var card in cards)
             {
@@ -85,14 +85,14 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        public void ActivateCard(Card card)
+        public void ActivateCard(CommonCard card)
         {
             tempActiveCard = card;
             inHandCards.Remove(card);
             // TODO -- ui event/action
         }
 
-        public void ThrowCard(Card card)
+        public void ThrowCard(CommonCard card)
         {
             inHandCards.Remove(card);
 
@@ -145,19 +145,20 @@ namespace WhiteTeam.GameLogic
         public int GetActiveCardCountByType(CardType cardType) =>
             activeCards.Count(card => card.Data.Type == cardType);
 
-        public bool FindInHandCardById(string cardId, out Card foundCard) =>
+        public bool FindInHandCardById(string cardId, out CommonCard foundCard) =>
             FindCardById(InHandCards, cardId, out foundCard);
 
-        public bool FindActiveCardById(string cardId, out Card foundCard) =>
+        public bool FindActiveCardById(string cardId, out CommonCard foundCard) =>
             FindCardById(ActiveCards, cardId, out foundCard);
 
         private void HandleTempActiveCard()
         {
             activeCards.Add(tempActiveCard);
+            tempActiveCard.Data.Activate();
             tempActiveCard = null;
         }
 
-        private bool FindCardById(IEnumerable<Card> cardsStack, string cardId, out Card foundCard) =>
+        private bool FindCardById(IEnumerable<CommonCard> cardsStack, string cardId, out CommonCard foundCard) =>
             NetworkEntity.FindEntityById(cardsStack, cardId, out foundCard);
     }
 }

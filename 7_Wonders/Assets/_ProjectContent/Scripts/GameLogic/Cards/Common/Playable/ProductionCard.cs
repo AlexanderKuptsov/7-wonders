@@ -3,9 +3,9 @@ using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class ManufactureCard : SpecialCard<ProductionCardEffect>
+    public class ProductionCard : SpecialCard<ProductionCardEffect>
     {
-        public ManufactureCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+        public ProductionCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
             string requirementBuildCardId, ProductionCardEffect currentEffect) : base(id, name, type, epoch, costInfo,
             requirementBuildCardId, currentEffect)
         {

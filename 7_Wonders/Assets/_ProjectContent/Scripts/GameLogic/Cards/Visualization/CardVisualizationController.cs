@@ -78,7 +78,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         //     AddToCard(card, visualizer);
         // }
 
-        private static void AddToCard(Card card, GameObject visualizer)
+        private static void AddToCard(CommonCard card, GameObject visualizer)
         {
             Instantiate(visualizer, card.transform);
         }

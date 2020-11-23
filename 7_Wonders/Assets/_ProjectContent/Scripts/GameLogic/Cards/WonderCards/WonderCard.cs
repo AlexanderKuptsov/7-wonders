@@ -1,53 +1,30 @@
-﻿using System.Linq;
-using MyBox;
-
-namespace WhiteTeam.GameLogic.Cards.Wonder
+﻿namespace WhiteTeam.GameLogic.Cards.Wonder
 {
-    public abstract class WonderCard //: CardData // TODO
+    public class WonderCard : CardWrapper<WonderCardData>
     {
-        [ReadOnly] public string Id;
-        [ReadOnly] public string Name;
-
-        protected StepBuild[] stepBuilds;
-
-        private int _completedSteps;
-
-        public StepBuild CurrentStepBuild => _completedSteps < stepBuilds.Length ? stepBuilds[_completedSteps] : null;
-
-        public bool IsCompleted => stepBuilds.All(build => build.IsCompleted);
-
-        public WonderCard(string id, string name)
+        public override void UseRequest()
         {
-            Id = id;
-            Name = name;
-            _completedSteps = 0;
+            throw new System.NotImplementedException();
         }
 
-        public bool CanBuildCurrentStep(PlayerData player)
+        public override void ActivatedUseRequest()
         {
-            var currentStepBuild = CurrentStepBuild;
-            return currentStepBuild != null && currentStepBuild.CanBuild(player);
+            throw new System.NotImplementedException();
         }
 
-        public void Build(PlayerData player, Card cardToThrow)
+        public override void Use(PlayerData player)
         {
-            player.ThrowCard(cardToThrow);
-            var currentStepBuild = CurrentStepBuild;
-            NextBuild(player, currentStepBuild);
-            _completedSteps++;
+            throw new System.NotImplementedException();
         }
 
-        private static void NextBuild(PlayerData player, StepBuild stepBuild)
+        public override void ActivatedUse(PlayerData player)
         {
-            stepBuild.Build(player);
+            throw new System.NotImplementedException();
         }
 
-        public virtual void ActivateStartGameEffect(PlayerData player)
+        public override void ActivateEndGameEffect(PlayerData player)
         {
-        }
-
-        public virtual void ActivateEndGameEffect(PlayerData player)
-        {
+            throw new System.NotImplementedException();
         }
     }
 }

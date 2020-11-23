@@ -2,15 +2,16 @@
 
 namespace WhiteTeam.GameLogic.Actions
 {
-    public abstract class CardAction : Action<Card>
+    public abstract class CardAction : Action<CommonCard>
     {
-        protected CardAction(Card entity) : base(entity)
+        protected CardAction(CommonCard entity) : base(entity)
         {
         }
         
         protected enum Command
         {
             USE,
+            ACTIVATED_USE,
             EXCHANGE
         }
     }

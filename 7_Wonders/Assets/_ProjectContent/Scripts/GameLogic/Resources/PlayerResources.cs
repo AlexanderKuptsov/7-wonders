@@ -19,22 +19,12 @@ namespace WhiteTeam.GameLogic.Resources
 
         private Dictionary<Resource.Science, int> _science = new Dictionary<Resource.Science, int>
         {
-            {Resource.Science.RUNE_1, START_RESOURCE_AMOUNT},
-            {Resource.Science.RUNE_2, START_RESOURCE_AMOUNT},
-            {Resource.Science.RUNE_3, START_RESOURCE_AMOUNT},
+            {Resource.Science.RUNE_1, GameParameters.Instance.DefaultResources.Science},
+            {Resource.Science.RUNE_2, GameParameters.Instance.DefaultResources.Science},
+            {Resource.Science.RUNE_3, GameParameters.Instance.DefaultResources.Science},
         };
 
-        private Dictionary<Resource.CurrencyProducts, int> _production = new Dictionary<Resource.CurrencyProducts, int>
-        {
-            // RawMaterial
-            {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
-            {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
-
-            // Products
-            {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
-        };
+        private ProductionResources _production = new ProductionResources();
 
         // SPECIAL
         private Resource _freeBuildTokens = new Resource(GameParameters.Instance.DefaultResources.FreeBuildTokens);
@@ -42,22 +32,11 @@ namespace WhiteTeam.GameLogic.Resources
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();
 
-        private Dictionary<Resource.CurrencyProducts, int> _tempProduction =
-            new Dictionary<Resource.CurrencyProducts, int>
-            {
-                // RawMaterial
-                {Resource.CurrencyProducts.WOOD, START_RESOURCE_AMOUNT},
-                {Resource.CurrencyProducts.ORE, START_RESOURCE_AMOUNT},
-                {Resource.CurrencyProducts.CLAY, START_RESOURCE_AMOUNT},
-                {Resource.CurrencyProducts.STONE, START_RESOURCE_AMOUNT},
+        private ProductionResources _tempProduction = new ProductionResources();
 
-                // Products
-                {Resource.CurrencyProducts.PAPYRUS, START_RESOURCE_AMOUNT},
-                {Resource.CurrencyProducts.CLOTH, START_RESOURCE_AMOUNT},
-                {Resource.CurrencyProducts.GLASS, START_RESOURCE_AMOUNT},
-            };
+        // NO TRADE
+        private ProductionResources _noTradeProduction = new ProductionResources();
 
-        private const int START_RESOURCE_AMOUNT = 0;
 
         public bool HasEnoughCurrency(Resource.CurrencyItem currencyItem)
         {
@@ -65,7 +44,7 @@ namespace WhiteTeam.GameLogic.Resources
             var requiredCurrencyAmount = currencyItem.Amount;
             var currencyAmount = requiredCurrencyType == Resource.CurrencyProducts.MONEY
                 ? GetMoney()
-                : GetProduction(requiredCurrencyType);
+                : GetSelfProduction(requiredCurrencyType);
 
             return currencyAmount >= requiredCurrencyAmount;
         }
@@ -80,7 +59,7 @@ namespace WhiteTeam.GameLogic.Resources
             }
             else
             {
-                _production[requiredCurrencyType] -= requiredCurrencyAmount;
+                _production.Storage[requiredCurrencyType] -= requiredCurrencyAmount;
             }
         }
 
@@ -117,19 +96,24 @@ namespace WhiteTeam.GameLogic.Resources
             _warLoseTokens.Increase(amount);
         }
 
-        public void ChangeProduction(Resource.CurrencyItem newProduction)
+        public void AddProduction(Resource.CurrencyItem newProduction)
         {
-            _production[newProduction.Currency] += newProduction.Amount;
+            _production.Storage[newProduction.Currency] += newProduction.Amount;
         }
 
         public void SpendProduction(Resource.CurrencyItem newProduction)
         {
-            _production[newProduction.Currency] -= newProduction.Amount;
+            _production.Storage[newProduction.Currency] -= newProduction.Amount;
         }
 
         public void AddScience(Resource.ScienceItem newScience)
         {
             _science[newScience.Currency] += newScience.Amount;
+        }
+
+        public void SpendScience(Resource.ScienceItem newScience)
+        {
+            _science[newScience.Currency] -= newScience.Amount;
         }
 
         public void ChangeFreeBuildTokens(int amount)
@@ -166,30 +150,25 @@ namespace WhiteTeam.GameLogic.Resources
             return _warLoseTokens.Value;
         }
 
-        public int GetProduction(Resource.CurrencyProducts currency)
+        public int GetSelfProduction(Resource.CurrencyProducts currency)
         {
-            var amount = START_RESOURCE_AMOUNT;
+            var amount = 0;
 
-            if (!_production.ContainsKey(currency) || !_tempProduction.ContainsKey(currency))
-            {
-                Debug.LogError("[PlayerResources] Invalid currency access");
-                return amount;
-            }
-
-            amount += _production[currency];
-            amount += _tempProduction[currency];
+            amount += _production.Storage[currency];
+            amount += _tempProduction.Storage[currency];
+            amount += _noTradeProduction.Storage[currency];
 
             return amount;
         }
 
+        public int GetTradeProduction(Resource.CurrencyProducts currency)
+        {
+            return _production.Storage[currency];
+        }
+
+
         public int GetScience(Resource.Science currency)
         {
-            if (!_science.ContainsKey(currency))
-            {
-                Debug.LogError("[PlayerResources] Invalid currency access");
-                return START_RESOURCE_AMOUNT;
-            }
-
             return _science[currency];
         }
 
@@ -209,7 +188,7 @@ namespace WhiteTeam.GameLogic.Resources
 
         public void EarnTempProduction(Resource.CurrencyItem newProduction)
         {
-            _tempProduction[newProduction.Currency] += newProduction.Amount;
+            _tempProduction.Storage[newProduction.Currency] += newProduction.Amount;
         }
 
         public void HandleTemp()
@@ -219,19 +198,21 @@ namespace WhiteTeam.GameLogic.Resources
             _tempMoney.Clear();
 
             // PRODUCTION
-            ResetProduction(_tempProduction);
+            _tempProduction.Reset();
         }
 
         #endregion
 
-        #region METHODS
+        #region NO TRADE
 
-        private void ResetProduction(Dictionary<Resource.CurrencyProducts, int> production)
+        public void EarnNoTradeProduction(Resource.CurrencyItem newProduction)
         {
-            foreach (var currency in production.Keys)
-            {
-                production[currency] = START_RESOURCE_AMOUNT;
-            }
+            _noTradeProduction.Storage[newProduction.Currency] += newProduction.Amount;
+        }
+
+        public void RemoveNoTradeProduction(Resource.CurrencyItem newProduction)
+        {
+            _noTradeProduction.Storage[newProduction.Currency] -= newProduction.Amount;
         }
 
         #endregion

@@ -3,7 +3,7 @@ using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class SpecialCard<TEffect> : CardData
+    public class SpecialCard<TEffect> : CommonCardData
         where TEffect : CardEffect
     {
         public ICardEffect CurrentEffect;

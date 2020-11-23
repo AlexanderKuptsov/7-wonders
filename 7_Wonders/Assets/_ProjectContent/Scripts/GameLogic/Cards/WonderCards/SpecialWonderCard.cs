@@ -2,7 +2,7 @@
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
-    public class SpecialWonderCard<TEffect1, TEffect2, TEffect3> : WonderCard // TYPE A (3 steps)
+    public class SpecialWonderCard<TEffect1, TEffect2, TEffect3> : WonderCardData // TYPE A (3 steps)
         where TEffect1 : CardEffect
         where TEffect2 : CardEffect
         where TEffect3 : CardEffect
@@ -15,7 +15,11 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
             StepBuildWithEffect<TEffect3> stepBuild3)
             : base(id, name)
         {
-            stepBuilds = new StepBuild[] {stepBuild1, stepBuild2, stepBuild3};
+            StepBuilds = new StepBuild[] {stepBuild1, stepBuild2, stepBuild3};
         }
+
+        public StepBuildWithEffect<TEffect1> FirstStepBuild => (StepBuildWithEffect<TEffect1>) StepBuilds[0];
+        public StepBuildWithEffect<TEffect2> SecondStepBuild => (StepBuildWithEffect<TEffect2>) StepBuilds[1];
+        public StepBuildWithEffect<TEffect3> ThirdStepBuild => (StepBuildWithEffect<TEffect3>) StepBuilds[2];
     }
 }

@@ -1,15 +1,11 @@
-﻿using UnityEngine;
-using WhiteTeam.GameLogic.Actions;
+﻿using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
-using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public abstract class Card : MonoBehaviour, INetworkEntity
+    public class CommonCard : CardWrapper<CommonCardData>
     {
-        public CardData Data;
-
         #region NETWORK REQUESTS
 
         public void ExchangeRequest()
@@ -18,9 +14,15 @@ namespace WhiteTeam.GameLogic.Cards
             GameManager.Instance.PlayerActionRequest(action);
         }
 
-        public void UseRequest()
+        public override void UseRequest()
         {
             var action = new UseAction(this);
+            GameManager.Instance.PlayerActionRequest(action);
+        }
+
+        public override void ActivatedUseRequest()
+        {
+            var action = new ActivatedUseAction(this);
             GameManager.Instance.PlayerActionRequest(action);
         }
 
@@ -34,19 +36,23 @@ namespace WhiteTeam.GameLogic.Cards
             player.Resources.ChangeMoney(RulesParameters.Instance.CardExchangeAmount);
         }
 
-        public void Use(PlayerData player)
+        public override void Use(PlayerData player)
         {
             player.ActivateCard(this);
             Data.Use(player);
         }
 
-        public void ActivateEndGameEffect(PlayerData player)
+        public override void ActivatedUse(PlayerData player)
+        {
+            Data.ActivatedUse(player);
+        }
+
+
+        public override void ActivateEndGameEffect(PlayerData player)
         {
             Data.ActivateEndGameEffect(player);
         }
 
         #endregion
-
-        public IdentifierInfo GetIdentifierInfo() => Data.GetIdentifierInfo();
     }
 }

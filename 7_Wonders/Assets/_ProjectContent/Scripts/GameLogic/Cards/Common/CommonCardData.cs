@@ -4,39 +4,45 @@ using System.Linq;
 using System.Reflection;
 using MyBox;
 using WhiteTeam.GameLogic.Resources;
-using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
 {
     [Serializable]
-    public abstract class CardData : INetworkEntity
+    public abstract class CommonCardData : CardData
     {
-        [ReadOnly] public string Id;
-        [ReadOnly] public string Name;
         [ReadOnly] public CardType Type;
         [ReadOnly] public int Epoch;
         [ReadOnly] public Resource.CurrencyItem[] CostInfo;
-        [ReadOnly] public string RequirementBuildCardId; // TODO
+        [ReadOnly] public string RequirementBuildCardId;
 
-        private IdentifierInfo _identifierInfo;
+        private bool _isActivated;
 
-        public CardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId)
+        public CommonCardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
+            string requirementBuildCardId) : base(id, name)
         {
-            Id = id;
-            Name = name;
             Type = type;
             Epoch = epoch;
             CostInfo = costInfo;
             RequirementBuildCardId = requirementBuildCardId;
-
-            _identifierInfo = new IdentifierInfo(Id, Name);
         }
 
-        public abstract void Use(PlayerData player);
-
-        public virtual void ActivateEndGameEffect(PlayerData player)
+        public override void ActivatedUse(PlayerData player)
         {
+            if (!_isActivated) return;
+            ActivatedUseAction(player);
+        }
+
+        protected virtual void ActivatedUseAction(PlayerData player)
+        {
+        }
+
+        public override void ActivateEndGameEffect(PlayerData player)
+        {
+        }
+
+        public void Activate()
+        {
+            _isActivated = true;
         }
 
         public void Buy(PlayerData player)
@@ -75,18 +81,15 @@ namespace WhiteTeam.GameLogic.Cards
         public IEnumerable<PropertyInfo> GetSelfProperties()
         {
             return Assembly
-                .GetAssembly(typeof(CardData))
+                .GetAssembly(typeof(CommonCardData))
                 .GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(CardData))).SelectMany(t => t.GetProperties());
+                .Where(t => t.IsSubclassOf(typeof(CommonCardData))).SelectMany(t => t.GetProperties());
         }
-
-        public IdentifierInfo GetIdentifierInfo() => _identifierInfo;
     }
 
     public enum CardType
     {
-        RAW_MATERIALS,
-        MANUFACTURE,
+        PRODUCTION,
         CIVILIAN,
         SCIENTIFIC,
         COMMERCIAL,

@@ -2,9 +2,9 @@
 
 namespace WhiteTeam.GameLogic.Actions
 {
-    public class UseAction : CardAction
+    public class ActivatedUseAction : CardAction
     {
-        public UseAction(CommonCard card) : base(card)
+        public ActivatedUseAction(CommonCard entity) : base(entity)
         {
         }
 
@@ -13,6 +13,6 @@ namespace WhiteTeam.GameLogic.Actions
             throw new System.NotImplementedException();
         }
 
-        public override string GetCommand() => Command.USE.ToString();
+        public override string GetCommand() => Command.ACTIVATED_USE.ToString();
     }
 }
