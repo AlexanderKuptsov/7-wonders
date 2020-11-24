@@ -271,6 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1055673107}
   - component: {fileID: 1055673108}
+  - component: {fileID: 1055673109}
   m_Layer: 0
   m_Name: SessionHandler
   m_TagString: Untagged
@@ -306,6 +307,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   postURL: 
   getURL: 
+--- !u!114 &1055673109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055673106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54118f674d755b418793a7eea0c51df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: 
+  port: 
+  connectOnEvent: 0
+  connectEvent: {fileID: 0}
+  logger:
+    Level: 1
+    Name: LobbyModule
 --- !u!1 &1123286124
 GameObject:
   m_ObjectHideFlags: 0
