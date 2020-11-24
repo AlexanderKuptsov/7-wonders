@@ -2,7 +2,7 @@
 {
     public class CardTypeOwnVictoryEffect : CardTypeOwnEffect
     {
-        public CardTypeOwnVictoryEffect(PlayerDirection[] playerDirection, CardType cardType, int currentMoneyBonus) :
+        public CardTypeOwnVictoryEffect(PlayerDirection[] playerDirection, CommonCardData.CardType cardType, int currentMoneyBonus) :
             base(playerDirection, cardType, currentMoneyBonus)
         {
         }

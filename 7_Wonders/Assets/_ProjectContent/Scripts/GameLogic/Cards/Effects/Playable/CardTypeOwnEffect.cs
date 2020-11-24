@@ -3,10 +3,10 @@
     public abstract class CardTypeOwnEffect : CardEffect
     {
         public readonly PlayerDirection[] PlayerDirection;
-        public readonly CardType CardType;
+        public readonly CommonCardData.CardType CardType;
         public readonly int CurrentMoneyBonus;
 
-        public CardTypeOwnEffect(PlayerDirection[] playerDirection, CardType cardType, int currentMoneyBonus)
+        public CardTypeOwnEffect(PlayerDirection[] playerDirection, CommonCardData.CardType cardType, int currentMoneyBonus)
         {
             PlayerDirection = playerDirection;
             CardType = cardType;

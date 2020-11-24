@@ -142,7 +142,7 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        public int GetActiveCardCountByType(CardType cardType) =>
+        public int GetActiveCardCountByType(CommonCardData.CardType cardType) =>
             activeCards.Count(card => card.Data.Type == cardType);
 
         public bool FindInHandCardById(string cardId, out CommonCard foundCard) =>
