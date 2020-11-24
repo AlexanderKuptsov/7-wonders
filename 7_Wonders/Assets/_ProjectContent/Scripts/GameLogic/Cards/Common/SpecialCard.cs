@@ -6,7 +6,7 @@ namespace WhiteTeam.GameLogic.Cards
     public class SpecialCard<TEffect> : CommonCardData
         where TEffect : CardEffect
     {
-        public ICardEffect CurrentEffect;
+        public TEffect CurrentEffect;
 
         public SpecialCard(
             string id,

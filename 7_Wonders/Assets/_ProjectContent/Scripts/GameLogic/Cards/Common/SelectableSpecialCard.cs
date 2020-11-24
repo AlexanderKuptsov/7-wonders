@@ -20,7 +20,7 @@ namespace WhiteTeam.GameLogic.Cards
 
         private void Select(PlayerData player)
         {
-            ((TEffect) CurrentEffect).Select(player);
+            CurrentEffect.Select(player);
         }
     }
 }
