@@ -113,6 +113,7 @@ namespace WhiteTeam.GameLogic
 
         public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers, int moveTime)
         {
+            
             // EXAMPLE
             // var lobbyId = "321";
             //
@@ -133,7 +134,9 @@ namespace WhiteTeam.GameLogic
             var connectedUsers = connectedUsersData
                 .Select(userData => new UserData(userData.Key, userData.Value));
 
+            
             var lobby = new Lobby(lobbyId, ownerUser, settings);
+            Debug.Log($"Created new lobby: {lobby.GetFullName()}");
             _lobbies.Add(lobby);
             logger.Log($"New lobby {lobby.GetFullName()} created.", Logger.LogLevel.INFO);
 

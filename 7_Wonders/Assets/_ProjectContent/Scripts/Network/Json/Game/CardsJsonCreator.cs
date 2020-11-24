@@ -11,7 +11,7 @@ public class CardsJsonCreator
         activate,
         sell,
         choose,
-        _throw
+        drop
     }
     
     private static string CreateCardJson(CardActionType cardActionType, string cardId)
@@ -41,7 +41,7 @@ public class CardsJsonCreator
     
     public static string CreateThrowCardJson(string cardId)
     {
-        return CreateCardJson(CardActionType._throw, cardId);
+        return CreateCardJson(CardActionType.drop, cardId);
     }
 
 

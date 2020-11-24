@@ -11,36 +11,50 @@ namespace WhiteTeam.Network.ServerModules
     {
         init,
         start,
-        card,
-        turn_end,
+        cardUse, // исользование/продажа/перевыбор
+        wonderUse,
+        turnEnd,
+        newEpoch,
         move,
-        counts
+        endGameScore
     }
 
     public class ServerGameHandler : ServerModuleHandler<ServerGameHandler>
     {
+        private void Start()
+        {
+            var initMessage =
+                "{\"status\":\"SUCCESS\",\"results\":{\"initInfo\": {\"cards\": [], \"wonderCards\"}},\"module\":\"Game\",\"type\":\"init\"}";
+        }
 
         protected override void OnTextMessageReceived(string text)
         {
-            var result = CardsJsonReceiver.Instance.Deserialize(text);
+            var result = GameJsonReceiver.Instance.Deserialize(text);
             var type = AssistanceFunctions.GetEnumByNameUsual<GameMessageType>(result.type);
             switch (type)
             {
                 case GameMessageType.init:
+                    //var cardType = AssistanceFunctions.GetEnumByNameUsual<CardType>(result.results.cards[].type);
+                    //GameManager.Instance.Init(result.results.initInfo);
                     break;
                 case GameMessageType.start:
+                    //GameManager.Instance.Start(result.results.startInfo);
                     break;
-                case GameMessageType.card:
-                    var cardType = AssistanceFunctions.GetEnumByNameUsual<CardType>(result.results.type);
+                case GameMessageType.cardUse:
+                    //GameManager.Instance.On
+                    break;
+                case GameMessageType.wonderUse:
                     //GameManager.Instance.On
                     break;
                 case GameMessageType.move:
                     //GameManager.Instance.On
                     break;
-                case GameMessageType.counts:
-                    //GameManager.Instance.On
+                case GameMessageType.newEpoch:
                     break;
-                case GameMessageType.turn_end:
+                case GameMessageType.turnEnd:
+                    break;
+                case GameMessageType.endGameScore:
+                    //GameManager.Instance.On
                     break;
                 default:
                     break;
