@@ -7,21 +7,11 @@ namespace WhiteTeam.GameLogic.Cards
         where TEffect : CardEffect
         where TEndGameEffect : CardEffect
     {
-        public readonly GuildsInfo GuildsType;
-
         protected GuildsCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId, GuildsInfo guildsType, TEffect currentEffect,
+            string requirementBuildCardId, TEffect currentEffect,
             TEndGameEffect endGameEffect = null)
             : base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect, endGameEffect)
         {
-            GuildsType = guildsType;
-        }
-
-        public enum GuildsInfo
-        {
-            OWNING,
-            STRATEGY,
-            SCIENCE
         }
     }
 }

@@ -6,8 +6,8 @@ namespace WhiteTeam.GameLogic.Cards
     public class GuildsStrategyCard : GuildsCard<StrategyEffect, StrategyEffect>
     {
         public GuildsStrategyCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId, GuildsInfo guildsType, StrategyEffect currentEffect)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType, currentEffect)
+            string requirementBuildCardId, StrategyEffect currentEffect)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect)
         {
         }
     }

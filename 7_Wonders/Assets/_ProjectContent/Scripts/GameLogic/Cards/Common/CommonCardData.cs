@@ -85,17 +85,21 @@ namespace WhiteTeam.GameLogic.Cards
                 .GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(CommonCardData))).SelectMany(t => t.GetProperties());
         }
-        
+
         public enum CardType
         {
             PRODUCTION,
             CIVILIAN,
             SCIENTIFIC,
-            COMMERCIAL,
             MILITARY,
-            GUILDS
+
+            COMMERCIAL_MONEY,
+            COMMERCIAL_TRADE,
+            COMMERCIAL_BONUS,
+
+            GUILDS_OWNING,
+            GUILDS_STRATEGY,
+            GUILDS_SCIENCE
         }
     }
-
-    
 }

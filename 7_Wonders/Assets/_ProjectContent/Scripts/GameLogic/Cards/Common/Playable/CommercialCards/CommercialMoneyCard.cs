@@ -6,8 +6,8 @@ namespace WhiteTeam.GameLogic.Cards
     public class CommercialMoneyCard : CommercialCard<MoneyEffect, MoneyEffect>
     {
         public CommercialMoneyCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId, CommercialInfo commercialType, MoneyEffect currentEffect)
-            : base(id, name, type, epoch, costInfo, requirementBuildCardId, commercialType, currentEffect)
+            string requirementBuildCardId, MoneyEffect currentEffect)
+            : base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect)
         {
         }
     }

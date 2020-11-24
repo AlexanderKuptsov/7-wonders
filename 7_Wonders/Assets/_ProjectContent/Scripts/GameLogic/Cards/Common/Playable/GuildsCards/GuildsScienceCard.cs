@@ -11,9 +11,9 @@ namespace WhiteTeam.GameLogic.Cards
         }
 
         public GuildsScienceCard(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
-            string requirementBuildCardId, GuildsInfo guildsType, ScienceEffect currentEffect,
-            ScienceEffect endGameEffect) : base(id, name, type, epoch, costInfo, requirementBuildCardId, guildsType,
-            currentEffect, endGameEffect)
+            string requirementBuildCardId, ScienceEffect currentEffect,
+            ScienceEffect endGameEffect) : base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect,
+            endGameEffect)
         {
         }
     }
