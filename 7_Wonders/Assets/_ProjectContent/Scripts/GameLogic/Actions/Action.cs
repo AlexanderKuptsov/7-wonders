@@ -2,7 +2,7 @@
 
 namespace WhiteTeam.GameLogic.Actions
 {
-    public abstract class Action<T>
+    public abstract class Action<T> : INetworkAction
         where T : INetworkEntity
     {
         protected readonly T _entity;

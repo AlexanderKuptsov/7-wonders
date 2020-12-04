@@ -496,11 +496,7 @@ MonoBehaviour:
     activeCards: []
     tempActiveCard: {fileID: 0}
     resources:
-      _military:
-        value: 0
-      _victory:
-        value: 0
-      _loseTokens:
+      _warLoseTokens:
         value: 0
 --- !u!1001 &6891579219751717902
 PrefabInstance:
@@ -598,9 +594,5 @@ MonoBehaviour:
     activeCards: []
     tempActiveCard: {fileID: 0}
     resources:
-      _military:
-        value: 0
-      _victory:
-        value: 0
-      _loseTokens:
+      _warLoseTokens:
         value: 0

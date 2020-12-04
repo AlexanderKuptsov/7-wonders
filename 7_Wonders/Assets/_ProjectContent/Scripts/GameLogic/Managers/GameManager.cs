@@ -4,6 +4,7 @@ using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.Utils;
 using WhiteTeam.Network.Entity;
 using WhiteTeam.Network.ServerModules;
@@ -33,7 +34,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region METHODS
 
-        public Dictionary<PlayerData, IEnumerable<CommonCard>> CreatePlayerCardsData(
+        public void CreatePlayerCardsData(
             Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
         {
             var playersCardsData = new Dictionary<PlayerData, IEnumerable<CommonCard>>();
@@ -45,7 +46,22 @@ namespace WhiteTeam.GameLogic.Managers
                 playersCardsData.Add(player, cards);
             }
 
-            return playersCardsData;
+            CurrentSession.GiveCards(playersCardsData);
+        }
+
+        public void CreatePlayerWonderCardsData(
+            Dictionary<string, string> rawPlayersCardsData)
+        {
+            var playersCardsData = new Dictionary<PlayerData, WonderCard>();
+            foreach (var playerId in rawPlayersCardsData.Keys)
+            {
+                NetworkEntity.FindEntityById(CurrentSession.Players, playerId, out var player);
+                var card = CardsStack.GetWonderCard(rawPlayersCardsData[playerId]);
+
+                playersCardsData.Add(player, card);
+            }
+
+            CurrentSession.GiveWonderCards(playersCardsData);
         }
 
         #endregion
@@ -74,10 +90,10 @@ namespace WhiteTeam.GameLogic.Managers
         {
             if (!IsAdmin()) return;
 
-            ServerGameHandler.Instance.NextMoveRequest();
+            ServerGameHandler.Instance.NextMoveRequest(); // TODO
         }
 
-        public void PlayerActionRequest(CardAction action)
+        public void PlayerActionRequest(INetworkAction action)
         {
             action.SenRequest();
         }

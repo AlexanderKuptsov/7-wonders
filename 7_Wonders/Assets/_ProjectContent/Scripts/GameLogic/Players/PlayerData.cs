@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SK_Engine;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
-using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.Resources;
 using WhiteTeam.Network.Entity;
 
@@ -22,6 +20,9 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private MoveStateType moveState; // TODO
         public MoveStateType MoveState => moveState;
+
+        // ----- WONDER CARD -----
+        [SerializeField] private WonderCard _wonderCard;
 
         // ----- CARDS -----
         [SerializeField] private List<CommonCard> inHandCards = new List<CommonCard>();
@@ -83,6 +84,11 @@ namespace WhiteTeam.GameLogic
             {
                 inHandCards.Add(card);
             }
+        }
+
+        public void GiveWonderCard(WonderCard wonderCard)
+        {
+            _wonderCard = wonderCard;
         }
 
         public void ActivateCard(CommonCard card)
