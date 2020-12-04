@@ -30,52 +30,42 @@ public class CardFromJsonBuilder : MonoBehaviour
                 var ownVictoryEffect = CardTypeOwnVictoryEffectJson.Deserialize(specs);
                 return new GuildsOwningCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, ownVictoryEffect);
-                break;
             case CommonCardData.CardType.GUILDS_SCIENCE:
                 return new GuildsScienceCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, new SelectableScienceEffect());
-                break;
             case CommonCardData.CardType.GUILDS_STRATEGY:
                 var strategyEffect = StrategyEffectJson.Deserialize(specs);
                 return new GuildsStrategyCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, strategyEffect);
-                break;
             case CommonCardData.CardType.CIVILIAN:
                 var victoryEffectCivilian = VictoryEffectJson.Deserialize(specs);
                 return new CivilianCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, victoryEffectCivilian);
-                break;
             case CommonCardData.CardType.MILITARY:
                 var militaryEffect = MilitaryEffectJson.Deserialize(specs);
                 return new MilitaryCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, militaryEffect);
-                break;
             case CommonCardData.CardType.COMMERCIAL_BONUS:
                 var victoryEffect = VictoryEffectJson.Deserialize(specs);
                 var cardTypeOwnMoneyEffect = CardTypeOwnMoneyEffectJson.Deserialize(specs);
                 return new CommercialBonusCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, cardTypeOwnMoneyEffect, victoryEffect);
-                break;
             case CommonCardData.CardType.COMMERCIAL_MONEY:
                 var moneyEffect = MoneyEffectJson.Deserialize(specs);
                 return new CommercialMoneyCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, moneyEffect);
-                break;
             case CommonCardData.CardType.COMMERCIAL_TRADE:
                 var tradeEffect = TradeEffectJson.Deserialize(specs);
                 return new CommercialTradeCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, tradeEffect);
-                break;
             case CommonCardData.CardType.PRODUCTION:
                 var productionEffect = ProductionEffectJson.Deserialize(specs);
                 return new ProductionCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, productionEffect);
-                break;
             case CommonCardData.CardType.SCIENTIFIC:
                 var scienceEffect = ScienceEffectJson.Deserialize(specs);
                 return new ScientificCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
                     card.requirementBuildCardId, scienceEffect);
-                break;
         }
 
         return null;

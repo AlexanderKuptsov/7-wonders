@@ -1,5 +1,7 @@
 ﻿using SK_Engine;
+using UnityEngine;
 using WhiteTeam.GameLogic.Token;
+using WhiteTeam.UI;
 
 namespace WhiteTeam.GameLogic.Auth
 {
@@ -35,6 +37,7 @@ namespace WhiteTeam.GameLogic.Auth
 
         public void SendLoginRequest(string login, string password)
         {
+            Debug.Log("Sending auth request");
             ServerModuleHandlerHTTP.Instance.AuthPost(login, password);
         }
 
@@ -60,6 +63,7 @@ namespace WhiteTeam.GameLogic.Auth
 
         public void OnError()
         {
+            NotificationManager.Instance.Warning("Wrong Login or Password");
             Events.OnError.TriggerEvents();
         }
 

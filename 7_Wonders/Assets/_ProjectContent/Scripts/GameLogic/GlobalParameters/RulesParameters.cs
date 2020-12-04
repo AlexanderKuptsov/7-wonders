@@ -12,15 +12,15 @@ namespace WhiteTeam.GameLogic.GlobalParameters
         public Dictionary<GameState.EpochType, int> EpochWarVictoryTokens = new Dictionary<GameState.EpochType, int>
         {
             {GameState.EpochType.FIRST, 1},
-            {GameState.EpochType.FIRST, 3},
-            {GameState.EpochType.FIRST, 5},
+            {GameState.EpochType.SECOND, 3},
+            {GameState.EpochType.THIRD, 5},
         };
         
         public Dictionary<GameState.EpochType, int> EpochWarLoseTokens = new Dictionary<GameState.EpochType, int>
         {
             {GameState.EpochType.FIRST, 1},
-            {GameState.EpochType.FIRST, 1},
-            {GameState.EpochType.FIRST, 1},
+            {GameState.EpochType.SECOND, 1},
+            {GameState.EpochType.THIRD, 1},
         };
     }
 }
