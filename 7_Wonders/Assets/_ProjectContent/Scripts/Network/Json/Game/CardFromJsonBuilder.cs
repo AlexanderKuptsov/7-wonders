@@ -27,14 +27,28 @@ public class CardFromJsonBuilder : MonoBehaviour
         switch (type)
         {
             case CommonCardData.CardType.GUILDS_OWNING:
+                var ownVictoryEffect = CardTypeOwnVictoryEffectJson.Deserialize(specs);
+                return new GuildsOwningCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, ownVictoryEffect);
                 break;
             case CommonCardData.CardType.GUILDS_SCIENCE:
+                return new GuildsScienceCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, new SelectableScienceEffect());
                 break;
             case CommonCardData.CardType.GUILDS_STRATEGY:
+                var strategyEffect = StrategyEffectJson.Deserialize(specs);
+                return new GuildsStrategyCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, strategyEffect);
                 break;
             case CommonCardData.CardType.CIVILIAN:
+                var victoryEffectCivilian = VictoryEffectJson.Deserialize(specs);
+                return new CivilianCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, victoryEffectCivilian);
                 break;
             case CommonCardData.CardType.MILITARY:
+                var militaryEffect = MilitaryEffectJson.Deserialize(specs);
+                return new MilitaryCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, militaryEffect);
                 break;
             case CommonCardData.CardType.COMMERCIAL_BONUS:
                 var victoryEffect = VictoryEffectJson.Deserialize(specs);
@@ -53,8 +67,14 @@ public class CardFromJsonBuilder : MonoBehaviour
                     card.requirementBuildCardId, tradeEffect);
                 break;
             case CommonCardData.CardType.PRODUCTION:
+                var productionEffect = ProductionEffectJson.Deserialize(specs);
+                return new ProductionCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, productionEffect);
                 break;
             case CommonCardData.CardType.SCIENTIFIC:
+                var scienceEffect = ScienceEffectJson.Deserialize(specs);
+                return new ScientificCard(card.id, card.name, type, Convert.ToInt32(card.epoch), costInformation,
+                    card.requirementBuildCardId, scienceEffect);
                 break;
         }
 
@@ -62,7 +82,7 @@ public class CardFromJsonBuilder : MonoBehaviour
     }
 }
 
-public class CostInfo
+public class CurrentItemInfo
 {
     public string currency { get; set; }
     public string price { get; set; }
@@ -74,7 +94,7 @@ public class Root
     public string name { get; set; }
     public string type { get; set; }
     public string epoch { get; set; }
-    public CostInfo[] costInfo { get; set; }
+    public CurrentItemInfo[] costInfo { get; set; }
     public string requirementBuildCardId { get; set; }
     public string specializationType { get; set; }
     public SpecificAttributes specAttributes { get; set; }
@@ -82,6 +102,50 @@ public class Root
 
 public class SpecificAttributes
 {
+}
+
+public class StrategyEffectJson
+{
+    public string[] playerDirection;
+    public string currentVictoryBonus;
+
+    public static StrategyEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<StrategyEffectJson>(json);
+        return new StrategyEffect(
+            res.playerDirection.Select(AssistanceFunctions.GetEnumByName<PlayerDirection>).ToArray(),
+            Convert.ToInt32(res.currentVictoryBonus));
+    }
+}
+
+public class SelectableScienceEffectJson
+{
+    public CurrentItemInfo[] actionInfo { get; set; }
+
+    public static ProductionCardEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<ProductionEffectJson>(json);
+        return new ProductionCardEffect(res.actionInfo.Select(info => new Resource.CurrencyItem
+        {
+            Amount = Convert.ToInt32(info.price),
+            Currency = AssistanceFunctions.GetEnumByName<Resource.CurrencyProducts>(info.currency)
+        }).ToArray());
+    }
+}
+
+public class ProductionEffectJson
+{
+    public CurrentItemInfo[] actionInfo { get; set; }
+
+    public static ProductionCardEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<ProductionEffectJson>(json);
+        return new ProductionCardEffect(res.actionInfo.Select(info => new Resource.CurrencyItem
+        {
+            Amount = Convert.ToInt32(info.price),
+            Currency = AssistanceFunctions.GetEnumByName<Resource.CurrencyProducts>(info.currency)
+        }).ToArray());
+    }
 }
 
 public class TradeEffectJson
@@ -100,6 +164,32 @@ public class TradeEffectJson
     }
 }
 
+public class MilitaryEffectJson
+{
+    public string shields { get; set; }
+
+    public static MilitaryEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<MilitaryEffectJson>(json);
+        return new MilitaryEffect(
+            Convert.ToInt32(res.shields));
+    }
+}
+
+public class ScienceEffectJson
+{
+    public CurrentItemInfo scienceInfo { get; set; }
+
+    public static ScienceEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<ScienceEffectJson>(json);
+        return new ScienceEffect((new Resource.ScienceItem()
+        {
+            Amount = Convert.ToInt32(res.scienceInfo.price),
+            Currency = AssistanceFunctions.GetEnumByName<Resource.Science>(res.scienceInfo.currency)
+        }));
+    }
+}
 
 public class MoneyEffectJson
 {
@@ -122,6 +212,22 @@ public class VictoryEffectJson
         var res = JsonConvert.DeserializeObject<VictoryEffectJson>(json);
         return new VictoryEffect(
             Convert.ToInt32(res.victoryPoints));
+    }
+}
+
+public class CardTypeOwnVictoryEffectJson
+{
+    public string[] playerDirection;
+    public string cardType;
+    public string currentMoneyBonus;
+
+    public static CardTypeOwnVictoryEffect Deserialize(string json)
+    {
+        var res = JsonConvert.DeserializeObject<CardTypeOwnVictoryEffectJson>(json);
+        return new CardTypeOwnVictoryEffect(
+            res.playerDirection.Select(AssistanceFunctions.GetEnumByName<PlayerDirection>).ToArray(),
+            AssistanceFunctions.GetEnumByName<CommonCardData.CardType>(res.cardType),
+            Convert.ToInt32(res.currentMoneyBonus));
     }
 }
 
