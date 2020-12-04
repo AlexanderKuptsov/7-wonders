@@ -3,6 +3,7 @@ using System.Linq;
 using WhiteTeam.GameLogic;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.Network.Entity;
@@ -65,6 +66,14 @@ namespace WhiteTeam.GameLogic
                 var rightPlayerIndex = playerIndex == Players.Count - 1 ? 0 : playerIndex + 1;
 
                 Players[playerIndex].SeatBetween(Players[leftPlayerIndex], Players[rightPlayerIndex]);
+            }
+        }
+
+        public void GiveWonderCards(Dictionary<PlayerData, WonderCard> playersWonderCardsData)
+        {
+            foreach (var player in playersWonderCardsData.Keys)
+            {
+                player.GiveWonderCard(playersWonderCardsData[player]);
             }
         }
 

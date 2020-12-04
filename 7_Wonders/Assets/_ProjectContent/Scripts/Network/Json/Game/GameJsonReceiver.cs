@@ -9,6 +9,7 @@ using UnityEngine;
 using WhiteTeam.GameLogic;
 using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
+using WhiteTeam.Network.Entity;
 
 public class GameJsonReceiver : JsonReceiverBase<GameJsonResult, GameJsonReceiver>
 {
@@ -32,7 +33,7 @@ public class GameResult
 public class InitInfo
 {
     public CardInfo[] cards;
-    public WonderCard[] wonderCards;
+    public WonderCardInfo[] wonderCards;
     public string[] playersPosition;
     public string lobbyId;
     public string gameId;
@@ -52,16 +53,11 @@ public class CardInfo
     public string epoch { get; set; }
     public string[] costInfo { get; set; }
     public string requirementBuildCardId { get; set; }
-    
 }
 
-public class WonderCard
+public class WonderCardInfo
 {
 }
-
-
-
-
 
 public class CardUse
 {
@@ -71,7 +67,6 @@ public class CardUse
 
 public class WonderUse
 {
-    
 }
 
 public class TurnEnd
