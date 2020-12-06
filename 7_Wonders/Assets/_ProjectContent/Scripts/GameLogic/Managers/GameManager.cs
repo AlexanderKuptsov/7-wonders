@@ -34,7 +34,12 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region METHODS
 
-        public void CreatePlayerCardsData(
+        private void SetupTimer()
+        {
+            timer.Setup(CurrentSession.Settings.MoveTime);
+        }
+
+        private Dictionary<PlayerData, IEnumerable<CommonCard>> CreatePlayerCardsData(
             Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
         {
             var playersCardsData = new Dictionary<PlayerData, IEnumerable<CommonCard>>();
@@ -46,10 +51,10 @@ namespace WhiteTeam.GameLogic.Managers
                 playersCardsData.Add(player, cards);
             }
 
-            CurrentSession.GiveCards(playersCardsData);
+            return playersCardsData;
         }
 
-        public void CreatePlayerWonderCardsData(
+        private Dictionary<PlayerData, WonderCard> CreatePlayerWonderCardsData(
             Dictionary<string, string> rawPlayersCardsData)
         {
             var playersCardsData = new Dictionary<PlayerData, WonderCard>();
@@ -61,7 +66,19 @@ namespace WhiteTeam.GameLogic.Managers
                 playersCardsData.Add(player, card);
             }
 
-            CurrentSession.GiveWonderCards(playersCardsData);
+            return playersCardsData;
+        }
+
+        private void GiveCardsInCurrentSession(Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
+        {
+            var playersCardsData = CreatePlayerCardsData(rawPlayersCardsData);
+            CurrentSession.GiveCards(playersCardsData);
+        }
+
+        private void GiveCardsInCurrentSession(Dictionary<string, string> rawPlayersWonderCardData)
+        {
+            var playersWonderCardData = CreatePlayerWonderCardsData(rawPlayersWonderCardData);
+            CurrentSession.GiveWonderCards(playersWonderCardData);
         }
 
         #endregion
@@ -73,13 +90,45 @@ namespace WhiteTeam.GameLogic.Managers
             var gameSessionObject = Instantiate(gameSessionPrototype);
             CurrentSession = gameSessionObject.GetComponent<GameSession>();
             CurrentSession.CreateFromLobby(lobby);
-
-            SetupTimer(CurrentSession.Settings.MoveTime);
         }
 
-        private void SetupTimer(int moveTime)
+        private void StartGame(Dictionary<string, IEnumerable<string>> rawPlayersCardsData,
+            Dictionary<string, string> rawPlayersWonderCardData)
         {
-            timer.Setup(moveTime);
+            CurrentSession.Setup();
+
+            GiveCardsInCurrentSession(rawPlayersCardsData);
+            GiveCardsInCurrentSession(rawPlayersWonderCardData);
+
+            // TODO
+            SetupTimer();
+        }
+
+        private void NextMove()
+        {
+            CurrentSession.EndUpMove();
+            CurrentSession.SwipeCards();
+            // TODO
+            SetupTimer();
+        }
+
+        private void NextEpoch(Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
+        {
+            // TODO -- NextMove
+            CurrentSession.EndUpEpoch();
+            CurrentSession.StartWar();
+            GiveCardsInCurrentSession(rawPlayersCardsData);
+            // TODO
+            SetupTimer();
+        }
+
+        private void EndGame()
+        {
+            CurrentSession.EndUpGame();
+
+            var scoreBoard = ScoreHandler.GetScoreBoard(CurrentSession);
+            var winner = scoreBoard.GetWinner();
+            // TODO
         }
 
         #endregion

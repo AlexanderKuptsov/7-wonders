@@ -10,15 +10,15 @@ namespace WhiteTeam.GameLogic
     {
         #region API
 
-        public static ScoreBoard GetScoreBoard(IEnumerable<PlayerData> players)
+        public static ScoreBoard GetScoreBoard(GameSession session)
         {
-            var scoreBoard = CreateScoreBoard(players);
+            var scoreBoard = CreateScoreBoard(session.Players);
             return scoreBoard;
         }
 
-        public static ScoreData GetWinnerScore(IEnumerable<PlayerData> players)
+        public static ScoreData GetWinnerScore(GameSession session)
         {
-            var scoreBoard = CreateScoreBoard(players);
+            var scoreBoard = CreateScoreBoard(session.Players);
 
             var winnerScore = scoreBoard.GetWinner();
             return winnerScore;
@@ -87,6 +87,8 @@ namespace WhiteTeam.GameLogic
                     .OrderBy(data => data.Score)
                     .ToArray();
             }
+
+            public ScoreData[] Elements => _elements;
 
             public ScoreData GetWinner()
             {

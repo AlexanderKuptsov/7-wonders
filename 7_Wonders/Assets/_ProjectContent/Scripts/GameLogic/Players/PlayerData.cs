@@ -113,7 +113,7 @@ namespace WhiteTeam.GameLogic
             Events.NextMoveEffects.Trigger(this);
         }
 
-        public void NextEpoch()
+        public void EndUpEpoch()
         {
             foreach (var activeCard in activeCards)
             {

@@ -36,11 +36,9 @@ namespace WhiteTeam.GameLogic
             LocalPlayerData = Players.Find(player => player.Id == LobbyManager.Instance.LocalUserData.Id);
 
             Role = LocalPlayerData.Role;
-
-            Setup();
         }
 
-        private void Setup()
+        public void Setup()
         {
             CreatePlayersWrappers();
             ProvideSeats();
@@ -97,6 +95,35 @@ namespace WhiteTeam.GameLogic
             _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
                 ? PlayerDirection.LEFT
                 : PlayerDirection.RIGHT;
+        }
+
+        public void EndUpMove()
+        {
+            foreach (var player in Players)
+            {
+                player.EndUpMove();
+            }
+        }
+
+        public void EndUpEpoch()
+        {
+            foreach (var player in Players)
+            {
+                player.EndUpEpoch();
+            }
+        }
+
+        public void EndUpGame()
+        {
+            foreach (var player in Players)
+            {
+                player.ActivateEndGameBonuses();
+            }
+        }
+
+        public void StartWar()
+        {
+            WarHandler.StartWar(Players);
         }
 
         public IdentifierInfo GetIdentifierInfo()
