@@ -6,6 +6,7 @@ using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
+using WhiteTeam.GameLogic.Resources;
 using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
@@ -96,6 +97,14 @@ namespace WhiteTeam.GameLogic
                 ? PlayerDirection.LEFT
                 : PlayerDirection.RIGHT;
         }
+
+        public void Trade(PlayerData player, PlayerDirection playerDirection, Resource.CurrencyProducts currency)
+        {
+            player.BuyCurrency(playerDirection, currency);
+        }
+
+        public bool AllPlayersCompleteMove =>
+            Players.All(player => player.MoveState == PlayerData.MoveStateType.COMPLETED);
 
         public void EndUpMove()
         {

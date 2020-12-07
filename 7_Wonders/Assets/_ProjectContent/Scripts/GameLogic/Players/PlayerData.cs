@@ -15,11 +15,10 @@ namespace WhiteTeam.GameLogic
         // ----- MAIN -----
         [SerializeField] private Role role;
         public Role Role => role;
+
+        // ----- NEIGHBOURS ----- 
         public PlayerData LeftPlayerData { get; private set; }
         public PlayerData RightPlayerData { get; private set; }
-
-        [SerializeField] private MoveStateType moveState; // TODO
-        public MoveStateType MoveState => moveState;
 
         // ----- WONDER CARD -----
         [SerializeField] private WonderCard _wonderCard;
@@ -38,14 +37,22 @@ namespace WhiteTeam.GameLogic
         public PlayerResources Resources => resources;
         public ResourcesCost ResourcesBuyCost { get; } = new ResourcesCost();
 
+        private TradeInfo _tradeInfo { get; } = new TradeInfo();
+
         // ----- EVENTS -----
         public EffectsEvents Events = new EffectsEvents();
+
+        // ----- STATE -----
+        [SerializeField] private MoveStateType moveState; // TODO
+        public MoveStateType MoveState => moveState;
 
         public enum MoveStateType
         {
             IN_PROGRESS,
             COMPLETED
         }
+
+        #region CREATORS
 
         private PlayerData(string id, string name) : base(id, name)
         {
@@ -62,6 +69,10 @@ namespace WhiteTeam.GameLogic
             return player;
         }
 
+        #endregion
+
+        #region MANAGERS
+
         public void MakeAdmin()
         {
             role = Role.ADMIN;
@@ -71,6 +82,10 @@ namespace WhiteTeam.GameLogic
         {
             role = Role.CLIENT;
         }
+
+        #endregion
+
+        #region GAME FLOW ACTIONS
 
         public void SeatBetween(PlayerData leftPlayerData, PlayerData rightPlayerData)
         {
@@ -91,29 +106,17 @@ namespace WhiteTeam.GameLogic
             _wonderCard = wonderCard;
         }
 
-        public void ActivateCard(CommonCard card)
-        {
-            tempActiveCard = card;
-            inHandCards.Remove(card);
-            // TODO -- ui event/action
-        }
-
-        public void ThrowCard(CommonCard card)
-        {
-            inHandCards.Remove(card);
-
-            // TODO -- ui event/action
-        }
-
         public void EndUpMove()
         {
             resources.HandleTemp();
+            _tradeInfo.Reset();
             HandleTempActiveCard();
+            ResetMoveState();
 
             Events.NextMoveEffects.Trigger(this);
         }
 
-        public void EndUpEpoch()
+        public void EndUpEpoch() // TODO -- EndUpMove?
         {
             foreach (var activeCard in activeCards)
             {
@@ -132,6 +135,65 @@ namespace WhiteTeam.GameLogic
 
             Events.EndGameEffects.Trigger(this);
         }
+
+        #endregion
+
+        #region PERSONAL ACTIONS
+
+        public void CompleteMove()
+        {
+            moveState = MoveStateType.COMPLETED;
+        }
+
+        public void ResetMoveState()
+        {
+            moveState = MoveStateType.IN_PROGRESS;
+        }
+
+        public void ActivateCard(CommonCard card)
+        {
+            tempActiveCard = card;
+            inHandCards.Remove(card);
+            // TODO -- ui event/action
+        }
+
+        public void ThrowCard(CommonCard card)
+        {
+            inHandCards.Remove(card);
+
+            // TODO -- ui event/action
+        }
+
+        private void HandleTempActiveCard()
+        {
+            activeCards.Add(tempActiveCard);
+            tempActiveCard.Data.Activate();
+            tempActiveCard = null;
+        }
+
+        public bool CanBuyCurrency(PlayerDirection playerDirection, Resource.CurrencyProducts currency)
+            // Didnt trade this currency in current move
+            // Has enough money
+            => !_tradeInfo.Check(currency) ||
+               Resources.GetMoney() < ResourcesBuyCost.GetCost(playerDirection, currency);
+
+        public void BuyCurrency(PlayerDirection playerDirection, Resource.CurrencyProducts currency)
+        {
+            var tradeCost = ResourcesBuyCost.GetCost(playerDirection, currency);
+
+            // Trade process
+            var trader = GetNeighborByDirection(playerDirection);
+
+            resources.ChangeMoney(-tradeCost);
+            trader.resources.EarnTempMoney(tradeCost);
+            resources.EarnTempProduction(new Resource.CurrencyItem {Currency = currency, Amount = 1});
+
+            _tradeInfo.Lock(currency);
+        }
+
+        #endregion
+
+        #region HELPERS
 
         public PlayerData GetNeighborByDirection(PlayerDirection playerDirection)
         {
@@ -157,14 +219,10 @@ namespace WhiteTeam.GameLogic
         public bool FindActiveCardById(string cardId, out CommonCard foundCard) =>
             FindCardById(ActiveCards, cardId, out foundCard);
 
-        private void HandleTempActiveCard()
-        {
-            activeCards.Add(tempActiveCard);
-            tempActiveCard.Data.Activate();
-            tempActiveCard = null;
-        }
 
         private bool FindCardById(IEnumerable<CommonCard> cardsStack, string cardId, out CommonCard foundCard) =>
             NetworkEntity.FindEntityById(cardsStack, cardId, out foundCard);
+
+        #endregion
     }
 }

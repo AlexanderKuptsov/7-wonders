@@ -33,7 +33,7 @@ namespace WhiteTeam.GameLogic
             public EventHolderBase OnUpdateLobbies { get; } = new EventHolderBase();
             public EventHolderBase OnStartLobby { get; } = new EventHolderBase();
         }
-        
+
         #region METHODS
 
         private void ConnectLocalUser(Lobby lobby) // TODO
@@ -47,6 +47,8 @@ namespace WhiteTeam.GameLogic
             //     logger.Log("Can't connect to lobby", Logger.LogLevel.INFO);
             // }
         }
+
+
 
         #endregion
 
@@ -98,7 +100,9 @@ namespace WhiteTeam.GameLogic
 
         #region NETWORK EVENTS
 
-        public void OnUserConnectToLobby(string lobbyId, string playerId, string playerName) // we need to get special playerID only for lobby // TODO
+        public void
+            OnUserConnectToLobby(string lobbyId, string playerId,
+                string playerName) // we need to get special playerID only for lobby // TODO
         {
             //LocalUser = new User(GameParameters.Instance.DefaultUserName);
             var newUser = new UserData(playerId, playerName);
@@ -111,9 +115,9 @@ namespace WhiteTeam.GameLogic
             Events.OnUserDisconnectFromLobby.TriggerEvents();
         }
 
-        public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers, int moveTime)
+        public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers,
+            int moveTime)
         {
-            
             // EXAMPLE
             // var lobbyId = "321";
             //
@@ -134,7 +138,7 @@ namespace WhiteTeam.GameLogic
             var connectedUsers = connectedUsersData
                 .Select(userData => new UserData(userData.Key, userData.Value));
 
-            
+
             var lobby = new Lobby(lobbyId, ownerUser, settings);
             Debug.Log($"Created new lobby: {lobby.GetFullName()}");
             _lobbies.Add(lobby);

@@ -5,6 +5,7 @@ using UnityEngine;
 using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Cards.Wonder;
+using WhiteTeam.GameLogic.Resources;
 using WhiteTeam.GameLogic.Utils;
 using WhiteTeam.Network.Entity;
 using WhiteTeam.Network.ServerModules;
@@ -23,6 +24,7 @@ namespace WhiteTeam.GameLogic.Managers
         {
             public EventHolderBase OnNextMove { get; } = new EventHolderBase();
             public EventHolderBase OnPlayerAction { get; } = new EventHolderBase();
+            public EventHolderBase OnTradeAction { get; } = new EventHolderBase();
         }
 
         public GameSession CurrentSession { get; private set; }
@@ -131,6 +133,14 @@ namespace WhiteTeam.GameLogic.Managers
             // TODO
         }
 
+        private void CheckEndMove()
+        {
+            if (CurrentSession.AllPlayersCompleteMove)
+            {
+                NextMoveRequest();
+            }
+        }
+
         #endregion
 
         #region NETWORK REQUESTS
@@ -145,6 +155,20 @@ namespace WhiteTeam.GameLogic.Managers
         public void PlayerActionRequest(INetworkAction action)
         {
             action.SenRequest();
+            CurrentSession.LocalPlayerData.CompleteMove();
+            CheckEndMove();
+        }
+
+        public void TradeRequest(PlayerDirection playerDirection, Resource.CurrencyProducts currency)
+        {
+            if (CurrentSession.LocalPlayerData.CanBuyCurrency(playerDirection, currency))
+            {
+                // TODO -- request
+            }
+            else
+            {
+                // TODO -- error
+            }
         }
 
         #endregion
@@ -163,6 +187,13 @@ namespace WhiteTeam.GameLogic.Managers
             throw new NotImplementedException();
 
             Events.OnPlayerAction.TriggerEvents();
+        }
+
+        private void OnPlayerTrade()
+        {
+            throw new NotImplementedException();
+
+            Events.OnTradeAction.TriggerEvents();
         }
 
         #endregion
