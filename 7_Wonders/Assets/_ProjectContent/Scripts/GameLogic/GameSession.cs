@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WhiteTeam.GameLogic;
 using UnityEngine;
+using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
+using WhiteTeam.GameLogic.Resources;
 using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic
@@ -17,7 +21,9 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private Transform playersHolder;
 
-        private SwipeDirection _swipeDirection;
+        public GameState GameState { get; private set; }
+
+        private PlayerDirection _swipeDirection;
         private IdentifierInfo _identifierInfo;
 
         public void CreateFromLobby(Lobby lobby)
@@ -31,15 +37,15 @@ namespace WhiteTeam.GameLogic
             LocalPlayerData = Players.Find(player => player.Id == LobbyManager.Instance.LocalUserData.Id);
 
             Role = LocalPlayerData.Role;
-
-            Setup();
         }
 
-        private void Setup()
+        public void Setup()
         {
             CreatePlayersWrappers();
             ProvideSeats();
+
             _swipeDirection = RulesParameters.Instance.FirstSwipeDirection;
+            GameState = new GameState();
         }
 
         private void CreatePlayersWrappers()
@@ -62,29 +68,76 @@ namespace WhiteTeam.GameLogic
             }
         }
 
+        public void GiveWonderCards(Dictionary<PlayerData, WonderCard> playersWonderCardsData)
+        {
+            foreach (var player in playersWonderCardsData.Keys)
+            {
+                player.GiveWonderCard(playersWonderCardsData[player]);
+            }
+        }
+
+        public void GiveCards(Dictionary<PlayerData, IEnumerable<CommonCard>> playersCardsData)
+        {
+            foreach (var player in playersCardsData.Keys)
+            {
+                player.GiveCards(playersCardsData[player]);
+            }
+        }
+
         public void SwipeCards()
         {
             foreach (var player in Players)
             {
-                (_swipeDirection == SwipeDirection.RIGHT
+                (_swipeDirection == PlayerDirection.RIGHT
                     ? player.RightPlayerData
                     : player.LeftPlayerData).GiveCards(player.InHandCards);
             }
 
-            _swipeDirection = _swipeDirection == SwipeDirection.RIGHT
-                ? SwipeDirection.LEFT
-                : SwipeDirection.RIGHT;
+            _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
+                ? PlayerDirection.LEFT
+                : PlayerDirection.RIGHT;
+        }
+
+        public void Trade(PlayerData player, PlayerDirection playerDirection, Resource.CurrencyProducts currency)
+        {
+            player.BuyCurrency(playerDirection, currency);
+        }
+
+        public bool AllPlayersCompleteMove =>
+            Players.All(player => player.MoveState == PlayerData.MoveStateType.COMPLETED);
+
+        public void EndUpMove()
+        {
+            foreach (var player in Players)
+            {
+                player.EndUpMove();
+            }
+        }
+
+        public void EndUpEpoch()
+        {
+            foreach (var player in Players)
+            {
+                player.EndUpEpoch();
+            }
+        }
+
+        public void EndUpGame()
+        {
+            foreach (var player in Players)
+            {
+                player.ActivateEndGameBonuses();
+            }
+        }
+
+        public void StartWar()
+        {
+            WarHandler.StartWar(Players);
         }
 
         public IdentifierInfo GetIdentifierInfo()
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
-        }
-        
-        public enum SwipeDirection
-        {
-            RIGHT,
-            LEFT
         }
     }
 }

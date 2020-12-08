@@ -40,10 +40,14 @@ namespace WhiteTeam.GameLogic.Managers
             return true;
         }
 
-        public void Leave(UserData userData)
+        public void Disconnect(UserData userData)
         {
             RemoveUser(userData);
         }
+
+        public bool FindUserById(string userId, out UserData user) =>
+            NetworkEntity.FindEntityById(ConnectedUsers, userId, out user);
+
 
         public IdentifierInfo GetIdentifierInfo()
         {

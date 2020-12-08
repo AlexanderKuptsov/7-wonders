@@ -15,17 +15,18 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
     private const string POST_AUTH_URL = "https://wonders-auth.herokuapp.com/auth";
     private const string CONTENT_TYPE = "application/json";
 
-    private const string SUCCESS_RESULT =
+    private const string SUCCESS_REGISTER_RESULT =
         "{\"status\":\"SUCCESS\",\"results\":[],\"module\":\"Authorization\",\"type\":\"register\"}";
 
 
     private void Start()
     {
-        AuthPost("test2", "test2");
+        //AuthPost("test2", "test2");
     }
 
     public void RegisterPost(string username, string password)
     {
+        Debug.Log($"Register json {AuthJsonCreator.CreateRegisterJson(username, password)}");
         StartCoroutine(PostRequest(POST_REGISTRATION_URL, AuthJsonCreator.CreateRegisterJson(username, password)));
     }
     
@@ -52,7 +53,7 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
         {
             Debug.Log("Status Code: " + request.responseCode);
             Debug.Log($"Whole response : {request.downloadHandler.text}");
-            var result = ResultJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
+            var result = ResultJsonReceiver.Instance.Deserialize(request.downloadHandler.text);
             Debug.Log($"Response status: \"{result.status}\" module: \"{result.module}\" type: \"{result.type}\"");
             if (result.IsCorrect)
             {
@@ -65,7 +66,7 @@ public class ServerModuleHandlerHTTP : Singleton<ServerModuleHandlerHTTP>
                 if (result.type == "auth")
                 {
                     //login was ok & need to take token
-                    var authResult = AuthJsonReceiver.Instance.Deserialize(SUCCESS_RESULT);
+                    var authResult = AuthJsonReceiver.Instance.Deserialize(request.downloadHandler.text);
                     var token = authResult.results.accessToken;
                     Debug.Log($"Received token \"{token}\"");
                     Events.OnSuccessfulLogin.TriggerEvents(token);
