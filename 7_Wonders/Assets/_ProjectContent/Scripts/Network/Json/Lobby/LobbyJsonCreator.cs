@@ -34,7 +34,6 @@ public static class LobbyJsonCreator
         var jsonString = JsonConvert.SerializeObject(lobbyInfoJson);
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.create.ToString(), jsonString));
     }
-    
     private static string UpdateLobbyInfoJson(string lobbyId, string playerId, string state)
     {
         var lobbyIdJson = new UpdateLobby()
@@ -69,6 +68,11 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.connect.ToString(), jsonString));
     }
 
+    public static string GetLobbyListJson()
+    {
+        var jsonString = JsonConvert.SerializeObject(new NoAttributes());
+        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.getLobby.ToString(), jsonString));
+    }
     public static string CreateConnectToLobbyJson(string lobbyId, string playerName)
     {
         return ConnectToLobbyJson(lobbyId, playerName);
@@ -101,6 +105,10 @@ public static class LobbyJsonCreator
         return UpdateLobbyInfoJson(lobbyId, playerId, state);
     }
 
+    private class NoAttributes
+    {
+        
+    }
     private class LobbyId
     {
         public string lobbyId { get; set; }

@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class LobbyJsonReceiver : JsonReceiverBase<LobbyResult, LobbyJsonReceiver>
 {
+    protected override LobbyResult OnErrorMsg(string msg)
+    {
+        return base.OnErrorMsg(msg);
+    }
 }
 
 public class LobbyResult : Result
@@ -14,35 +18,61 @@ public class LobbyResult : Result
 
 public class MainInfo
 {
-    public string lobbyId { get; set; }
-    public string playerId { get; set; }
-    public OwnerInfo ownerInfo { get; set; }
     public LobbyInfo lobbyInfo { get; set; }
+    public DeleteInfo deleteInfo { get; set; }
+    public StartCommandInfo startCommandInfo { get; set; }
+    public DisconnectInfo disconnectInfo { get; set; }
 
     public UpdateInfo updateInfo { get; set; }
 
     public ConnectInfo connectInfo { get; set; }
+    public LobbyListInfo[] lobbyList { get; set; }
 }
 
-public class OwnerInfo
+
+public class LobbyInfo
 {
+    public string lobbyId { get; set; }
+    public string lobbyName { get; set; }
+    public string maxPlayers { get; set; }
+    public string moveTime { get; set; }
     public string ownerId { get; set; }
     public string ownerName { get; set; }
 }
 
-public class LobbyInfo
+public class PlayerAndLobbyId
 {
-    public string lobbyName { get; set; }
-    public string maxPlayers { get; set; }
-    public string moveTime { get; set; }
+    public string playerId { get; set; }
+    public string lobbyId { get; set; }
 }
 
-public class UpdateInfo
+
+public class StartCommandInfo
+{
+    public string lobbyId { get; set; }
+}
+
+
+public class UpdateInfo : PlayerAndLobbyId
 {
     public string state { get; set; }
 }
 
-public class ConnectInfo
+public class DeleteInfo
+{
+    public string lobbyId { get; set; }
+}
+
+public class DisconnectInfo : PlayerAndLobbyId
+{
+}
+
+public class ConnectInfo : PlayerAndLobbyId
 {
     public string playerName { get; set; }
+}
+
+public class LobbyListInfo : LobbyInfo
+{
+    LobbyInfo lobbyInfo { get; set; }
 }
