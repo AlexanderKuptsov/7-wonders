@@ -66,5 +66,15 @@ namespace WhiteTeam.Network.ServerModules
         {
             throw new NotImplementedException();
         }
+
+        public void NextEpochRequest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EndGameRequest()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

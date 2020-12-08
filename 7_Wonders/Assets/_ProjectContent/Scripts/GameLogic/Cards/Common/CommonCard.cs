@@ -1,4 +1,5 @@
-﻿using WhiteTeam.GameLogic.Actions;
+﻿using SK_Engine;
+using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
 
@@ -16,8 +17,15 @@ namespace WhiteTeam.GameLogic.Cards
 
         public override void UseRequest()
         {
-            var action = new UseAction(this);
-            GameManager.Instance.PlayerActionRequest(action);
+            if (Data.CanBuy(LocalPlayer))
+            {
+                var action = new UseAction(this);
+                GameManager.Instance.PlayerActionRequest(action);
+            }
+            else
+            {
+                OnErrorEvent.TriggerEvents("Not enough money"); // TODO   
+            }
         }
 
         public override void ActivatedUseRequest()
@@ -34,12 +42,14 @@ namespace WhiteTeam.GameLogic.Cards
         {
             player.ThrowCard(this);
             player.Resources.ChangeMoney(RulesParameters.Instance.CardExchangeAmount);
+            player.CompleteMove();
         }
 
         public override void Use(PlayerData player)
         {
             player.ActivateCard(this);
             Data.Use(player);
+            player.CompleteMove();
         }
 
         public override void ActivatedUse(PlayerData player)

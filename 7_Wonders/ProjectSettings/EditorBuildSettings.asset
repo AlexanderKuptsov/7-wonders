@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_ProjectContent/Scenes/Development/GameLogic/2020_11_01_GameSession.unity
+    guid: b1b7e9dc4e6155b4bbad4c833b7ded8b
   m_configObjects: {}

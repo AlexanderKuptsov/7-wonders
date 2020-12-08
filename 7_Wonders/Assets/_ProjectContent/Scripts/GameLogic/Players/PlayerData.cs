@@ -22,6 +22,7 @@ namespace WhiteTeam.GameLogic
 
         // ----- WONDER CARD -----
         [SerializeField] private WonderCard _wonderCard;
+        public WonderCard WonderCard => _wonderCard;
 
         // ----- CARDS -----
         [SerializeField] private List<CommonCard> inHandCards = new List<CommonCard>();

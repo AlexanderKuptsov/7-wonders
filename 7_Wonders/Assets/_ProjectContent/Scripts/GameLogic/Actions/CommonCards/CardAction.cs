@@ -8,7 +8,7 @@ namespace WhiteTeam.GameLogic.Actions
         {
         }
         
-        protected enum Command
+        public enum Command
         {
             USE,
             ACTIVATED_USE,

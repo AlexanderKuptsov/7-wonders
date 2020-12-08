@@ -139,5 +139,8 @@ namespace WhiteTeam.GameLogic
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
+
+        public bool FindPlayerById(string id, out PlayerData player) =>
+            NetworkEntity.FindEntityById(Players, id, out player);
     }
 }

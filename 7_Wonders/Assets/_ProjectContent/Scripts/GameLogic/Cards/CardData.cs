@@ -17,7 +17,7 @@ namespace WhiteTeam.GameLogic.Cards
 
             _identifierInfo = new IdentifierInfo(Id, Name);
         }
-        
+
         public abstract void Use(PlayerData player);
         public abstract void ActivatedUse(PlayerData player);
         public abstract void ActivateEndGameEffect(PlayerData player);
