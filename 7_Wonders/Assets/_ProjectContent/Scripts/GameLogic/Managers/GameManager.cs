@@ -22,6 +22,8 @@ namespace WhiteTeam.GameLogic.Managers
 
         public class ActionsEvents
         {
+            public EventHolderBase OnGameInit { get; } = new EventHolderBase();
+            public EventHolderBase OnGameStart { get; } = new EventHolderBase();
             public EventHolderBase OnNextMove { get; } = new EventHolderBase();
             public EventHolderBase OnNextEpoch { get; } = new EventHolderBase();
             public EventHolderBase OnEndGame { get; } = new EventHolderBase();
@@ -164,6 +166,20 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region NETWORK REQUESTS
 
+        public void GameInitRequest()
+        {
+            if (!IsAdmin()) return;
+
+            ServerGameHandler.Instance.GameInitRequest(); // TODO
+        }
+
+        public void GameStartRequest()
+        {
+            if (!IsAdmin()) return;
+
+            ServerGameHandler.Instance.GameStartRequest(); // TODO
+        }
+
         public void NextMoveRequest()
         {
             if (!IsAdmin()) return;
@@ -204,6 +220,37 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region NETWORK EVENTS
 
+        public void OnGameInit()
+        {
+            // Wonder card
+            var wonderCards = new List<WonderCard>(); // TODO - EXAMPLE
+            CardsStack.LoadWonderCards(wonderCards);
+
+            // Common Cards
+            var commonCards = new List<CommonCard>(); // TODO - EXAMPLE
+            CardsStack.LoadCards(commonCards);
+
+            // Seats
+            var seats = new[] {"21434", "35325", "345325", "34535"}; // TODO - EXAMPLE
+            CurrentSession.ProvideSeats(seats);
+
+            // TODO
+            GameStartRequest();
+
+            Events.OnGameInit.TriggerEvents();
+        }
+
+        public void OnGameStart()
+        {
+            // TODO - EXAMPLE
+            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>(); // playerId - wonder cardId
+            var rawPlayersWonderCardData = new Dictionary<string, string>(); // playerId - common cardsId
+
+            StartGame(rawPlayersCardsData, rawPlayersWonderCardData);
+            // TODO
+            Events.OnGameStart.TriggerEvents();
+        }
+
         private void OnNextMove()
         {
             NextMove();
@@ -214,7 +261,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void OnNextEpoch()
         {
-            // EXAMPLE
+            // TODO - EXAMPLE
             var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>
             {
                 {"234", new[] {"56465", "6436324"}}
@@ -234,7 +281,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void OnPlayerCardAction()
         {
-            // EXAMPLE
+            // TODO - EXAMPLE
             var playerIdJson = "35215";
             var cardId = "2414";
             var actionJson = "USE";
@@ -267,7 +314,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void OnPlayerWonderCardAction()
         {
-            // EXAMPLE
+            // TODO - EXAMPLE
             var playerIdJson = "35215";
             var cardId = "2414";
             var actionJson = "BUILD";
@@ -304,7 +351,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void OnPlayerTradeAction()
         {
-            // EXAMPLE
+            // TODO - EXAMPLE
             var playerIdJson = "35215";
             var directionJson = "LEFT";
             var currencyJson = "WOOD";

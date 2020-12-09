@@ -6,7 +6,6 @@ using WhiteTeam.GameLogic.Managers;
 
 namespace WhiteTeam.Network.ServerModules
 {
-
     public enum GameMessageType
     {
         init,
@@ -59,9 +58,18 @@ namespace WhiteTeam.Network.ServerModules
                 default:
                     break;
             }
-
         }
         
+        public void GameInitRequest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GameStartRequest()
+        {
+            throw new NotImplementedException();
+        }
+
         public void NextMoveRequest()
         {
             throw new NotImplementedException();
