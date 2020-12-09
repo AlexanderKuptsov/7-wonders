@@ -5,33 +5,41 @@ using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public static class CardsStack
+    public class CardsStack : Singleton<CardsStack>
     {
-        private static List<WonderCard> WonderCards;
-        private static List<CommonCard> Cards;
+        private readonly List<WonderCard> _wonderCards = new List<WonderCard>();
+        private readonly List<CommonCard> _cards = new List<CommonCard>();
 
-        private static readonly List<CommonCard> ThrownCards = new List<CommonCard>();
+        private readonly List<CommonCard> _thrownCards = new List<CommonCard>();
 
-        public static void LoadWonderCards(List<WonderCard> cards)
+        public void LoadWonderCards(IEnumerable<WonderCardData> cards)
         {
-            WonderCards = cards;
+            foreach (var cardData in cards)
+            {
+                var card = CardCreator.Create(cardData, transform);
+                _wonderCards.Add(card);
+            }
         }
 
-        public static void LoadCards(List<CommonCard> cards)
+        public void LoadCards(IEnumerable<CommonCardData> cards)
         {
-            Cards = cards;
+            foreach (var cardData in cards)
+            {
+                var card = CardCreator.Create(cardData, transform);
+                _cards.Add(card);
+            }
         }
 
         #region WonderCards
 
-        public static IEnumerable<WonderCard> GetWonderCards(IEnumerable<string> cardsId)
+        public IEnumerable<WonderCard> GetWonderCards(IEnumerable<string> cardsId)
         {
             return cardsId.Select(GetWonderCard);
         }
 
-        public static WonderCard GetWonderCard(string id)
+        public WonderCard GetWonderCard(string id)
         {
-            NetworkEntity.FindEntityById(WonderCards, id, out var card);
+            NetworkEntity.FindEntityById(_wonderCards, id, out var card);
             return card;
         }
 
@@ -40,25 +48,25 @@ namespace WhiteTeam.GameLogic.Cards
 
         #region WonderCards
 
-        public static IEnumerable<CommonCard> GetCards(IEnumerable<string> cardsId)
+        public IEnumerable<CommonCard> GetCards(IEnumerable<string> cardsId)
         {
             return cardsId.Select(GetCard);
         }
 
-        public static CommonCard GetCard(string id)
+        public CommonCard GetCard(string id)
         {
-            NetworkEntity.FindEntityById(Cards, id, out var card);
+            NetworkEntity.FindEntityById(_cards, id, out var card);
             return card;
         }
 
-        public static void ThrowCard(CommonCard card)
+        public void ThrowCard(CommonCard card)
         {
-            ThrownCards.Add(card);
+            _thrownCards.Add(card);
         }
 
-        public static IEnumerable<CommonCard> GetThrownCards()
+        public IEnumerable<CommonCard> GetThrownCards()
         {
-            return ThrownCards;
+            return _thrownCards;
         }
 
         #endregion

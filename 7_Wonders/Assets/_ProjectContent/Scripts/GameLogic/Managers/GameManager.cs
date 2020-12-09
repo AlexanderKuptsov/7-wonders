@@ -52,7 +52,7 @@ namespace WhiteTeam.GameLogic.Managers
             foreach (var playerId in rawPlayersCardsData.Keys)
             {
                 NetworkEntity.FindEntityById(CurrentSession.Players, playerId, out var player);
-                var cards = CardsStack.GetCards(rawPlayersCardsData[playerId]);
+                var cards = CardsStack.Instance.GetCards(rawPlayersCardsData[playerId]);
 
                 playersCardsData.Add(player, cards);
             }
@@ -67,7 +67,7 @@ namespace WhiteTeam.GameLogic.Managers
             foreach (var playerId in rawPlayersCardsData.Keys)
             {
                 NetworkEntity.FindEntityById(CurrentSession.Players, playerId, out var player);
-                var card = CardsStack.GetWonderCard(rawPlayersCardsData[playerId]);
+                var card = CardsStack.Instance.GetWonderCard(rawPlayersCardsData[playerId]);
 
                 playersCardsData.Add(player, card);
             }
@@ -223,12 +223,12 @@ namespace WhiteTeam.GameLogic.Managers
         public void OnGameInit()
         {
             // Wonder card
-            var wonderCards = new List<WonderCard>(); // TODO - EXAMPLE
-            CardsStack.LoadWonderCards(wonderCards);
+            var wonderCards = new List<WonderCardData>(); // TODO - EXAMPLE
+            CardsStack.Instance.LoadWonderCards(wonderCards);
 
             // Common Cards
-            var commonCards = new List<CommonCard>(); // TODO - EXAMPLE
-            CardsStack.LoadCards(commonCards);
+            var commonCards = new List<CommonCardData>(); // TODO - EXAMPLE
+            CardsStack.Instance.LoadCards(commonCards);
 
             // Seats
             var seats = new[] {"21434", "35325", "345325", "34535"}; // TODO - EXAMPLE
