@@ -5,21 +5,22 @@ using UnityEngine;
 public class VolumeScript : MonoBehaviour
 {
     private AudioSource AudioSrc;
-
-    private float AudioVolume = 1f;
-
-    void Start()
-    {
-        AudioSrc = GetComponent<AudioSource>();
-    }
-
-    void Update()
-    {
-        AudioSrc.volume = AudioVolume;
-    }
-
-    public void SetVolume(float vol)
-    {
-        AudioVolume = vol;
-    }
+ 
+ private float AudioVolume = 1f;
+ 
+ void Start () {
+  AudioSrc = GetComponent<AudioSource>();
+ }
+ 
+ void Update () {
+  AudioSrc.volume = AudioVolume;
+ }
+ 
+ public void SetVolume(float vol)
+ {
+  AudioVolume = vol;
+ }
 }
+
+
+

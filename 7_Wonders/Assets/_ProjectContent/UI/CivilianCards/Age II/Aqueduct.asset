@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b87b8c785eafd48a1f5e996e4575fe, type: 3}
+  m_Name: Aqueduct
+  m_EditorClassIdentifier: 
+  color: {fileID: 0}
+  cardname: Aqueduct
+  effect: {fileID: 21300000, guid: c8f062003f8e483478cbd614e26b80d5, type: 3}
+  costeffect: {fileID: 21300000, guid: 5ef52795883395a46860ff38cce784fa, type: 3}
