@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc108f6e876d174bab4dde084d5e29e, type: 3}
+  m_Name: Palace
+  m_EditorClassIdentifier: 
+  color: {fileID: 0}
+  cardname: Palace
+  effect: {fileID: 21300000, guid: 61d301f328e46734480a0e9b00f52d2e, type: 3}
+  costeffect: {fileID: 21300000, guid: 24fde2faccb76b443913a6880731b170, type: 3}
