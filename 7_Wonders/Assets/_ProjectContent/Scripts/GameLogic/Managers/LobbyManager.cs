@@ -187,7 +187,7 @@ namespace WhiteTeam.GameLogic
                     GameManager.Instance.CreateGameSession(lobbyToStart);
                 }
 
-                DeleteLobbyRequest(lobbyId); // TODO
+                OnDeleteLobby(lobbyId); // TODO
 
                 Events.OnStartLobby.TriggerEvents();
             }
