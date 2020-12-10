@@ -83,6 +83,10 @@ namespace WhiteTeam.Network.ServerModules
             _webSocket.SendText(text);
         }
 
+        public void FakeOnMessageReceived(string text)
+        {
+            OnTextMessageReceived(text);
+        }
         #region NET EVENTS
 
         protected virtual void OnWebSocketOpen()
@@ -101,7 +105,7 @@ namespace WhiteTeam.Network.ServerModules
         {
             
         }
-
+        
         protected virtual void OnWebSocketError(string error)
         {
             logger.Log("Error: " + error);

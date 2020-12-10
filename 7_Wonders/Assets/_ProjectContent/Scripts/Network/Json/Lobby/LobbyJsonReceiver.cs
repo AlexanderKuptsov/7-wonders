@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Network.Json;
 using UnityEngine;
+using WhiteTeam.GameLogic;
 
 public class LobbyJsonReceiver : JsonReceiverBase<LobbyResult, LobbyJsonReceiver>
 {
@@ -18,61 +19,36 @@ public class LobbyResult : Result
 
 public class MainInfo
 {
-    public LobbyInfo lobbyInfo { get; set; }
-    public DeleteInfo deleteInfo { get; set; }
-    public StartCommandInfo startCommandInfo { get; set; }
-    public DisconnectInfo disconnectInfo { get; set; }
+    public CreationLobbyInfo lobbyInfo { get; set; }
+    public LobbyInfo deleteInfo { get; set; }
+    public LobbyInfo startCommandInfo { get; set; }
+    public LobbyInfo disconnectInfo { get; set; }
 
-    public UpdateInfo updateInfo { get; set; }
+    public LobbyInfo updateInfo { get; set; }
 
-    public ConnectInfo connectInfo { get; set; }
-    public LobbyListInfo[] lobbyList { get; set; }
+    public LobbyInfo connectInfo { get; set; }
+    public CreationLobbyInfo[] lobbyList { get; set; }
 }
 
 
 public class LobbyInfo
 {
     public string lobbyId { get; set; }
+
+    public UserInfo[] connectedUsers { get; set; }
+}
+public class CreationLobbyInfo : LobbyInfo
+{
     public string lobbyName { get; set; }
     public string maxPlayers { get; set; }
     public string moveTime { get; set; }
-    public string ownerId { get; set; }
-    public string ownerName { get; set; }
+    public UserInfo ownerInfo { get; set; }
 }
 
-public class PlayerAndLobbyId
+public class UserInfo
 {
-    public string playerId { get; set; }
-    public string lobbyId { get; set; }
+    public string playerName;
+    public string playerId;
+    public string state;
 }
 
-
-public class StartCommandInfo
-{
-    public string lobbyId { get; set; }
-}
-
-
-public class UpdateInfo : PlayerAndLobbyId
-{
-    public string state { get; set; }
-}
-
-public class DeleteInfo
-{
-    public string lobbyId { get; set; }
-}
-
-public class DisconnectInfo : PlayerAndLobbyId
-{
-}
-
-public class ConnectInfo : PlayerAndLobbyId
-{
-    public string playerName { get; set; }
-}
-
-public class LobbyListInfo : LobbyInfo
-{
-    LobbyInfo lobbyInfo { get; set; }
-}

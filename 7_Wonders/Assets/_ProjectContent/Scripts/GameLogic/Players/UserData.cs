@@ -8,8 +8,9 @@ namespace WhiteTeam.GameLogic
     {
         public ReadyState state; // TODO
 
-        public UserData(string id, string name) : base(id, name)
+        public UserData(string id, string name, ReadyState state) : base(id, name)
         {
+            this.state = state;
         }
 
         public enum ReadyState
