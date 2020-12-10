@@ -11,5 +11,10 @@ namespace WhiteTeam.GameLogic.Cards
             requirementBuildCardId, currentEffect)
         {
         }
+
+        protected override IVisualizer CreateVisualizer()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

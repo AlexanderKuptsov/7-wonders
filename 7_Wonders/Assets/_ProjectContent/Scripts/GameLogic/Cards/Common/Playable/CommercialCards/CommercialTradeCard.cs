@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -15,6 +16,11 @@ namespace WhiteTeam.GameLogic.Cards
             TradeEffect tradeEffect)
             : base(id, name, type, epoch, costInfo, requirementBuildCardId, tradeEffect)
         {
+        }
+
+        protected override IVisualizer CreateVisualizer()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

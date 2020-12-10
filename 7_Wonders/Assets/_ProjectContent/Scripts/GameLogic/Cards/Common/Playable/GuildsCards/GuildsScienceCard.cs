@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -17,6 +18,11 @@ namespace WhiteTeam.GameLogic.Cards
             string requirementBuildCardId, SelectableScienceEffect currentEffect) :
             base(id, name, type, epoch, costInfo, requirementBuildCardId, currentEffect)
         {
+        }
+
+        protected override IVisualizer CreateVisualizer()
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void ActivatedUseAction(PlayerData player)

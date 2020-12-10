@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -10,6 +11,11 @@ namespace WhiteTeam.GameLogic.Cards
             VictoryEffect endGameEffect) : base(id, name, type, epoch, costInfo, requirementBuildCardId,
             currentEffect, endGameEffect)
         {
+        }
+
+        protected override IVisualizer CreateVisualizer()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
