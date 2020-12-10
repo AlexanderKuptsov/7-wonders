@@ -100,19 +100,26 @@ namespace WhiteTeam.GameLogic
 
         #region NETWORK EVENTS
 
-        public void OnGetLobbyList(string[] lobbyIdList, UserData[] userDataList, GameSettings[] gameSettingsList)
+        public void OnGetLobbyList(CreationLobbyInfo[] lobbyInfo)
         {
-            for (int i = 0; i < userDataList.Length; i++)
+            for (int i = 0; i < lobbyInfo.Length; i++)
             {
-                _lobbies.Add(new Lobby(lobbyIdList[i], userDataList[i], gameSettingsList[i]));
+                _lobbies.Add(new Lobby(lobbyInfo[i].lobbyId,
+                    new UserData(lobbyInfo[i].ownerInfo.playerId, lobbyInfo[i].ownerInfo.playerName,
+                        AssistanceFunctions.GetEnumByName<UserData.ReadyState>(lobbyInfo[i].ownerInfo.state)),
+                    new GameSettings(lobbyInfo[i].lobbyName, Int32.Parse(lobbyInfo[i].maxPlayers),
+                        Int32.Parse(lobbyInfo[i].moveTime)),
+                    lobbyInfo[i].connectedUsers.Select(user => new UserData(user.playerId, user.playerName,
+                        AssistanceFunctions.GetEnumByName<UserData.ReadyState>(user.state)))));
             }
 
+            Debug.Log($"{_lobbies.Count} lobbies were created");
             Events.OnGetLobbyListToLobby.TriggerEvents();
         }
 
         public void OnUserConnectToLobby(string lobbyId, string playerId, string playerName)
         {
-            var newUser = new UserData(playerId, playerName);
+            var newUser = new UserData(playerId, playerName, UserData.ReadyState.WAITING);
             if (FindLobbyById(lobbyId, out var lobby))
             {
                 lobby.Connect(newUser);
@@ -135,7 +142,7 @@ namespace WhiteTeam.GameLogic
         public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers,
             int moveTime)
         {
-            var ownerUser = new UserData(ownerId, ownerName);
+            var ownerUser = new UserData(ownerId, ownerName, UserData.ReadyState.WAITING);
             var gameSettings = new GameSettings(lobbyName, maxPlayers, moveTime);
             var lobby = new Lobby(lobbyId, ownerUser, gameSettings);
             _lobbies.Add(lobby);
