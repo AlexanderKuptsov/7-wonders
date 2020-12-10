@@ -40,8 +40,9 @@ namespace WhiteTeam.GameLogic
         private bool FindLobbyById(string lobbyId, out Lobby lobby)
             => NetworkEntity.FindEntityById(_lobbies, lobbyId, out lobby);
 
-        private bool IsInLobby()
-            => _selectedLobby != null;
+        private bool IsInLobby => _selectedLobby != null;
+
+        private bool SelectedLobbyReadyToStart => IsInLobby && _selectedLobby.AllUsersReady;
 
         #endregion
 
@@ -134,9 +135,9 @@ namespace WhiteTeam.GameLogic
                 lobby.FindUserById(playerId, out var user))
             {
                 lobby.Disconnect(user);
-            }
 
-            Events.OnUserDisconnectFromLobby.TriggerEvents();
+                Events.OnUserDisconnectFromLobby.TriggerEvents();
+            }
         }
 
         public void OnCreateLobby(string lobbyId, string ownerId, string ownerName, string lobbyName, int maxPlayers,
@@ -156,9 +157,9 @@ namespace WhiteTeam.GameLogic
             {
                 _lobbies.Remove(lobbyToDelete);
                 logger.Log($"Lobby {lobbyToDelete.GetFullName()} deleted.", Logger.LogLevel.INFO);
-            }
 
-            Events.OnDeleteLobby.TriggerEvents();
+                Events.OnDeleteLobby.TriggerEvents();
+            }
         }
 
         public void OnUpdateLobbies(string lobbyId, string playerId, string state)
@@ -167,19 +168,29 @@ namespace WhiteTeam.GameLogic
                 lobby.FindUserById(playerId, out var user))
             {
                 user.state = AssistanceFunctions.GetEnumByName<UserData.ReadyState>(state);
-            }
 
-            Events.OnUpdateLobbies.TriggerEvents();
+                Events.OnUpdateLobbies.TriggerEvents();
+
+                if (lobby.AllUsersReady)
+                {
+                    StartLobbyRequest(lobby);
+                }
+            }
         }
 
         public void OnStartLobby(string lobbyId)
         {
-            if (NetworkEntity.FindEntityById(_lobbies, lobbyId, out var lobbyToStart))
+            if (FindLobbyById(lobbyId, out var lobbyToStart))
             {
-                GameManager.Instance.CreateGameSession(lobbyToStart);
-            }
+                if (lobbyToStart == _selectedLobby)
+                {
+                    GameManager.Instance.CreateGameSession(lobbyToStart);
+                }
 
-            Events.OnStartLobby.TriggerEvents();
+                DeleteLobbyRequest(lobbyId); // TODO
+
+                Events.OnStartLobby.TriggerEvents();
+            }
         }
 
         public void ConnectError()

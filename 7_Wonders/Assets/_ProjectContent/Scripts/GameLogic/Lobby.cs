@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Managers
@@ -59,6 +60,8 @@ namespace WhiteTeam.GameLogic.Managers
         public int ConnectedUsersCount => ConnectedUsers.Count;
 
         public bool IsFull => ConnectedUsersCount == Settings.MaxPlayers;
+
+        public bool AllUsersReady => ConnectedUsers.All(user => user.state == UserData.ReadyState.READY);
 
         #endregion
 

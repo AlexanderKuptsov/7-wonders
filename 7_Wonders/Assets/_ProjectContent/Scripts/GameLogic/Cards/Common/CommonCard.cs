@@ -57,7 +57,6 @@ namespace WhiteTeam.GameLogic.Cards
             Data.ActivatedUse(player);
         }
 
-
         public override void ActivateEndGameEffect(PlayerData player)
         {
             Data.ActivateEndGameEffect(player);
