@@ -16,9 +16,6 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
 
    // public List<CardData> cardRaw;
 
-
-    
-
     public TextMeshProUGUI nameText;
     public Image effect;
 
@@ -29,6 +26,7 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
     {
        // GameObject cardClone = Instantiate(originalcard,new Vector3(125,0,0),Quaternion.identity);
       
+      DisplayRawMaterialCards();
     // CreateCards(7);
     //nameText = GetComponent<TextMeshPro>();
     nameText.text = card.cardname;

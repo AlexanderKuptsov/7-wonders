@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CivilianCardsIII : CardData
 {
     // Start is called before the first frame update
+    public  SpecialCard<T> specialcard;
     public override Color change_color()
     {
       return  new Color32(0,191,255,255);

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [CreateAssetMenu (fileName ="Grey Cards", menuName="Cards/GreyCards/1")]
 public class GreyCards : CardData
 {
-    
+     public  SpecialCard<T> specialcard;
      public override Color change_color()
    {
     

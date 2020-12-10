@@ -10,6 +10,7 @@ public abstract class CardData : ScriptableObject
    public string cardname;
    public Sprite effect;
    public Sprite costeffect;
+   public 
 
     public abstract Color change_color();
    
