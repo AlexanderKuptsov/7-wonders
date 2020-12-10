@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using MyBox;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -16,6 +17,7 @@ namespace WhiteTeam.GameLogic.Cards
         [ReadOnly] public string RequirementBuildCardId;
 
         private bool _isActivated;
+        private IVisualizer _visualizer;
 
         public CommonCardData(string id, string name, CardType type, int epoch, Resource.CurrencyItem[] costInfo,
             string requirementBuildCardId) : base(id, name)
@@ -24,6 +26,13 @@ namespace WhiteTeam.GameLogic.Cards
             Epoch = epoch;
             CostInfo = costInfo;
             RequirementBuildCardId = requirementBuildCardId;
+        }
+
+        protected abstract IVisualizer CreateVisualizer();
+
+        public IVisualizer GetVisualizer()
+        {
+            return _visualizer ?? (_visualizer = CreateVisualizer());
         }
 
         public override void ActivatedUse(PlayerData player)

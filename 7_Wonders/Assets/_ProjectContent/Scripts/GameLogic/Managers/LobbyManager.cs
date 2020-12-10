@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using SK_Engine;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.Network.Entity;
