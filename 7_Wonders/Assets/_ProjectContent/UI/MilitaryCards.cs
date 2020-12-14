@@ -6,7 +6,6 @@ using UnityEngine.UI;
 [CreateAssetMenu (fileName="MilitaryCard",menuName = "Cards/MilitaryCards/1")]
 public class MilitaryCards : CardData
 {
-     public  SpecialCard<T> specialcard;
      public override Color change_color()
     {
       return  new Color32(255,0,0,255);

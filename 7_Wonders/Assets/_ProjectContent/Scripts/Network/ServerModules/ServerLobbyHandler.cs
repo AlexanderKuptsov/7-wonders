@@ -23,12 +23,8 @@ namespace WhiteTeam.Network.ServerModules
     {
         private void Start()
         {
-            //var createMessage = "{\"status\":\"SUCCESS\",\"results\":{\"lobbyId\": \"2\", \"ownerInfo\": {\"ownerId\":\"1\", \"ownerName\": \"Aleksei\"},\"lobbyInfo\": {\"lobbyName\":\"newLobby\",\"maxPlayers\":\"5\",\"moveTime\":\"60\"}},\"module\":\"Lobby\",\"type\":\"create\"}";
-            var lobbyListMessage =
-                "{\"status\": \"SUCCESS\",\"results\": {\"lobbyList\":[ {\"lobbyName\":\"Game 1\", \"maxPlayers\": \"7\", \"moveTime\": \"30\"},{\"lobbyName\":\"Game 2\", \"maxPlayers\": \"6\", \"moveTime\": \"45\"}]},\"module\": \"lobby\",\"type\": \"getLobby\"}";
-            //OnTextMessageReceived(lobbyListMessage);
+            
         }
-
         protected override void OnTextMessageReceived(string text)
         {
             try
@@ -40,34 +36,27 @@ namespace WhiteTeam.Network.ServerModules
                     switch (type)
                     {
                         case LobbyType.getLobby:
-                            var gameSettingsList = result.results.lobbyList.Select(info =>
-                                new GameSettings(info.lobbyName, Int32.Parse(info.maxPlayers),
-                                    Int32.Parse(info.moveTime))).ToArray();
-                            var userDataList =
-                                result.results.lobbyList.Select(info => new UserData(info.ownerId, info.ownerName))
-                                    .ToArray();
-                            var lobbyIdList = result.results.lobbyList.Select(info => info.lobbyId).ToArray();
-                            LobbyManager.Instance.OnGetLobbyList(lobbyIdList, userDataList, gameSettingsList);
+                            LobbyManager.Instance.OnGetLobbyList(result.results.lobbyList);
                             break;
                         case LobbyType.connect:
                             LobbyManager.Instance.OnUserConnectToLobby(result.results.connectInfo.lobbyId,
-                                result.results.connectInfo.playerId,
-                                result.results.connectInfo.playerName);
+                                result.results.connectInfo.connectedUsers[0].playerId,
+                                result.results.connectInfo.connectedUsers[0].playerName);
                             break;
                         case LobbyType.disconnect:
                             LobbyManager.Instance.OnUserDisconnectFromLobby(result.results.disconnectInfo.lobbyId,
-                                result.results.disconnectInfo.playerId);
+                                result.results.disconnectInfo.connectedUsers[0].playerId);
                             break;
                         case LobbyType.create:
                             Debug.Log(result.results.lobbyInfo.lobbyId);
-                            Debug.Log(result.results.lobbyInfo.ownerId);
-                            Debug.Log(result.results.lobbyInfo.ownerName);
+                            Debug.Log(result.results.lobbyInfo.ownerInfo.playerId);
+                            Debug.Log(result.results.lobbyInfo.ownerInfo.playerName);
                             Debug.Log(result.results.lobbyInfo.lobbyName);
                             Debug.Log(Int32.Parse(result.results.lobbyInfo.maxPlayers));
                             Debug.Log(result.results.lobbyInfo.moveTime);
 
                             LobbyManager.Instance.OnCreateLobby(result.results.lobbyInfo.lobbyId,
-                                result.results.lobbyInfo.ownerId, result.results.lobbyInfo.ownerName,
+                                result.results.lobbyInfo.ownerInfo.playerId, result.results.lobbyInfo.ownerInfo.playerName,
                                 result.results.lobbyInfo.lobbyName, Int32.Parse(result.results.lobbyInfo.maxPlayers),
                                 Int32.Parse(result.results.lobbyInfo.moveTime));
                             break;
@@ -79,8 +68,8 @@ namespace WhiteTeam.Network.ServerModules
                             break;
                         case LobbyType.update:
                             LobbyManager.Instance.OnUpdateLobbies(result.results.updateInfo.lobbyId,
-                                result.results.updateInfo.playerId,
-                                result.results.updateInfo.state);
+                                result.results.updateInfo.connectedUsers[0].playerId,
+                                result.results.updateInfo.connectedUsers[0].state);
                             break;
                         default:
                             break;

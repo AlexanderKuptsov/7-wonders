@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class CardRawMaterials : CardData
 
 {
-   public  SpecialCard<T> specialcard;
    public override Color change_color()
    {
       return  new Color32(139,69,19,255);

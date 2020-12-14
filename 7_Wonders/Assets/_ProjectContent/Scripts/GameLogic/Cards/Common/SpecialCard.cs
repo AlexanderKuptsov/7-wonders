@@ -1,9 +1,10 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class SpecialCard<TEffect> : CommonCardData
+    public abstract class SpecialCard<TEffect> : CommonCardData
         where TEffect : CardEffect
     {
         public TEffect CurrentEffect;

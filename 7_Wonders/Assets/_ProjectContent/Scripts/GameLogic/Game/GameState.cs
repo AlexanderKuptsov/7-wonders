@@ -5,6 +5,9 @@
         public EpochType Epoch { get; private set; } = EpochType.FIRST;
         public int Move { get; private set; } = 1;
 
+        public bool IsEpochStart => Move == 1;
+        public bool IsCompleted => Epoch == EpochType.COMPLETED;
+
         public void NextMove()
         {
             Move = Move == 6 ? 1 : Move + 1;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using SK_Engine;
+using UnityEngine;
+using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -8,6 +10,10 @@ namespace WhiteTeam.GameLogic.Cards
     {
         public T Data;
 
+        protected readonly EventHolder<string> OnErrorEvent = new EventHolder<string>();
+
+        protected PlayerData LocalPlayer => GameManager.Instance.CurrentSession.LocalPlayerData;
+        
         public abstract void UseRequest();
         public abstract void ActivatedUseRequest();
         public abstract void Use(PlayerData player);

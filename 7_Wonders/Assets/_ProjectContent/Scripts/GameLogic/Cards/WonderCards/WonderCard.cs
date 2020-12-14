@@ -9,8 +9,15 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
 
         public override void UseRequest()
         {
-            var action = new WonderCardBuildAction(this);
-            GameManager.Instance.PlayerActionRequest(action);
+            if (Data.CanBuildCurrentStep(LocalPlayer))
+            {
+                var action = new WonderCardBuildAction(this);
+                GameManager.Instance.PlayerActionRequest(action);
+            }
+            else
+            {
+                OnErrorEvent.TriggerEvents("Not enough money"); // TODO   
+            }
         }
 
         public override void ActivatedUseRequest()
@@ -25,17 +32,18 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
 
         public override void Use(PlayerData player)
         {
-            throw new System.NotImplementedException();
+            Data.Use(player);
+            player.CompleteMove();
         }
 
         public override void ActivatedUse(PlayerData player)
         {
-            throw new System.NotImplementedException();
+            Data.ActivatedUse(player);
         }
 
         public override void ActivateEndGameEffect(PlayerData player)
         {
-            throw new System.NotImplementedException();
+            Data.ActivateEndGameEffect(player);
         }
 
         #endregion

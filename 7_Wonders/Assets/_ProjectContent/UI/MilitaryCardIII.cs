@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu (fileName="MilitaryCard",menuName = "Cards/MilitaryCards/3")]
 public class MilitaryCardIII : CardData
 {
-     public  SpecialCard<T> specialcard;
+    // Start is called before the first frame update
      public override Color change_color()
     {
       return  new Color32(255,0,0,255);

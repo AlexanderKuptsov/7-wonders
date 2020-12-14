@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhiteTeam.GameLogic;
 
-public class LobbySender : MonoBehaviour
+public class LobbySender : Singleton<LobbySender>
 {
     
     public void GetLobbies()
     {
-        LobbyManager.Instance.GetLobbyListRequest();
+        //LobbyManager.Instance.GetLobbyListRequest();
+        FakeLobbyServer.Instance.FakeGetLobbiesAnswer();
     }
 }

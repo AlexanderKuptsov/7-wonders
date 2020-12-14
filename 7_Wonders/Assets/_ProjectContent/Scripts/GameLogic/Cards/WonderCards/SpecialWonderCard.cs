@@ -2,7 +2,7 @@
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
-    public class SpecialWonderCard<TEffect1, TEffect2, TEffect3> : WonderCardData // TYPE A (3 steps)
+    public abstract class SpecialWonderCard<TEffect1, TEffect2, TEffect3> : WonderCardData // TYPE A (3 steps)
         where TEffect1 : CardEffect
         where TEffect2 : CardEffect
         where TEffect3 : CardEffect

@@ -22,6 +22,7 @@ namespace WhiteTeam.GameLogic
 
         // ----- WONDER CARD -----
         [SerializeField] private WonderCard _wonderCard;
+        public WonderCard WonderCard => _wonderCard;
 
         // ----- CARDS -----
         [SerializeField] private List<CommonCard> inHandCards = new List<CommonCard>();
@@ -37,7 +38,7 @@ namespace WhiteTeam.GameLogic
         public PlayerResources Resources => resources;
         public ResourcesCost ResourcesBuyCost { get; } = new ResourcesCost();
 
-        private TradeInfo _tradeInfo { get; } = new TradeInfo();
+        private TradeInfo TradeInfo { get; } = new TradeInfo();
 
         // ----- EVENTS -----
         public EffectsEvents Events = new EffectsEvents();
@@ -71,7 +72,7 @@ namespace WhiteTeam.GameLogic
 
         #endregion
 
-        #region MANAGERS
+        #region ROLE MANAGERS
 
         public void MakeAdmin()
         {
@@ -109,7 +110,7 @@ namespace WhiteTeam.GameLogic
         public void EndUpMove()
         {
             resources.HandleTemp();
-            _tradeInfo.Reset();
+            TradeInfo.Reset();
             HandleTempActiveCard();
             ResetMoveState();
 
@@ -174,7 +175,7 @@ namespace WhiteTeam.GameLogic
         public bool CanBuyCurrency(PlayerDirection playerDirection, Resource.CurrencyProducts currency)
             // Didnt trade this currency in current move
             // Has enough money
-            => !_tradeInfo.Check(currency) ||
+            => !TradeInfo.Check(currency) ||
                Resources.GetMoney() < ResourcesBuyCost.GetCost(playerDirection, currency);
 
         public void BuyCurrency(PlayerDirection playerDirection, Resource.CurrencyProducts currency)
@@ -188,7 +189,7 @@ namespace WhiteTeam.GameLogic
             trader.resources.EarnTempMoney(tradeCost);
             resources.EarnTempProduction(new Resource.CurrencyItem {Currency = currency, Amount = 1});
 
-            _tradeInfo.Lock(currency);
+            TradeInfo.Lock(currency);
         }
 
         #endregion

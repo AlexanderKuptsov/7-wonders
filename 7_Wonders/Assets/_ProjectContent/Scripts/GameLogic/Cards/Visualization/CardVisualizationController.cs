@@ -6,7 +6,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
         [SerializeField] private GameObject RawMaterialsVisualizer;
-        [SerializeField] private GameObject ManufactureVisualizer;
+        [SerializeField] private GameObject ProductionVisualizer;
         [SerializeField] private GameObject CivilianVisualizer;
         [SerializeField] private GameObject ScientificVisualizer;
         [SerializeField] private GameObject CommercialMoneyVisualizer;

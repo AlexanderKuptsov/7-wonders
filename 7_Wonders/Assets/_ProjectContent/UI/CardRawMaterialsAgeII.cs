@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CardRawMaterialsAgeII: CardData
 {
    
-   public  SpecialCard<T> specialcard;
+
    public override Color change_color()
    {
       return new Color32(139,69,19,255);

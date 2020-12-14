@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using WhiteTeam.GameLogic;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Cards.Wonder;
@@ -42,7 +42,7 @@ namespace WhiteTeam.GameLogic
         public void Setup()
         {
             CreatePlayersWrappers();
-            ProvideSeats();
+            //SetNeighbours();
 
             _swipeDirection = RulesParameters.Instance.FirstSwipeDirection;
             GameState = new GameState();
@@ -57,7 +57,7 @@ namespace WhiteTeam.GameLogic
             }
         }
 
-        private void ProvideSeats()
+        private void SetNeighbours()
         {
             for (var playerIndex = 0; playerIndex < Players.Count; playerIndex++)
             {
@@ -66,6 +66,25 @@ namespace WhiteTeam.GameLogic
 
                 Players[playerIndex].SeatBetween(Players[leftPlayerIndex], Players[rightPlayerIndex]);
             }
+        }
+
+        public void ProvideSeats(IEnumerable<string> seatsId)
+        {
+            var playersBySeats = new List<PlayerData>(Players.Count);
+            foreach (var seatId in seatsId)
+            {
+                if (FindPlayerById(seatId, out var player))
+                {
+                    playersBySeats.Add(player);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+
+            Players = playersBySeats;
+            SetNeighbours();
         }
 
         public void GiveWonderCards(Dictionary<PlayerData, WonderCard> playersWonderCardsData)
@@ -139,5 +158,8 @@ namespace WhiteTeam.GameLogic
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Settings.Name));
         }
+
+        public bool FindPlayerById(string id, out PlayerData player) =>
+            NetworkEntity.FindEntityById(Players, id, out player);
     }
 }

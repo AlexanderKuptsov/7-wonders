@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -11,5 +12,9 @@ namespace WhiteTeam.GameLogic.Cards
             currentEffect, endGameEffect)
         {
         }
+
+        protected override IVisualizer CreateVisualizer() => new CommercialBonusVisualizer(this);
+        
+          
     }
 }

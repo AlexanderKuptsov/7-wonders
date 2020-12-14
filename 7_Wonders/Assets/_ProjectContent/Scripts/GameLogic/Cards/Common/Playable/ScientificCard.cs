@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
@@ -10,5 +11,8 @@ namespace WhiteTeam.GameLogic.Cards
             requirementBuildCardId, currentEffect)
         {
         }
+
+        protected override IVisualizer CreateVisualizer()=> new ScientificVisualizer(this);
+       
     }
 }
