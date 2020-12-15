@@ -13,9 +13,11 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             cardData = data;
         }
         
+        public abstract string GetNameCard();
         public abstract Color GetColor();
+        public abstract Sprite GetCost();
         public abstract Sprite GetBackground();
         public abstract Sprite GetCurrentEffect();
-        public abstract Sprite GetEnGameEffect();
+        public abstract Sprite GetEndGameEffect();
     }
 }

@@ -30,7 +30,16 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             throw new System.NotImplementedException();
         }
 
-        public override Sprite GetEnGameEffect()
+        public override Sprite GetEndGameEffect()
+        {
+            throw new System.NotImplementedException();
+        }
+        public override string GetNameCard()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Sprite GetCost()
         {
             throw new System.NotImplementedException();
         }

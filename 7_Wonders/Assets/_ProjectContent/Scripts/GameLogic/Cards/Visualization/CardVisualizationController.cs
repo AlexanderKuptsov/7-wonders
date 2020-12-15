@@ -1,12 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using WhiteTeam.GameLogic.Cards.Wonder;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
+      [SerializeField] private GameObject cardVisualizer;
+        [SerializeField] private GameObject cardHolder;
+        /* TODO - prototypes
+         
         [SerializeField] private GameObject RawMaterialsVisualizer;
-        [SerializeField] private GameObject ProductionVisualizer;
+        [SerializeField] private GameObject ManufactureVisualizer;
         [SerializeField] private GameObject CivilianVisualizer;
         [SerializeField] private GameObject ScientificVisualizer;
         [SerializeField] private GameObject CommercialMoneyVisualizer;
@@ -16,71 +21,45 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         [SerializeField] private GameObject GuildsOwningVisualizer;
         [SerializeField] private GameObject GuildsScienceVisualizer;
         [SerializeField] private GameObject GuildsStrategyVisualizer;
+        */
 
-        // public void AddVisualizer(Card card)
-        // {
-        //     GameObject visualizer;
-        //     switch (card.Data.Type)
-        //     {
-        //         case CardType.RAW_MATERIALS:
-        //             visualizer = RawMaterialsVisualizer;
-        //             break;
-        //         case CardType.MANUFACTURE:
-        //             visualizer = ManufactureVisualizer;
-        //             break;
-        //         case CardType.CIVILIAN:
-        //             visualizer = CivilianVisualizer;
-        //             break;
-        //         case CardType.SCIENTIFIC:
-        //             visualizer = ScientificVisualizer;
-        //             break;
-        //         case CardType.COMMERCIAL:
-        //             switch (((CommercialCard) card.Data).CommercialType)
-        //             {
-        //                 case CommercialCard.CommercialInfo.MONEY:
-        //                     visualizer = CommercialMoneyVisualizer;
-        //                     break;
-        //                 case CommercialCard.CommercialInfo.TRADE:
-        //                     visualizer = CommercialTradeVisualizer;
-        //                     break;
-        //                 case CommercialCard.CommercialInfo.BONUS:
-        //                     visualizer = CommercialBonusVisualizer;
-        //                     break;
-        //                 default:
-        //                     throw new ArgumentOutOfRangeException();
-        //             }
-        //
-        //             break;
-        //         case CardType.MILITARY:
-        //             visualizer = MilitaryVisualizer;
-        //             break;
-        //         case CardType.GUILDS:
-        //             switch (((GuildsCard) card.Data).GuildsType)
-        //             {
-        //                 case GuildsCard.GuildsInfo.OWNING:
-        //                     visualizer = GuildsOwningVisualizer;
-        //                     break;
-        //                 case GuildsCard.GuildsInfo.STRATEGY:
-        //                     visualizer = GuildsStrategyVisualizer;
-        //                     break;
-        //                 case GuildsCard.GuildsInfo.SCIENCE:
-        //                     visualizer = GuildsScienceVisualizer;
-        //                     break;
-        //                 default:
-        //                     throw new ArgumentOutOfRangeException();
-        //             }
-        //
-        //             break;
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        //
-        //     AddToCard(card, visualizer);
-        // }
-
-        private static void AddToCard(CommonCard card, GameObject visualizer)
+        public void Visualize(CommonCard card) // Common card visualization
         {
-            Instantiate(visualizer, card.transform);
+            var visualizer = card.Data.GetVisualizer();
+
+            // Example
+            var color = visualizer.GetColor();
+
+            var name = visualizer.GetNameCard();
+            
+            var effect = visualizer.GetCurrentEffect();
+
+            var cost = visualizer.GetCost();
+
+        
+
+            var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
+            var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
+            
+            cardObjectVisualSetter.SetColor(color);
+            cardObjectVisualSetter.SetName(name);
+            cardObjectVisualSetter.SetEffect(effect);
+            cardObjectVisualSetter.SetCostEffect(cost);
+        }
+
+        public void Visualize(WonderCard card) // Wonder card visualization
+        {
+            var visualizer = card.Data.GetVisualizer();
+
+            /* TODO
+            
+            GetName
+            GetCost
+            GetColor
+            GetEffect
+            ...
+            
+            */
         }
     }
 }
