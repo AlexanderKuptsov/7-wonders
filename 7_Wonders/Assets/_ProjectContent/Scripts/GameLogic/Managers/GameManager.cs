@@ -98,6 +98,8 @@ namespace WhiteTeam.GameLogic.Managers
             var gameSessionObject = Instantiate(gameSessionPrototype);
             CurrentSession = gameSessionObject.GetComponent<GameSession>();
             CurrentSession.CreateFromLobby(lobby);
+
+            GameStartRequest();
         }
 
         private void StartGame(Dictionary<string, IEnumerable<string>> rawPlayersCardsData,
@@ -231,7 +233,7 @@ namespace WhiteTeam.GameLogic.Managers
             CardsStack.Instance.LoadCards(commonCards);
 
             // Seats
-            var seats = new[] {"21434", "35325", "345325", "34535"}; // TODO - EXAMPLE
+            var seats = new[] {"2", "4", "1", "6"}; // TODO - EXAMPLE - ids
             CurrentSession.ProvideSeats(seats);
 
             // TODO
@@ -243,8 +245,8 @@ namespace WhiteTeam.GameLogic.Managers
         public void OnGameStart()
         {
             // TODO - EXAMPLE
-            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>(); // playerId - wonder cardId
-            var rawPlayersWonderCardData = new Dictionary<string, string>(); // playerId - common cardsId
+            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>(); // playerId - common cardsId
+            var rawPlayersWonderCardData = new Dictionary<string, string>(); // playerId - wonder cardId
 
             StartGame(rawPlayersCardsData, rawPlayersWonderCardData);
             // TODO
