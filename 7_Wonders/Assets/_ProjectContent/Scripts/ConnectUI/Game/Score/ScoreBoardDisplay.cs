@@ -7,6 +7,7 @@ namespace WhiteTeam.ConnectingUI
     public class ScoreBoardDisplay : MonoBehaviour
     {
         [SerializeField] private GameObject scoreBoardHolder;
+        [SerializeField] private Transform scoreBoardElementsHolder;
         [SerializeField] private GameObject scoreBoardElement;
 
         public void Show(ScoreHandler.ScoreBoard scoreBoard)
@@ -32,7 +33,7 @@ namespace WhiteTeam.ConnectingUI
 
         private void AddElement(ScoreHandler.ScoreData scoreData, bool isWinner = false)
         {
-            var scoreElementObject = Instantiate(scoreBoardElement, scoreBoardHolder.transform);
+            var scoreElementObject = Instantiate(scoreBoardElement, scoreBoardElementsHolder);
             var scoreElementLogic = scoreElementObject.GetComponentInChildren<ScoreElement>();
 
             scoreElementLogic.Setup(scoreData);
@@ -45,9 +46,9 @@ namespace WhiteTeam.ConnectingUI
 
         private void Clear()
         {
-            for (var i = 0; i < scoreBoardHolder.transform.childCount; i++)
+            for (var i = 0; i < scoreBoardElementsHolder.childCount; i++)
             {
-                Destroy(scoreBoardHolder.transform.GetChild(i).gameObject);
+                Destroy(scoreBoardElementsHolder.GetChild(i).gameObject);
             }
         }
     }

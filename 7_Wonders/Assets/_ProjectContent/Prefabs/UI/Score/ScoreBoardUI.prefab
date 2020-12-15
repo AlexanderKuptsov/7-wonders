@@ -54,7 +54,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8162934050746804070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098bcb9de8495f44eb009c9ea62f1e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreBoardHolder: {fileID: 8162934051747933839}
+  scoreBoardHolder: {fileID: 8162934050746804071}
+  scoreBoardElementsHolder: {fileID: 8162934051747933838}
   scoreBoardElement: {fileID: 684442638225997220, guid: ca8328531cdb618428017daf24bf97aa,
     type: 3}
 --- !u!1 &8162934051747933839

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 using WhiteTeam.ConnectingUI;
 using WhiteTeam.GameLogic;
@@ -13,15 +14,7 @@ public class ScoreBoardTest : MonoBehaviour
 
     private void Start()
     {
-        var players = new List<PlayerData>(playerCount);
-        for (var i = 0; i < playerCount; i++)
-        {
-            players.Add(GeneratePlayer());
-        }
-
-        var scoreBoard = new ScoreHandler.ScoreBoard(players);
-
-        scoreBoardDisplay.Show(scoreBoard);
+        GenerateScoreBoard();
     }
 
     private PlayerData GeneratePlayer()
@@ -35,4 +28,30 @@ public class ScoreBoardTest : MonoBehaviour
 
         return player;
     }
+    
+#if UNITY_EDITOR
+    [ButtonMethod]
+    private string GenerateScoreBoard()
+    {
+        var players = new List<PlayerData>(playerCount);
+        for (var i = 0; i < playerCount; i++)
+        {
+            players.Add(GeneratePlayer());
+        }
+
+        var scoreBoard = new ScoreHandler.ScoreBoard(players);
+
+        scoreBoardDisplay.Show(scoreBoard);
+        return $"ScoreBoard ({scoreBoard})";
+    }
+#endif
+    
+#if UNITY_EDITOR
+    [ButtonMethod]
+    private string CloseScoreBoard()
+    {
+        scoreBoardDisplay.Close();
+        return $"ScoreBoard closed";
+    }
+#endif
 }
