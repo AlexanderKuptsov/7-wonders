@@ -4,8 +4,7 @@ using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public class
-        GuildsScienceCard : GuildsCard<SelectableScienceEffect, ScienceEffect> // TODO -- currentEffect - selection
+    public class  GuildsScienceCard : GuildsCard<SelectableScienceEffect, ScienceEffect> // TODO -- currentEffect - selection
     {
         private bool _isSelected;
 
@@ -20,10 +19,8 @@ namespace WhiteTeam.GameLogic.Cards
         {
         }
 
-        protected override IVisualizer CreateVisualizer()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override IVisualizer CreateVisualizer() => new GuildsScienceVisualizer(this);
+        
 
         protected override void ActivatedUseAction(PlayerData player)
         {

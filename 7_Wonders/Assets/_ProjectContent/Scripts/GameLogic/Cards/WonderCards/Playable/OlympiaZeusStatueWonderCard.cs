@@ -3,8 +3,7 @@ using WhiteTeam.GameLogic.Cards.Visualization;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
-    public class
-        OlympiaZeusStatueWonderCard : SpecialWonderCard<VictoryEffect, NextEpochEffect<FreeBuildEffect>, VictoryEffect>
+    public class OlympiaZeusStatueWonderCard : SpecialWonderCard<VictoryEffect, NextEpochEffect<FreeBuildEffect>, VictoryEffect>
         // TODO -- reset free build effect on each epoch
     {
         public OlympiaZeusStatueWonderCard(

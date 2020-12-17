@@ -9,25 +9,26 @@ public class CardsCreationTest : MonoBehaviour
     private void Start()
     {
         // Data from server
-        var cardData = new RawMaterialsCard(
+        var cardData = new ScientificCard(
             "23",
-            "RawMaterialCard",
-            CommonCardData.CardType.PRODUCTION,
+            "Science",
+            CommonCardData.CardType.COMMERCIAL_TRADE,
             1,
             new[]
             {
-                new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.WOOD, Amount = 1}
+                new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
             },
             "",
-            new ProductionCardEffect(new[]
-            {
-                new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.WOOD, Amount = 2},
-            }));
+            new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_2, Amount = 1}));
 
-        // logic card creation
+        //logic card creation
         var card = CardCreator.Create(cardData);
 
         // card visualisation
         CardVisualizationController.Instance.Visualize(card);
+
+
+        // var img = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/Number six");
+        // Debug.Log(img);
     }
 }
