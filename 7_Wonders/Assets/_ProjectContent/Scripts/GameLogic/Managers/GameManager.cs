@@ -172,38 +172,38 @@ namespace WhiteTeam.GameLogic.Managers
         {
             if (!IsAdmin()) return;
 
-            ServerGameHandler.Instance.GameInitRequest(); // TODO
+            //ServerGameHandler.Instance.GameInitRequest(); // TODO put lobby id here
         }
 
         public void GameStartRequest()
         {
             if (!IsAdmin()) return;
 
-            ServerGameHandler.Instance.GameStartRequest(); // TODO
+            //ServerGameHandler.Instance.GameStartRequest(); // TODO put game id here
         }
 
         public void NextMoveRequest()
         {
             if (!IsAdmin()) return;
 
-            ServerGameHandler.Instance.NextMoveRequest(); // TODO
+            //ServerGameHandler.Instance.NextMoveRequest(); // TODO put game id here
         }
 
         public void NextEpochRequest()
         {
             if (!IsAdmin()) return;
 
-            ServerGameHandler.Instance.NextEpochRequest(); // TODO
+            //ServerGameHandler.Instance.NextEpochRequest(); // TODO put game id here
         }
 
         private void EndGameRequest()
         {
-            ServerGameHandler.Instance.EndGameRequest(); // TODO
+            //ServerGameHandler.Instance.EndGameRequest(); // TODO
         }
 
         public void PlayerActionRequest(INetworkAction action)
         {
-            action.SenRequest(); // TODO -- add requests to actions 
+            action.SenRequest(); // TODO put game id here
         }
 
         public void TradeRequest(PlayerDirection playerDirection, Resource.CurrencyProducts currency)

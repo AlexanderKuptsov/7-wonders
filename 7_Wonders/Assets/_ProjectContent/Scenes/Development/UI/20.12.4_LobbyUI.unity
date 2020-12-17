@@ -3480,7 +3480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: localhost
-  port: 9001
+  port: 10005
   connectOnEvent: 0
   connectEvent: {fileID: 0}
   logger:

@@ -10,5 +10,6 @@ public class LobbyAndButtonConnector : MonoBehaviour
     public void GetIntoLobby()
     {
         playerListDisplay.DisplayPlayers(lobbyListElement.GetCurrentLobby());
+        playerListDisplay.SetCurrentLobby(lobbyListElement.GetCurrentLobby());
     }
 }

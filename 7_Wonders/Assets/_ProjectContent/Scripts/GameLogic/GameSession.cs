@@ -14,6 +14,7 @@ namespace WhiteTeam.GameLogic
     public class GameSession : MonoBehaviour, INetworkEntity
     {
         public string Id { get; private set; }
+        public string gameId { get; private set; }
         public GameSettings Settings { get; private set; }
         public PlayerData LocalPlayerData { get; private set; }
         public List<PlayerData> Players = new List<PlayerData>();

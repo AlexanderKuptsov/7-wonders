@@ -14,7 +14,45 @@ public class FakeLobbyServer : Singleton<FakeLobbyServer>
 
     public void FakeCreateAnswer()
     {
-        var createMessage = "{\"status\":\"SUCCESS\",\"results\":{\"lobbyId\": \"2\", \"ownerInfo\": {\"ownerId\":\"1\", \"ownerName\": \"Aleksei\"},\"lobbyInfo\": {\"lobbyName\":\"newLobby\",\"maxPlayers\":\"5\",\"moveTime\":\"60\"}},\"module\":\"Lobby\",\"type\":\"create\"}";
+        var createMessage =
+            "{\"status\": \"SUCCESS\",\"results\": {\"lobbyInfo\":{\"lobbyId\": \"3\",\"lobbyName\":\"BestGame\", \"maxPlayers\": \"6\", \"moveTime\": \"45\", \"ownerInfo\": {\"playerName\": \"Aleksei\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [], \"accessToken\": \"asdasdasdasd123123123\"}}, \"module\":\"Lobby\",\"type\":\"create\"}";
         ServerLobbyHandler.Instance.FakeOnMessageReceived(createMessage);
+    }
+
+    public void FakeDeleteAnswer()
+    {
+        var deleteMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"deleteInfo\": {\"lobbyId\": \"1\"}},\"module\":\"Lobby\",\"type\":\"delete\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(deleteMessage);
+    }
+
+
+    public void FakeConnectAnswer()
+    {
+        var connectMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"connectInfo\": {\"lobbyId\": \"1\", \"connectedUsers\": [{\"playerId\":\"2\", \"playerName\": \"Aleksei\"}]}, \"accessToken\": \"asdasdasd123123123\"},\"module\":\"Lobby\",\"type\":\"connect\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(connectMessage);
+    }
+
+    public void FakeDisconnectAnswer()
+    {
+        var disconnectMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"disconnectInfo\": {\"lobbyId\": \"2\", \"connectedUsers\": [{\"playerId\":\"2\"}]}},\"module\":\"Lobby\",\"type\":\"disconnect\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(disconnectMessage);
+    }
+
+
+    public void FakeUpdateLobbyAnswer()
+    {
+        var updateMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"updateInfo\": {\"lobbyId\": \"2\", \"connectedUsers\": [{\"playerId\":\"2\", \"state\": \"READY\"}]}},\"module\":\"Lobby\",\"type\":\"update\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(updateMessage);
+    }
+    
+    public void FakeStartLobbyAnswer()
+    {
+        var startMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"startInfo\": {\"lobbyId\": \"1\"}},\"module\":\"Lobby\",\"type\":\"start\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(startMessage);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,7 +12,17 @@ public class CurrentLobbyDisplay : MonoBehaviour
     public TMP_Text playersCountText;
     public TMP_Text moveTimeText;
     public GameObject ScrollView;
-    
+    private Lobby currentLobby;
+
+
+    private void Awake()
+    {
+        LobbyManager.Instance.Events.OnUpdateLobbies.Subscribe(OnLobbyUpdate);
+        LobbyManager.Instance.Events.OnUserConnectToLobby.Subscribe(OnLobbyUpdate);
+        LobbyManager.Instance.Events.OnUserDisconnectFromLobby.Subscribe(OnLobbyUpdate);
+        
+    }
+
     public void DisplayPlayers(Lobby lobby)
     {
         foreach (var user in lobby.ConnectedUsers)
@@ -33,5 +44,19 @@ public class CurrentLobbyDisplay : MonoBehaviour
         {
             Destroy(element.transform.gameObject);
         }
+    }
+
+    public void OnLobbyUpdate(string lobbyId)
+    {
+        if (lobbyId == currentLobby.Id)
+        {
+            ClearElements();
+            DisplayPlayers(currentLobby);
+        }
+    }
+
+    public void SetCurrentLobby(Lobby currentLobby)
+    {
+        this.currentLobby = currentLobby;
     }
 }

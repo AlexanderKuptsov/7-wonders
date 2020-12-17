@@ -41,24 +41,15 @@ namespace WhiteTeam.Network.ServerModules
                         case LobbyType.connect:
                             LobbyManager.Instance.OnUserConnectToLobby(result.results.connectInfo.lobbyId,
                                 result.results.connectInfo.connectedUsers[0].playerId,
-                                result.results.connectInfo.connectedUsers[0].playerName);
+                                result.results.connectInfo.connectedUsers[0].playerName,
+                                result.results.connectInfo.accessToken);
                             break;
                         case LobbyType.disconnect:
                             LobbyManager.Instance.OnUserDisconnectFromLobby(result.results.disconnectInfo.lobbyId,
                                 result.results.disconnectInfo.connectedUsers[0].playerId);
                             break;
                         case LobbyType.create:
-                            Debug.Log(result.results.lobbyInfo.lobbyId);
-                            Debug.Log(result.results.lobbyInfo.ownerInfo.playerId);
-                            Debug.Log(result.results.lobbyInfo.ownerInfo.playerName);
-                            Debug.Log(result.results.lobbyInfo.lobbyName);
-                            Debug.Log(Int32.Parse(result.results.lobbyInfo.maxPlayers));
-                            Debug.Log(result.results.lobbyInfo.moveTime);
-
-                            LobbyManager.Instance.OnCreateLobby(result.results.lobbyInfo.lobbyId,
-                                result.results.lobbyInfo.ownerInfo.playerId, result.results.lobbyInfo.ownerInfo.playerName,
-                                result.results.lobbyInfo.lobbyName, Int32.Parse(result.results.lobbyInfo.maxPlayers),
-                                Int32.Parse(result.results.lobbyInfo.moveTime));
+                            LobbyManager.Instance.OnCreateLobby(result.results.lobbyInfo);
                             break;
                         case LobbyType.delete:
                             LobbyManager.Instance.OnDeleteLobby(result.results.deleteInfo.lobbyId);

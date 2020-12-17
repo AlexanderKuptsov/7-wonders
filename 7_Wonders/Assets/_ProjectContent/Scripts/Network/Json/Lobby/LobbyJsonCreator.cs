@@ -20,16 +20,16 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(lobbyType.ToString(), jsonString));
     }
 
-    private static string LobbyInfoJson(string ownerId, string ownerName, string lobbyName, int maxPlayers,
-        int moveTime)
+    private static string LobbyInfoJson( string ownerName, string lobbyName, int maxPlayers,
+        int moveTime, string accessToken)
     {
         var lobbyInfoJson = new LobbyInfo()
         {
-            ownerId = ownerId,
             ownerName = ownerName,
             lobbyName = lobbyName,
             maxPlayers = maxPlayers.ToString(),
-            moveTime = moveTime.ToString()
+            moveTime = moveTime.ToString(),
+            accessToken = accessToken
         };
         var jsonString = JsonConvert.SerializeObject(lobbyInfoJson);
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.create.ToString(), jsonString));
@@ -57,12 +57,13 @@ public static class LobbyJsonCreator
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.disconnect.ToString(), jsonString));
     }
     
-    private static string ConnectToLobbyJson(string lobbyId, string playerName)
+    private static string ConnectToLobbyJson(string lobbyId, string playerName, string sessionId)
     {
         var lobbyIdJson = new PlayerConnectLobby()
         {
             lobbyId = lobbyId,
             playerName = playerName,
+            accessToken = sessionId
         };
         var jsonString = JsonConvert.SerializeObject(lobbyIdJson);
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.connect.ToString(), jsonString));
@@ -73,9 +74,9 @@ public static class LobbyJsonCreator
         var jsonString = JsonConvert.SerializeObject(new NoAttributes());
         return JsonCreator.RemoveSlash(JsonCreator.CreateJson(LobbyType.getLobby.ToString(), jsonString));
     }
-    public static string CreateConnectToLobbyJson(string lobbyId, string playerName)
+    public static string CreateConnectToLobbyJson(string lobbyId, string playerName, string sessionId)
     {
-        return ConnectToLobbyJson(lobbyId, playerName);
+        return ConnectToLobbyJson(lobbyId, playerName, sessionId);
     }
     
 
@@ -84,10 +85,10 @@ public static class LobbyJsonCreator
         return DisconnectFromLobbyJson( lobbyId, playerId);
     }
 
-    public static string CreateCreateLobbyJson(UserData userData, GameSettings gameSettings)
+    public static string CreateCreateLobbyJson(string playerName, GameSettings gameSettings, string accessToken)
     {
-        return LobbyInfoJson(userData.Id, userData.Name, gameSettings.Name, gameSettings.MaxPlayers,
-            gameSettings.MoveTime);
+        return LobbyInfoJson( playerName, gameSettings.Name, gameSettings.MaxPlayers,
+            gameSettings.MoveTime, accessToken);
     }
 
     public static string CreateDeleteLobbyJson(string lobbyId)
@@ -116,11 +117,12 @@ public static class LobbyJsonCreator
 
     private class LobbyInfo
     {
-        public string ownerId { get; set; }
         public string ownerName { get; set; }
         public string lobbyName { get; set; }
         public string maxPlayers { get; set; }
         public string moveTime { get; set; }
+        
+        public string accessToken { get; set; }
     }
 
     private class PlayerIdLobby: LobbyId
@@ -136,5 +138,6 @@ public static class LobbyJsonCreator
     private class PlayerConnectLobby : LobbyId
     {
         public string playerName { get; set; }
+        public string accessToken { get; set; }
     }
 }

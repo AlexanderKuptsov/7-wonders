@@ -11,7 +11,8 @@
 
     public class TokenInfo
     {
-        public string accessToken { get; set; } 
+        public string nickname {get; set;}
+        public string accessToken { get; set; }
         public string tokenType { get; set; } 
     }
 }
