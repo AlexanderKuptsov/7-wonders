@@ -13,9 +13,8 @@ namespace WhiteTeam.GameLogic.Cards
         {
         }
 
-        protected override IVisualizer CreateVisualizer()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override IVisualizer CreateVisualizer() => new CommercialBonusVisualizer(this);
+        
+          
     }
 }

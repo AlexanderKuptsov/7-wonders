@@ -9,6 +9,7 @@ namespace WhiteTeam.GameLogic.Cards.Effects
         public ProductionCardEffect(Resource.CurrencyItem[] actionInfo)
         {
             ActionInfo = actionInfo;
+        
         }
 
         public override void Activate(PlayerData player)
@@ -16,6 +17,7 @@ namespace WhiteTeam.GameLogic.Cards.Effects
             foreach (var currencyItem in ActionInfo)
             {
                 player.Resources.AddProduction(currencyItem);
+                
             }
         }
     }

@@ -3,8 +3,7 @@ using WhiteTeam.GameLogic.Cards.Visualization;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
-    public class
-        AlexandriaLighthouseWonderCard : SpecialWonderCard<VictoryEffect, NoTradeSelectableProductionEffect,
+    public class AlexandriaLighthouseWonderCard : SpecialWonderCard<VictoryEffect, NoTradeSelectableProductionEffect,
             VictoryEffect>
     {
         public AlexandriaLighthouseWonderCard(string id, string name, StepBuildWithEffect<VictoryEffect> stepBuild1,

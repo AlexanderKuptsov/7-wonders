@@ -5,8 +5,11 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public interface IVisualizer
     {
+        string GetNameCard();
         Color GetColor();
-        Image GetCurrentEffect();
-        Image GetEnGameEffect();
+        Sprite GetCost();
+        Sprite GetBackground();
+        Sprite GetCurrentEffect();
+        Sprite GetEndGameEffect();
     }
 }
