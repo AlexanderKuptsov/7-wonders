@@ -18,8 +18,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-          backgroundGuild.sprite   = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
-            return backgroundGuild.sprite;
+         
+            return  UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -27,21 +27,20 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             
             var actionInfo = cardData.CurrentEffect.ActionInfo;
             var SelectedItemIndex = cardData.CurrentEffect.SelectedItemIndex;
-            throw new System.NotImplementedException();
+             
+             
+           //COMPASS / COG / STONE
+           return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/square_compass_cog_stone 1.png");
+
+
         }
 
         public override Sprite GetEndGameEffect()
         {
+            //cardData.EndGameEffect.ScienceInfo.Currency;
+            //cardData.EndGameEffect.ScienceInfo.Amount;
             throw new System.NotImplementedException();
         }
-        public override string GetNameCard()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override Sprite GetCost()
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }

@@ -5,7 +5,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class GuildsStrategyVisualizer : CardVisualizer<GuildsStrategyCard>
     {
-        [SerializeField] private UnityEngine.UI.Image backgroundGuild = null;
+       
        
         public GuildsStrategyVisualizer(GuildsStrategyCard data) : base(data)
         {
@@ -18,8 +18,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-          backgroundGuild.sprite   = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
-            return backgroundGuild.sprite;
+            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -27,22 +26,18 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             
             var currentVictoryBonus = cardData.CurrentEffect.CurrentVictoryBonus;
             var playerDirections = cardData.CurrentEffect.PlayerDirection;
-            throw new System.NotImplementedException();
+
+            return UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/minus_one_arrows.png");
+        
         }
 
         public override Sprite GetEndGameEffect()
         {
+            //cardData.EndGameEffect.CurrentVictoryBonus;
+            //cardData.EndGameEffect.PlayerDirection;
             throw new System.NotImplementedException();
         }
 
-        public override string GetNameCard()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override Sprite GetCost()
-        {
-            throw new System.NotImplementedException();
-        }
+     
     }
 }

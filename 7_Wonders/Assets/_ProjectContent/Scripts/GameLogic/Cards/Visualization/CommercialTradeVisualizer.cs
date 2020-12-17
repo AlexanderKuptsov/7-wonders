@@ -5,8 +5,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CommercialTradeVisualizer : CardVisualizer<CommercialTradeCard>
     {
-        [SerializeField] private UnityEngine.UI.Image backgroundCommercial = null;
-       
+ 
+       public Sprite effectCommercialBonus =  null;
         public CommercialTradeVisualizer(CommercialTradeCard data) : base(data)
         {
 
@@ -19,31 +19,55 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-            
-          backgroundCommercial.sprite = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_commercial.png");
-            return backgroundCommercial.sprite;
+
+            return  UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_commercial.png");
         }
 
         public override Sprite GetCurrentEffect()
         {
             var currencyProducts = cardData.CurrentEffect.DiscountResources;
+            
             var discountCost = cardData.CurrentEffect.DiscountCost;
             var playerdirections = cardData.CurrentEffect.DiscountPlayerDirections;
-            throw new System.NotImplementedException();
+
+           if (playerdirections.Length == 1)
+           {
+            foreach (var directions in playerdirections)
+            {
+                if (directions == PlayerDirection.LEFT)
+                {
+                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/left_arrow_coin_clay_stone_ore_wood.png");
+                }
+                if (directions == PlayerDirection.RIGHT)
+                {
+                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/one_clay_stone_ore_wood_right_arrow.png"); 
+                }
+            }
+           }
+           if (playerdirections.Length == 2)
+            {
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/left_one_loom_glass_papyrus_right.png");   
+            }
+        
+          //LOOM 1/ GLASS 1/ PAPYRUS 1
+         if (currencyProducts.Length == 3)
+         {
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/loom_glass_papyrus.png");
+         }
+         //CLAY 1 / STONE 1 / ORE 1 / WOOD 1
+         if (currencyProducts.Length == 4)
+         {
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/clay_stone_ore_wood.png");
+         }
+          
+            return effectCommercialBonus;
         }
 
         public override Sprite GetEndGameEffect()
         {
+           // cardData.EndGameEffect.DiscountPlayerDirections
             throw new System.NotImplementedException();
         }
-        public override string GetNameCard()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override Sprite GetCost()
-        {
-            throw new System.NotImplementedException();
-        }
+      
     }
 }

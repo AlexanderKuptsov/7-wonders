@@ -5,7 +5,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class GuildsOwningVisualizer : CardVisualizer<GuildsOwningCard>
     {
-        [SerializeField] private UnityEngine.UI.Image backgroundGuild = null;
+        public Sprite effectGuildsOwning = null;
        
         public GuildsOwningVisualizer(GuildsOwningCard data) : base(data)
         {
@@ -18,9 +18,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-            
-          backgroundGuild.sprite   = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
-            return backgroundGuild.sprite;
+            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -29,21 +27,46 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var cardType = cardData.CurrentEffect.CardType;
             var currentMoneyBonus = cardData.CurrentEffect.CurrentMoneyBonus;
             var playerDirections = cardData.CurrentEffect.PlayerDirection;
-            throw new System.NotImplementedException();
+
+
+            //PRODUCTION LEFT RIGHT ONE POINT
+            if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 1 && playerDirections.Length == 2 )
+            {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/brown_arrows_one.png");
+
+            }
+            //PRODUCTION LEFT RIGHT TWO POINT
+            if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2 && playerDirections.Length == 2 )
+            {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/grey_card_arrows_two 1.png");
+
+            }
+            //MILITARY LEFT RIGHT ONE POINT
+             if (cardType == CommonCardData.CardType.MILITARY && currentMoneyBonus == 1 && playerDirections.Length == 2 )
+             {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/red_card_arrows_one.png");
+             }
+            //SCIENTIFIC LEFT RIGHT ONE POINT
+             if (cardType == CommonCardData.CardType.SCIENTIFIC && currentMoneyBonus == 1 && playerDirections.Length == 2 )
+             {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/green_card_arrows_one.png");
+             }
+             //CIVILIAN LEFT RIGHT ONE POINT
+             if (cardType == CommonCardData.CardType.CIVILIAN && currentMoneyBonus == 1 && playerDirections.Length == 2 )
+             {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/blue_card_arrows_one.png");
+             }
+
+            
+            return effectGuildsOwning;
         }
 
         public override Sprite GetEndGameEffect()
         {
             throw new System.NotImplementedException();
         }
-        public override string GetNameCard()
-        {
-            throw new System.NotImplementedException();
-        }
+      
 
-        public override Sprite GetCost()
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }
