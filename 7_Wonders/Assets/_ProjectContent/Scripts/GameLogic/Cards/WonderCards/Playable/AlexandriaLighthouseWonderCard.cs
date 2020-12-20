@@ -1,4 +1,4 @@
-﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Cards.Visualization;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
@@ -12,11 +12,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
         {
         }
 
-        protected override IVisualizer CreateVisualizer()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        protected override IWonderVisualizer CreateWonderVisualizer()=> new AlexandriaLightHouseVisualizer(this);
+      
         public override void ActivatedUse(PlayerData player)
         {
             base.ActivatedUse(player);

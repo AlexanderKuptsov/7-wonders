@@ -21,7 +21,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public override Sprite GetBackground()
         {
         
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_commercial.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/background_commercial.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -29,9 +29,11 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             
             var coins = cardData.CurrentEffect.Coins;  
              if (coins == 5)
-                effectCommercialMoney = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/coin_five.png");
-              
-              
+                effectCommercialMoney = UnityEngine.Resources.Load<Sprite>("Effects/coin_five.png");
+             if (cardData.Type == CommonCardData.CardType.COMMERCIAL_MONEY)
+                 effectCommercialMoney = UnityEngine.Resources.Load<Sprite>("Effects/yellow_card_one_one.png");
+
+
          return  effectCommercialMoney;
         }
 

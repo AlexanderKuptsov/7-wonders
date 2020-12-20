@@ -28,23 +28,36 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var currentMoneyBonus = cardData.CurrentEffect.CurrentMoneyBonus;
             var playerDirections = cardData.CurrentEffect.PlayerDirection;
 
+             
+
+             //GREY 1 GREEN 1 GUILD 1
+             if ( playerDirections.Length == 0)
+              {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/brown_grey_purple_one.png");
+
+             }
 
             //PRODUCTION LEFT RIGHT ONE POINT
             if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 1 && playerDirections.Length == 2 )
             {
-              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/brown_arrows_one.png");
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/brown_arrows_one.png");
 
             }
             //PRODUCTION LEFT RIGHT TWO POINT
             if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2 && playerDirections.Length == 2 )
             {
-              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/grey_card_arrows_two 1.png");
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/grey_card_arrows_two 1.png");
 
             }
             //MILITARY LEFT RIGHT ONE POINT
              if (cardType == CommonCardData.CardType.MILITARY && currentMoneyBonus == 1 && playerDirections.Length == 2 )
              {
-              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/red_card_arrows_one.png");
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/red_card_arrows_one.png");
+             }
+             //COMMERCIALTRADE LEFT RIGHT ONE POINT 
+             if (cardType == CommonCardData.CardType.COMMERCIAL_TRADE && currentMoneyBonus == 1 && playerDirections.Length == 2 )
+             {
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/yellow_arrows_one.png");
              }
             //SCIENTIFIC LEFT RIGHT ONE POINT
              if (cardType == CommonCardData.CardType.SCIENTIFIC && currentMoneyBonus == 1 && playerDirections.Length == 2 )
@@ -56,13 +69,15 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
              {
               effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/blue_card_arrows_one.png");
              }
-
+ 
+                
             
             return effectGuildsOwning;
         }
 
         public override Sprite GetEndGameEffect()
         {
+            //return  cardData.EndGameEffect.CurrentMoneyBonus;
             throw new System.NotImplementedException();
         }
       
