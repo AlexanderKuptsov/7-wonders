@@ -6,6 +6,10 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public class CommonCard : CardWrapper<CommonCardData>
     {
+        public CommonCard(CommonCardData data) : base(data)
+        {
+        }
+
         #region NETWORK REQUESTS
 
         public void ExchangeRequest()

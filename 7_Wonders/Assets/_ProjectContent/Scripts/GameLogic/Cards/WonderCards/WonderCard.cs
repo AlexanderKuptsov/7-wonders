@@ -5,6 +5,10 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
 {
     public class WonderCard : CardWrapper<WonderCardData>
     {
+        public WonderCard(WonderCardData data) : base(data)
+        {
+        }
+
         #region NETWORK REQUESTS
 
         public override void UseRequest()
