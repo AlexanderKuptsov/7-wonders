@@ -1,5 +1,6 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Cards.Visualization;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
@@ -7,7 +8,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
     {
         public GizaGreatPyramidWonderCard(string id, string name, StepBuildWithEffect<VictoryEffect> stepBuild1,
             StepBuildWithEffect<VictoryEffect> stepBuild2, StepBuildWithEffect<VictoryEffect> stepBuild3) : base(id,
-            name, stepBuild1, stepBuild2, stepBuild3)
+            name, new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.STONE, Amount = 1}, stepBuild1,
+            stepBuild2, stepBuild3)
         {
         }
 
