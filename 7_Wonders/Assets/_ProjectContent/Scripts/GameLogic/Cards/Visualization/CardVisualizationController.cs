@@ -50,22 +50,19 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             
          */
 
-    
 
             var name = visualizer.GetNameCard();
-            
+
             var effect = visualizer.GetCurrentEffect();
 
             var cost = visualizer.GetCost();
-            
 
-        
 
             var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
             var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
-            
+
             cardObjectVisualSetter.SetName(name);
-            cardObjectVisualSetter.SetEffect(effect);
+            cardObjectVisualSetter.SetCurrentEffect(effect);
             cardObjectVisualSetter.SetCostEffect(cost);
         }
     }
