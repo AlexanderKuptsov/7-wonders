@@ -20,6 +20,11 @@ namespace WhiteTeam.GameLogic.Cards
         }
 
         protected override IVisualizer CreateVisualizer() => new GuildsScienceVisualizer(this);
+
+         protected override IWonderVisualizer CreateIwonderVisualizer()
+        {
+            throw new System.NotImplementedException();
+        }
         
 
         protected override void ActivatedUseAction(PlayerData player)

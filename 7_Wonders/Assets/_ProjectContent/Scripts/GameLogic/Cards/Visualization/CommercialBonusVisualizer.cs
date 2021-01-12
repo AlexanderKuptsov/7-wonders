@@ -6,19 +6,20 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
     public class CommercialBonusVisualizer : CardVisualizer<CommercialBonusCard>
     {
         public Sprite effectCommercialBonus = null;
-
         public CommercialBonusVisualizer(CommercialBonusCard data) : base(data)
         {
+
         }
 
         public override Color GetColor()
         {
-            return new Color32(255, 255, 0, 255);
+            return new Color32(255,255,0, 255);
         }
 
         public override Sprite GetBackground()
         {
-            return UnityEngine.Resources.Load<Sprite>("Pictures/background_commercial");
+          
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/background_commercial.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -27,40 +28,38 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var currentMoneyBonus = cardData.CurrentEffect.CurrentMoneyBonus;
             var playerdirections = cardData.CurrentEffect.PlayerDirection;
 
-            //PRODUCTION LEFT RIGHT SELF ONE
-            if (cardType == CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 &&
-                currentMoneyBonus == 1)
+           //PRODUCTION LEFT RIGHT SELF ONE
+            if (cardType ==  CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 && currentMoneyBonus == 1)
             {
-                effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/brown_card_arrows_one");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/brown_card_arrows_one.png");
             }
-
             //PRODUCTION LEFT RIGHT SELF TWO
-            if (cardType == CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 &&
-                currentMoneyBonus == 2)
+            if (cardType ==  CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 && currentMoneyBonus == 2)
             {
-                effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/grey_card_arrows_two");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/grey_card_arrows_two.png");
             }
 
             //PRODUCTION TWO POINTS
-            if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
+            if (cardType ==  CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
             {
-                effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/grey_card_two_two");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/grey_card_two_two.png");
             }
-
             //PRODUCTION ONE POINT
-            if (cardType == CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
-            {
-                effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/brown_card_one_one");
-            }
+             if (cardType ==  CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
+             {
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/brown_card_one_one.png");
+             }
 
-            //CommonCardData.CardType.COMMERCIAL_BONUS;
+             //CommonCardData.CardType.COMMERCIAL_BONUS;
             return effectCommercialBonus;
         }
 
         public override Sprite GetEndGameEffect()
         {
-            //  cardData.EndGameEffect.VictoryPoints
+          //  cardData.EndGameEffect.VictoryPoints
             throw new System.NotImplementedException();
         }
+
+      
     }
 }
