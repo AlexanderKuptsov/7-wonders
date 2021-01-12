@@ -24,7 +24,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         [SerializeField] private GameObject GuildsStrategyVisualizer;
         */
 
-        public void Visualize(CommonCard card) // Common card visualization
+        public GameObject Visualize(CommonCard card) // Common card visualization
         {
             var visualizer = card.Data.GetVisualizer();
 
@@ -47,6 +47,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             cardObjectVisualSetter.SetBackground(background);
             cardObjectVisualSetter.SetCurrentEffect(currentEffect);
             cardObjectVisualSetter.SetEndGameEffect(endGameEffect);
+
+            return cardObject;
         }
 
         public void Visualize(WonderCard card) // Wonder card visualization
