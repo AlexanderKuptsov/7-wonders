@@ -19,6 +19,11 @@ namespace WhiteTeam.GameLogic.Cards
         }
 
         protected override IVisualizer CreateVisualizer() => new CommercialTradeVisualizer(this);
+
+         protected override IWonderVisualizer CreateIwonderVisualizer()
+        {
+            throw new System.NotImplementedException();
+        }
     
    }  
 }

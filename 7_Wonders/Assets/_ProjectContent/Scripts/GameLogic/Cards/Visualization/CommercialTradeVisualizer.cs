@@ -20,7 +20,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public override Sprite GetBackground()
         {
 
-            return  UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_commercial.png");
+            return  UnityEngine.Resources.Load<Sprite> ("Pictures/background_commercial.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -36,28 +36,28 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             {
                 if (directions == PlayerDirection.LEFT)
                 {
-                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/left_arrow_coin_clay_stone_ore_wood.png");
+                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/left_arrow_coin_clay_stone_ore_wood.png");
                 }
                 if (directions == PlayerDirection.RIGHT)
                 {
-                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/one_clay_stone_ore_wood_right_arrow.png"); 
+                    effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/one_clay_stone_ore_wood_right_arrow.png"); 
                 }
             }
            }
            if (playerdirections.Length == 2)
             {
-             effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/left_one_loom_glass_papyrus_right.png");   
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/left_one_loom_glass_papyrus_right.png");   
             }
         
           //LOOM 1/ GLASS 1/ PAPYRUS 1
          if (currencyProducts.Length == 3)
          {
-             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/loom_glass_papyrus.png");
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/loom_glass_papyrus.png");
          }
          //CLAY 1 / STONE 1 / ORE 1 / WOOD 1
          if (currencyProducts.Length == 4)
          {
-             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/clay_stone_ore_wood.png");
+             effectCommercialBonus = UnityEngine.Resources.Load<Sprite>("Effects/clay_stone_ore_wood.png");
          }
           
             return effectCommercialBonus;

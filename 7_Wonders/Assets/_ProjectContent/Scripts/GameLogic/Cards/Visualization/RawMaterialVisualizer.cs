@@ -41,7 +41,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                  //WOOD 1
                 if(action.Currency == Resources.Resource.CurrencyProducts.WOOD && action.Amount == 1)
                 {
-                    effectRawMaterials = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Wood.png");
+                    effectRawMaterials = UnityEngine.Resources.Load<Sprite>("Effects/Wood.png");
                 }
                 //WOOD 2
                 if(action.Currency == Resources.Resource.CurrencyProducts.WOOD && action.Amount == 2)

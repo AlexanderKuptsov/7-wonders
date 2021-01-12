@@ -8,40 +8,37 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
     {
 
          public AlexandriaLightHouseVisualizer(AlexandriaLighthouseWonderCard data) : base(data)
-        {
-
-        }
-        public override Color GetColor()
-        {
-            return  new Color32(0,191,255,255);
-        }
+         {
+          
+         }
+       
 
         public override Sprite GetBackground()
         {
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/military_symbol.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/Alexandria.jpg");
         }
 
         public override Sprite GetCostFirstEra()
         {
-            return null;
+            return UnityEngine.Resources.Load<Sprite>("Effects/stone_stone.png");
         }
         public override Sprite GetCostSecondEra()
         {
-            return null;
+           return UnityEngine.Resources.Load<Sprite>("Effects/ore_ore.png");
         }
         public override Sprite GetCostThirdEra()
         {
-            return null;
+          return UnityEngine.Resources.Load<Sprite>("Effects/glass_glass.png");
         }
         public override Sprite GetInitialBonus()
         {
-            return null;
+            return UnityEngine.Resources.Load<Sprite> ("Effects/glass.png");
         }
 
-        public override Sprite GetCurrentEffect()
+        public override Sprite GetCurrentEffectStepTwo()
         {
-
-            return null;
+            //cardData.SecondStepBuild.CardEffect.ActionInfo;
+            return UnityEngine.Resources.Load<Sprite>("Effects/brick_wood_ore_stone.png");
         }
     }
 }

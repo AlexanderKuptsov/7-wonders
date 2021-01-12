@@ -15,5 +15,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
         {
             throw new System.NotImplementedException();
         }
+
+        protected override IWonderVisualizer CreateIwonderVisualizer() => new GizaGreatPyramidVisualizer(this);
+    
     }
 }

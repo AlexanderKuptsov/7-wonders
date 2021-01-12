@@ -11,5 +11,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         Sprite GetBackground();
         Sprite GetCurrentEffect();
         Sprite GetEndGameEffect();
+       
+   
     }
 }

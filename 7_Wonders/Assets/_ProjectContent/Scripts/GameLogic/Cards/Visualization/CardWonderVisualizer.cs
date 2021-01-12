@@ -16,14 +16,17 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public string GetNameCard()
         {
             return cardData.Name;
+         
         }
-        public abstract Color GetColor();
+        
+
+        
         
         public abstract Sprite GetBackground();
         public abstract Sprite GetCostFirstEra();
         public abstract Sprite GetCostSecondEra();
         public abstract Sprite GetCostThirdEra();
         public abstract Sprite GetInitialBonus();
-        public abstract Sprite GetCurrentEffect();
+        public abstract Sprite GetCurrentEffectStepTwo();
     }
 }

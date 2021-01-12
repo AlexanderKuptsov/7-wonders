@@ -30,7 +30,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
              
              
            //COMPASS / COG / STONE
-           return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/square_compass_cog_stone 1.png");
+           return UnityEngine.Resources.Load<Sprite> ("Effects/square_compass_cog_stone 1.png");
 
 
         }

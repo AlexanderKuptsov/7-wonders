@@ -18,7 +18,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/background_guildcards.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -62,12 +62,12 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             //SCIENTIFIC LEFT RIGHT ONE POINT
              if (cardType == CommonCardData.CardType.SCIENTIFIC && currentMoneyBonus == 1 && playerDirections.Length == 2 )
              {
-              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/green_card_arrows_one.png");
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/green_card_arrows_one.png");
              }
              //CIVILIAN LEFT RIGHT ONE POINT
              if (cardType == CommonCardData.CardType.CIVILIAN && currentMoneyBonus == 1 && playerDirections.Length == 2 )
              {
-              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/blue_card_arrows_one.png");
+              effectGuildsOwning = UnityEngine.Resources.Load<Sprite>("Effects/blue_card_arrows_one.png");
              }
  
                 

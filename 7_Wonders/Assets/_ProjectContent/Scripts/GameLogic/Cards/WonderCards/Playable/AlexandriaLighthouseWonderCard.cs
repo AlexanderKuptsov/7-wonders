@@ -11,8 +11,13 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
             StepBuildWithEffect<VictoryEffect> stepBuild3) : base(id, name, stepBuild1, stepBuild2, stepBuild3)
         {
         }
+         protected override IWonderVisualizer CreateIwonderVisualizer()=> new AlexandriaLightHouseVisualizer(this);
+      
 
-        protected override IWonderVisualizer CreateWonderVisualizer()=> new AlexandriaLightHouseVisualizer(this);
+        protected override IVisualizer CreateVisualizer() 
+         {
+            throw new System.NotImplementedException();
+        }
       
         public override void ActivatedUse(PlayerData player)
         {

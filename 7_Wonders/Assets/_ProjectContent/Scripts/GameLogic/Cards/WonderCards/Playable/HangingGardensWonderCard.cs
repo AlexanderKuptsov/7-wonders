@@ -17,6 +17,9 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
             throw new System.NotImplementedException();
         }
 
+        protected override IWonderVisualizer CreateIwonderVisualizer() => new HangingGardensVisualizer(this);
+       
+
         public override void ActivatedUse(PlayerData player)
         {
             base.ActivatedUse(player);

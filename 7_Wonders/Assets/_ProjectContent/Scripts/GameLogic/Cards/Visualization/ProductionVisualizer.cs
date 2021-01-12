@@ -24,7 +24,7 @@ public class ProductionVisualizer : CardVisualizer<ProductionCard>
         public override Sprite GetBackground()
         {
          
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/production_background.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/production_background.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -36,19 +36,19 @@ public class ProductionVisualizer : CardVisualizer<ProductionCard>
                   //LOOM 1
                 if(action.Currency == Resources.Resource.CurrencyProducts.CLOTH && action.Amount == 1)
                 {
-                    effectProduction = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/loom.png");
+                    effectProduction = UnityEngine.Resources.Load<Sprite>("Effects/loom.png");
                    
                 }
                 //GLASSWORKS 1
                 if(action.Currency == Resources.Resource.CurrencyProducts.GLASS && action.Amount == 1)
                 {
-                    effectProduction = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/glass.png");
+                    effectProduction = UnityEngine.Resources.Load<Sprite>("Effects/glass.png");
                     
                 }
                 //PAPYRUS 1
                 if(action.Currency == Resources.Resource.CurrencyProducts.PAPYRUS && action.Amount == 1)
                 {
-                    effectProduction = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/papyrus.png");
+                    effectProduction = UnityEngine.Resources.Load<Sprite>("Effects/papyrus.png");
                   
                }
              }

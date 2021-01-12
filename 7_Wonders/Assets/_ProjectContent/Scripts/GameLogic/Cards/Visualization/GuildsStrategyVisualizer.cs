@@ -18,7 +18,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetBackground()
         {
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_guildcards.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/background_guildcards.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -27,7 +27,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var currentVictoryBonus = cardData.CurrentEffect.CurrentVictoryBonus;
             var playerDirections = cardData.CurrentEffect.PlayerDirection;
 
-            return UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/minus_one_arrows.png");
+            return UnityEngine.Resources.Load<Sprite>("Effects/minus_one_arrows.png");
         
         }
 

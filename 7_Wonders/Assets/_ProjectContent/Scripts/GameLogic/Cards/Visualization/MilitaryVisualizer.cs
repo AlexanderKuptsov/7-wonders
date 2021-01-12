@@ -22,7 +22,7 @@ public class MilitaryVisualizer : CardVisualizer<MilitaryCard>
         public override Sprite GetBackground()
         {
   
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/military_symbol.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/military_symbol.png");
         }
 
         public override  Sprite GetCurrentEffect()
@@ -31,13 +31,13 @@ public class MilitaryVisualizer : CardVisualizer<MilitaryCard>
                 switch(shield)
                 {
                     case 1 :
-                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/shield.png");
+                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Effects/shield.png");
                         break;
                     case 2 :
-                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/shield_shield.png");
+                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Effects/shield_shield.png");
                         break;
                     case 3 :
-                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/shield_shield_shield.png");
+                        effectMilitary = UnityEngine.Resources.Load<Sprite>("Effects/shield_shield_shield.png");
                         break;
                     default:
                          effectMilitary = null;

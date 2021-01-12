@@ -16,5 +16,9 @@ namespace WhiteTeam.GameLogic.Cards
         {
             throw new System.NotImplementedException();
         }
+         protected override IWonderVisualizer CreateIwonderVisualizer()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

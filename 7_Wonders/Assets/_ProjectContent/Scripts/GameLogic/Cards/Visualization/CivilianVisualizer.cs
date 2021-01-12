@@ -23,7 +23,7 @@ public class CivilianVisualizer :CardVisualizer<CivilianCard>
 
         public override Sprite GetBackground()
         {
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/military_symbol.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/military_symbol.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -34,22 +34,22 @@ public class CivilianVisualizer :CardVisualizer<CivilianCard>
              switch(victoryPoints)
              {
                  case 2:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number two.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number two.png");
                        break;
                 case 3:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number three.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number three.png");
                        break;
                 case 5:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number five.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number five.png");
                        break;
                 case 6:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number six.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number six.png");
                        break;
                 case 7:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number seven.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number seven.png");
                        break;
                 case 8:
-                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Number eight.png");
+                      effectCivilian = UnityEngine.Resources.Load<Sprite>("Effects/Number eight.png");
                        break;
                 default:
                       effectCivilian = null;

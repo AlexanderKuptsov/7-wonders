@@ -19,7 +19,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public override Sprite GetBackground()
         {
           
-            return UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Pictures/background_commercial.png");
+            return UnityEngine.Resources.Load<Sprite> ("Pictures/background_commercial.png");
         }
 
         public override Sprite GetCurrentEffect()
@@ -31,23 +31,23 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
            //PRODUCTION LEFT RIGHT SELF ONE
             if (cardType ==  CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 && currentMoneyBonus == 1)
             {
-              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/brown_card_arrows_one.png");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/brown_card_arrows_one.png");
             }
             //PRODUCTION LEFT RIGHT SELF TWO
             if (cardType ==  CommonCardData.CardType.PRODUCTION && playerdirections.Length == 3 && currentMoneyBonus == 2)
             {
-              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/grey_card_arrows_two.png");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/grey_card_arrows_two.png");
             }
 
             //PRODUCTION TWO POINTS
             if (cardType ==  CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
             {
-              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/grey_card_two_two.png");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/grey_card_two_two.png");
             }
             //PRODUCTION ONE POINT
              if (cardType ==  CommonCardData.CardType.PRODUCTION && currentMoneyBonus == 2)
              {
-              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Assets/_ProjectContent/UI/Resources/Effects/brown_card_one_one.png");
+              effectCommercialBonus = UnityEngine.Resources.Load<Sprite> ("Effects/brown_card_one_one.png");
              }
 
              //CommonCardData.CardType.COMMERCIAL_BONUS;

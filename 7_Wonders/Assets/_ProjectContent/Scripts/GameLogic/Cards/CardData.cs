@@ -25,16 +25,16 @@ namespace WhiteTeam.GameLogic.Cards
 
         protected abstract IVisualizer CreateVisualizer();
 
-        protected abstract IWonderVisualizer CreateWonderVisualizer();
+        protected abstract IWonderVisualizer CreateIwonderVisualizer();
 
         public IVisualizer GetVisualizer()
         {
             return _visualizer ?? (_visualizer = CreateVisualizer());
         }
 
-          public IWonderVisualizer GetWonderVisualizer()
+         public IWonderVisualizer GetWonderVisualizer()
         {
-            return _wonder_visualizer ?? (_wonder_visualizer = CreateWonderVisualizer());
+            return _wonder_visualizer ?? (_wonder_visualizer = CreateIwonderVisualizer());
         }
 
         public abstract void Use(PlayerData player);
