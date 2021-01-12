@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using WhiteTeam.GameLogic.Cards.Wonder;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
@@ -9,20 +8,6 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         [SerializeField] private GameObject cardVisualizer;
 
         [SerializeField] private GameObject cardHolder;
-        /* TODO - prototypes
-         
-        [SerializeField] private GameObject RawMaterialsVisualizer;
-        [SerializeField] private GameObject ManufactureVisualizer;
-        [SerializeField] private GameObject CivilianVisualizer;
-        [SerializeField] private GameObject ScientificVisualizer;
-        [SerializeField] private GameObject CommercialMoneyVisualizer;
-        [SerializeField] private GameObject CommercialTradeVisualizer;
-        [SerializeField] private GameObject CommercialBonusVisualizer;
-        [SerializeField] private GameObject MilitaryVisualizer;
-        [SerializeField] private GameObject GuildsOwningVisualizer;
-        [SerializeField] private GameObject GuildsScienceVisualizer;
-        [SerializeField] private GameObject GuildsStrategyVisualizer;
-        */
 
         public GameObject Visualize(CommonCard card) // Common card visualization
         {

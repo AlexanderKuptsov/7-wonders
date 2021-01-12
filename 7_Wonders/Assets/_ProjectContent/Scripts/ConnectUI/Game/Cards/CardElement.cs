@@ -8,6 +8,8 @@ namespace WhiteTeam.ConnectingUI.Cards
     {
         public CommonCard Card { get; private set; }
 
+        private GameObject _cardObject;
+
         public void Setup(CommonCard card)
         {
             Card = card;
@@ -16,9 +18,9 @@ namespace WhiteTeam.ConnectingUI.Cards
 
         private void Create()
         {
-            var cardObject = CardVisualizationController.Instance.Visualize(Card);
-            cardObject.transform.SetParent(transform);
-            cardObject.transform.position = Vector3.zero; // TODO
+            var cardVisualObject = CardVisualizationController.Instance.Visualize(Card);
+            _cardObject = Instantiate(cardVisualObject, transform);
+            // _cardObject.transform.position = Vector3.zero; // TODO
         }
     }
 }

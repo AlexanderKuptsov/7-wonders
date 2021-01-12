@@ -11,6 +11,7 @@ namespace WhiteTeam.ConnectingUI.Cards
 
         public void AddCards(IEnumerable<CommonCard> cards)
         {
+            ClearCards(); // TODO
             foreach (var card in cards)
             {
                 AddCard(card);
