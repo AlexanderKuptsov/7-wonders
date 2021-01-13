@@ -12,9 +12,11 @@ namespace WhiteTeam.GameLogic.Cards
         {
         }
 
-        protected override IVisualizer CreateVisualizer()
+        protected override IVisualizer CreateVisualizer()=> new CivilianVisualizer(this);
+         protected override IWonderVisualizer CreateIwonderVisualizer()
         {
             throw new System.NotImplementedException();
         }
+      
     }
 }

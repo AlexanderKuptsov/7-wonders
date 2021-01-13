@@ -3,8 +3,7 @@ using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public abstract class
-        CommercialCard<TEffect, TEndGameEffect> : SpecialCardWithEndGameEffect<TEffect, TEndGameEffect>
+    public abstract class CommercialCard<TEffect, TEndGameEffect> : SpecialCardWithEndGameEffect<TEffect, TEndGameEffect>
         where TEffect : CardEffect
         where TEndGameEffect : CardEffect
     {

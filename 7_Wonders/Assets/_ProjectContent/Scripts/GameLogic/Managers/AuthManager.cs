@@ -16,6 +16,8 @@ namespace WhiteTeam.GameLogic.Auth
             public EventHolderBase OnError { get; } = new EventHolderBase();
         }
 
+        private UserData _localUser;
+
         private void Start()
         {
             SubscribeEvents();
@@ -28,9 +30,10 @@ namespace WhiteTeam.GameLogic.Auth
             ServerModuleHandlerHTTP.Instance.Events.OnError.Subscribe(OnError);
         }
 
-        private void SaveToken(string token)
+        private void SaveLocalPlayerInfo(string token, UserData localPlayer)
         {
-            TokenHolder.Instance.CreateToken(token);
+            TokenHolder.Instance.SaveToken(token);
+            TokenHolder.Instance.SaveLocalPlayer(localPlayer);
         }
 
         #region NETWORK REQUESTS
@@ -38,6 +41,7 @@ namespace WhiteTeam.GameLogic.Auth
         public void SendLoginRequest(string login, string password)
         {
             Debug.Log("Sending auth request");
+            _localUser = new UserData(login);
             ServerModuleHandlerHTTP.Instance.AuthPost(login, password);
         }
 
@@ -52,7 +56,7 @@ namespace WhiteTeam.GameLogic.Auth
 
         public void OnLogin(string token)
         {
-            SaveToken(token);
+            SaveLocalPlayerInfo(token, _localUser);
             Events.OnLogin.TriggerEvents();
         }
 

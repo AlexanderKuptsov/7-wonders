@@ -16,7 +16,7 @@ namespace WhiteTeam.GameLogic.Cards
         {
             foreach (var cardData in cards)
             {
-                var card = CardCreator.Create(cardData, transform);
+                var card = CardCreator.Create(cardData);
                 _wonderCards.Add(card);
             }
         }
@@ -25,12 +25,12 @@ namespace WhiteTeam.GameLogic.Cards
         {
             foreach (var cardData in cards)
             {
-                var card = CardCreator.Create(cardData, transform);
+                var card = CardCreator.Create(cardData);
                 _cards.Add(card);
             }
         }
 
-        #region WonderCards
+        #region Wonder cards
 
         public IEnumerable<WonderCard> GetWonderCards(IEnumerable<string> cardsId)
         {
@@ -45,8 +45,7 @@ namespace WhiteTeam.GameLogic.Cards
 
         #endregion
 
-
-        #region WonderCards
+        #region Common cards
 
         public IEnumerable<CommonCard> GetCards(IEnumerable<string> cardsId)
         {

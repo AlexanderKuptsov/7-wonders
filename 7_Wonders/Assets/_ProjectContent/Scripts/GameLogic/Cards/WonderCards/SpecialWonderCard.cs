@@ -1,4 +1,5 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
@@ -10,10 +11,11 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
         public SpecialWonderCard(
             string id,
             string name,
+            Resource.CurrencyItem startCurrencyItem,
             StepBuildWithEffect<TEffect1> stepBuild1,
             StepBuildWithEffect<TEffect2> stepBuild2,
             StepBuildWithEffect<TEffect3> stepBuild3)
-            : base(id, name)
+            : base(id, name, startCurrencyItem)
         {
             StepBuilds = new StepBuild[] {stepBuild1, stepBuild2, stepBuild3};
         }

@@ -13,6 +13,8 @@ namespace WhiteTeam.GameLogic.Cards
 
         private IVisualizer _visualizer;
 
+        private IWonderVisualizer _wonder_visualizer;
+
         public CardData(string id, string name)
         {
             Id = id;
@@ -23,9 +25,16 @@ namespace WhiteTeam.GameLogic.Cards
 
         protected abstract IVisualizer CreateVisualizer();
 
+        protected abstract IWonderVisualizer CreateIwonderVisualizer();
+
         public IVisualizer GetVisualizer()
         {
             return _visualizer ?? (_visualizer = CreateVisualizer());
+        }
+
+         public IWonderVisualizer GetWonderVisualizer()
+        {
+            return _wonder_visualizer ?? (_wonder_visualizer = CreateIwonderVisualizer());
         }
 
         public abstract void Use(PlayerData player);

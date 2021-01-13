@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using WhiteTeam.GameLogic.GlobalParameters;
 
 namespace WhiteTeam.GameLogic.Resources
@@ -216,5 +215,47 @@ namespace WhiteTeam.GameLogic.Resources
         }
 
         #endregion
+
+        public OutputResources GetCurrentResourcesState()
+            => new OutputResources
+            {
+                Money = GetMoney(),
+                Military = GetMilitary(),
+                Victory = GetVictory(),
+                WarVictoryTokens = GetWarVictoryTokens(),
+                WarLoseTokens = GetWarLoseTokens(),
+                Rune1 = GetScience(Resource.Science.RUNE_1),
+                Rune2 = GetScience(Resource.Science.RUNE_2),
+                Rune3 = GetScience(Resource.Science.RUNE_3),
+
+                Wood = GetTradeProduction(Resource.CurrencyProducts.WOOD),
+                Ore = GetTradeProduction(Resource.CurrencyProducts.ORE),
+                Clay = GetTradeProduction(Resource.CurrencyProducts.CLAY),
+                Stone = GetTradeProduction(Resource.CurrencyProducts.STONE),
+                Papyrus = GetTradeProduction(Resource.CurrencyProducts.PAPYRUS),
+                Cloth = GetTradeProduction(Resource.CurrencyProducts.CLOTH),
+                Glass = GetTradeProduction(Resource.CurrencyProducts.GLASS),
+            };
+
+        public OutputResources GetSelfCurrentResourcesState()
+            => new OutputResources
+            {
+                Money = GetMoney(),
+                Military = GetMilitary(),
+                Victory = GetVictory(),
+                WarVictoryTokens = GetWarVictoryTokens(),
+                WarLoseTokens = GetWarLoseTokens(),
+                Rune1 = GetScience(Resource.Science.RUNE_1),
+                Rune2 = GetScience(Resource.Science.RUNE_2),
+                Rune3 = GetScience(Resource.Science.RUNE_3),
+
+                Wood = GetSelfProduction(Resource.CurrencyProducts.WOOD),
+                Ore = GetSelfProduction(Resource.CurrencyProducts.ORE),
+                Clay = GetSelfProduction(Resource.CurrencyProducts.CLAY),
+                Stone = GetSelfProduction(Resource.CurrencyProducts.STONE),
+                Papyrus = GetSelfProduction(Resource.CurrencyProducts.PAPYRUS),
+                Cloth = GetSelfProduction(Resource.CurrencyProducts.CLOTH),
+                Glass = GetSelfProduction(Resource.CurrencyProducts.GLASS),
+            };
     }
 }

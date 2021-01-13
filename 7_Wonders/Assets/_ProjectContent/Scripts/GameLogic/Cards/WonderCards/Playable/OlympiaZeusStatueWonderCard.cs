@@ -1,5 +1,6 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Cards.Visualization;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
@@ -12,7 +13,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
             StepBuildWithEffect<VictoryEffect> stepBuild1,
             StepBuildWithEffect<NextEpochEffect<FreeBuildEffect>> stepBuild2,
             StepBuildWithEffect<VictoryEffect> stepBuild3) : base(id,
-            name, stepBuild1, stepBuild2, stepBuild3)
+            name, new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.WOOD, Amount = 1}, stepBuild1,
+            stepBuild2, stepBuild3)
         {
         }
 
@@ -20,5 +22,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
         {
             throw new System.NotImplementedException();
         }
+
+        protected override IWonderVisualizer CreateIwonderVisualizer() => new OlympiaZeusVisualizer(this);
+       
     }
 }

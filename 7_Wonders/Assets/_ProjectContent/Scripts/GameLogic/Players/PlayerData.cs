@@ -105,6 +105,7 @@ namespace WhiteTeam.GameLogic
         public void GiveWonderCard(WonderCard wonderCard)
         {
             _wonderCard = wonderCard;
+            resources.AddProduction(_wonderCard.Data.StartCurrencyEffect);
         }
 
         public void EndUpMove()
