@@ -10,7 +10,7 @@ public class CardsCreationTest : MonoBehaviour
     private void Start()
     {
         CreateCommonCard();
-        CreateWonderCard();
+        //CreateWonderCard();
     }
 
     private void CreateCommonCard()

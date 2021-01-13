@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SK_Engine;
 using UnityEngine;
+using WhiteTeam.ConnectingUI;
 using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.Cards;
 using WhiteTeam.GameLogic.Cards.Wonder;
@@ -17,6 +18,8 @@ namespace WhiteTeam.GameLogic.Managers
         [SerializeField] private GameObject gameSessionPrototype;
 
         [SerializeField] private Timer timer;
+        
+        [SerializeField] private ScoreBoardDisplay scoreBoardDisplay;
 
         public readonly ActionsEvents Events = new ActionsEvents();
 
@@ -152,6 +155,8 @@ namespace WhiteTeam.GameLogic.Managers
             CurrentSession.EndUpGame();
 
             var scoreBoard = ScoreHandler.GetScoreBoard(CurrentSession);
+           
+            scoreBoardDisplay.Show(scoreBoard);
             var winner = scoreBoard.GetWinner();
             // TODO
         }

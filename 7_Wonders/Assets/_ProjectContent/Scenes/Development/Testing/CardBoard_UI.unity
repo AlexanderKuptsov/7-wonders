@@ -1694,11 +1694,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165319b0d9133b8458dfdb0ec629681c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameHolder: {fileID: 0}
-  costHolder: {fileID: 0}
-  backgroundHolder: {fileID: 0}
-  currentEffectHolder: {fileID: 0}
-  endGameEffectHolder: {fileID: 0}
+  nameHolder: {fileID: 1106287739}
+  costHolder: {fileID: 21468086}
+  backgroundHolder: {fileID: 2087981806}
+  currentEffectHolder: {fileID: 1686363646}
+  endGameEffectHolder: {fileID: 847059514}
 --- !u!1 &1004973059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,7 +2973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1895428537
 RectTransform:
   m_ObjectHideFlags: 0
