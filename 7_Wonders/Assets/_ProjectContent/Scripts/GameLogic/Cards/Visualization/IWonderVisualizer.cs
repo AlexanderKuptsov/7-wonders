@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
@@ -12,6 +11,5 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         Sprite GetCostThirdEra();
         Sprite GetInitialBonus();
         Sprite GetCurrentEffectStepTwo();
-        
     }
 }

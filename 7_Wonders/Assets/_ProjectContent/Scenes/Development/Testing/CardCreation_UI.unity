@@ -454,6 +454,9 @@ MonoBehaviour:
   cardVisualizer: {fileID: 5226857058404909165, guid: b1e747145d2c0f54ca4546b0d7cbdd3e,
     type: 3}
   cardHolder: {fileID: 15218776}
+  wonderCardVisualizer: {fileID: 9070771028261755164, guid: 54a36befe3b2aee4291fd333fe88d222,
+    type: 3}
+  wonderCardHolder: {fileID: 15218776}
 --- !u!4 &1899725129
 Transform:
   m_ObjectHideFlags: 0

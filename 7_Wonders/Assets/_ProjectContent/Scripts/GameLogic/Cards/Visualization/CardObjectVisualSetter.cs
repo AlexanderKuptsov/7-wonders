@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +21,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public void SetColor(Color cardColor)
         {
             Debug.Log($"cardColor: {cardColor}");
-            nameHolder.color = cardColor; // TODO
+            nameHolder.color = cardColor; // TODO -- background?
         }
 
         public void SetCostEffect(Sprite cost)

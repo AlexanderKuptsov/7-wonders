@@ -46,13 +46,13 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             costThirdEraHolder.sprite = cost;
         }
 
-        public void GetInitialBonus(Sprite initialEffect)
+        public void SetInitialBonus(Sprite initialEffect)
         {
             Debug.Log($"InitialBonus: {initialEffect != null}");
             initialBonusHolder.sprite = initialEffect;
         }
 
-        public void GetCurrentEffectStepTwo(Sprite currentEffect)
+        public void SetCurrentEffectStepTwo(Sprite currentEffect)
         {
             Debug.Log($"CurrentEffectStepTwo: {currentEffect != null}");
             currentEffectStepTwoHolder.sprite = currentEffect;

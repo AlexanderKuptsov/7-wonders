@@ -5,15 +5,18 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
+        [Header("Common cards")]
         [SerializeField] private GameObject cardVisualizer;
-
         [SerializeField] private GameObject cardHolder;
+        
+        [Header("Wonder cards")]
+        [SerializeField] private GameObject wonderCardVisualizer;
+        [SerializeField] private GameObject wonderCardHolder;
 
         public GameObject Visualize(CommonCard card) // Common card visualization
         {
             var visualizer = card.Data.GetVisualizer();
 
-            // Example
             var cardName = visualizer.GetNameCard();
             var color = visualizer.GetColor();
             var cost = visualizer.GetCost();
@@ -36,34 +39,31 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             return cardObject;
         }
 
-        public void Visualize(WonderCard card) // Wonder card visualization
+        public GameObject Visualize(WonderCard card) // Wonder card visualization
         {
-            var visualizer = card.Data.GetVisualizer();
-
-            /* TODO
-            
-            GetName
-            GetCost
-            GetColor
-            GetEffect
-            ...
-            
-         */
-
+            var visualizer = card.Data.GetWonderVisualizer();
 
             var name = visualizer.GetNameCard();
+            var background = visualizer.GetBackground();
+            var costFirstEra = visualizer.GetCostFirstEra();
+            var costSecondEra = visualizer.GetCostSecondEra();
+            var costThirdEra = visualizer.GetCostThirdEra();
 
-            var effect = visualizer.GetCurrentEffect();
+            var initialBonus = visualizer.GetInitialBonus();
+            var stepTwoEffect = visualizer.GetCurrentEffectStepTwo();
 
-            var cost = visualizer.GetCost();
-
-
-            var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
-            var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
+            var cardObject = Instantiate(wonderCardVisualizer, cardHolder.transform);
+            var cardObjectVisualSetter = cardObject.GetComponent<WonderCardObjectVisualSetter>();
 
             cardObjectVisualSetter.SetName(name);
-            cardObjectVisualSetter.SetCurrentEffect(effect);
-            cardObjectVisualSetter.SetCostEffect(cost);
+            cardObjectVisualSetter.SetBackground(background);
+            cardObjectVisualSetter.SetCostFirstEra(costFirstEra);
+            cardObjectVisualSetter.SetCostSecondEra(costSecondEra);
+            cardObjectVisualSetter.SetCostThirdEra(costThirdEra);
+            cardObjectVisualSetter.SetInitialBonus(initialBonus);
+            cardObjectVisualSetter.SetCurrentEffectStepTwo(stepTwoEffect);
+
+            return cardObject;
         }
     }
 }
