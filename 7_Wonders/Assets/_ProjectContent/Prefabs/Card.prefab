@@ -33,7 +33,7 @@ RectTransform:
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.2}
-  m_AnchorMax: {x: 0.30285713, y: 0.39800003}
+  m_AnchorMax: {x: 0.3, y: 0.39800003}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameHolder: {fileID: 1664838832183492265}
   costHolder: {fileID: 1664838831102603620}
+  backgroundColorHolder: {fileID: 1664838831004041061}
   backgroundHolder: {fileID: 1664838832124997692}
   currentEffectHolder: {fileID: 1664838831735701292}
   endGameEffectHolder: {fileID: 1664838830884075752}
@@ -355,8 +356,8 @@ RectTransform:
   m_Father: {fileID: 1664838831004041063}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.17874469}
+  m_AnchorMax: {x: 1, y: 0.7755106}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -497,7 +498,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 65
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
