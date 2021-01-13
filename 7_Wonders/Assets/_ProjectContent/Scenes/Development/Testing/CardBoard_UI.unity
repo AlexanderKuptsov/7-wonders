@@ -3173,6 +3173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardVisualizer: {fileID: 992452020}
   cardHolder: {fileID: 966432084}
+  wonderCardVisualizer: {fileID: 0}
+  wonderCardHolder: {fileID: 0}
 --- !u!4 &1899725129
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using Microsoft.Unity.VisualStudio.Editor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
@@ -11,7 +10,5 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         Sprite GetBackground();
         Sprite GetCurrentEffect();
         Sprite GetEndGameEffect();
-       
-   
     }
 }
