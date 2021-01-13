@@ -61,7 +61,8 @@ namespace WhiteTeam.GameLogic.Managers
 
         public bool IsFull => ConnectedUsersCount == Settings.MaxPlayers;
 
-        public bool AllUsersReady => ConnectedUsers.All(user => user.state == UserData.ReadyState.READY);
+        public bool AllUsersReady => ConnectedUsers.Count == Settings.MaxPlayers &&
+                                     ConnectedUsers.All(user => user.state == UserData.ReadyState.READY);
 
         #endregion
 
