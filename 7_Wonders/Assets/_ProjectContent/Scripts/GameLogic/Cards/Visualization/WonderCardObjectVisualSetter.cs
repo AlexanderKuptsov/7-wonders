@@ -18,44 +18,50 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public void SetName(string cardName)
         {
-            Debug.Log($"cardName: {cardName}");
+            // Debug.Log($"cardName: {cardName}");
             nameHolder.text = cardName;
         }
 
         public void SetBackground(Sprite background)
         {
-            Debug.Log($"background: {background != null}");
+            // Debug.Log($"background: {background != null}");
             backgroundHolder.sprite = background;
+            backgroundHolder.enabled = background != null;
         }
 
         public void SetCostFirstEra(Sprite cost)
         {
-            Debug.Log($"cost 1 era: {cost != null}");
+            // Debug.Log($"cost 1 era: {cost != null}");
             costFirstEraHolder.sprite = cost;
+            costFirstEraHolder.enabled = cost != null;
         }
 
         public void SetCostSecondEra(Sprite cost)
         {
-            Debug.Log($"cost 2 era: {cost != null}");
+            // Debug.Log($"cost 2 era: {cost != null}");
             costSecondEraHolder.sprite = cost;
+            costSecondEraHolder.enabled = cost != null;
         }
 
         public void SetCostThirdEra(Sprite cost)
         {
-            Debug.Log($"cost 3 era: {cost != null}");
+            // Debug.Log($"cost 3 era: {cost != null}");
             costThirdEraHolder.sprite = cost;
+            costThirdEraHolder.enabled = cost != null;
         }
 
         public void SetInitialBonus(Sprite initialEffect)
         {
-            Debug.Log($"InitialBonus: {initialEffect != null}");
+            // Debug.Log($"InitialBonus: {initialEffect != null}");
             initialBonusHolder.sprite = initialEffect;
+            initialBonusHolder.enabled = initialEffect != null;
         }
 
         public void SetCurrentEffectStepTwo(Sprite currentEffect)
         {
-            Debug.Log($"CurrentEffectStepTwo: {currentEffect != null}");
+            // Debug.Log($"CurrentEffectStepTwo: {currentEffect != null}");
             currentEffectStepTwoHolder.sprite = currentEffect;
+            currentEffectStepTwoHolder.enabled = currentEffect != null;
         }
     }
 }
