@@ -13,6 +13,19 @@ public class LobbySender : Singleton<LobbySender>
         FakeLobbyServer.Instance.FakeGetLobbiesAnswer();
     }
     
+    public void CreateRandomLobby()
+    {
+        //LobbyManager.Instance.GetLobbyListRequest();
+        FakeLobbyServer.Instance.CreateRandomLobby();
+    }
+    
+    public void DeleteRandomLobby()
+    {
+        //LobbyManager.Instance.GetLobbyListRequest();
+        
+        FakeLobbyServer.Instance.DeleteRandomLobby();
+    }
+    
     public void CreateLobby()
     {
         //LobbyManager.Instance.GetLobbyListRequest();

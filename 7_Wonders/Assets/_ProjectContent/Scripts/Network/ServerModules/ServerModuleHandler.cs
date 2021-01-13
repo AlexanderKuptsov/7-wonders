@@ -38,7 +38,7 @@ namespace WhiteTeam.Network.ServerModules
         private void Update()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
-            _webSocket.DispatchMessageQueue();
+            //_webSocket.DispatchMessageQueue();
 #endif
         }
 

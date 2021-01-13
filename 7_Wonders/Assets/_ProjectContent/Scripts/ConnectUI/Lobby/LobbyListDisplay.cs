@@ -9,24 +9,49 @@ public class LobbyListDisplay : MonoBehaviour
 {
     public GameObject lobbyListElement;
     public GameObject ScrollView;
+    IEnumerator _createLobbiesCoroutine;
+    IEnumerator _deleteLobbiesCoroutine;
+    private bool _serverIsOn = false;
     
     private void Start()
     {
         //LobbyManager.Instance.GetLobbyListRequest();
-        //StartCoroutine(delayedDelete());
+        _createLobbiesCoroutine = fakeCreate();
+        _deleteLobbiesCoroutine = fakeDelete();
     }
 
-    IEnumerator delayedCreate()
+    public void FakeServerStopStart()
     {
-        yield return new WaitForSeconds(10);
-        LobbySender.Instance.CreateLobby();
+        if (_serverIsOn)
+        {
+            StopCoroutine(_createLobbiesCoroutine);
+            StopCoroutine(_deleteLobbiesCoroutine);
+        }
+        else
+        {
+            StartCoroutine(_createLobbiesCoroutine);
+            StartCoroutine(_deleteLobbiesCoroutine);
+        }
+        _serverIsOn = !_serverIsOn;
     }
-    
-    IEnumerator delayedDelete()
+    IEnumerator fakeCreate()
     {
-        yield return new WaitForSeconds(10);
-        LobbySender.Instance.DeleteLobby();
+        for (;;)
+        {
+            LobbySender.Instance.CreateRandomLobby();
+            yield return new WaitForSeconds(5);
+        }
     }
+
+    IEnumerator fakeDelete()
+    {
+        for (;;)
+        {
+            yield return new WaitForSeconds(7);
+            LobbySender.Instance.DeleteRandomLobby();
+        }
+    }
+
     void Awake()
     {
         LobbyManager.Instance.Events.OnUserConnectToLobby.Subscribe(UpdateLobbyListNoIdUI);
@@ -73,6 +98,18 @@ public class LobbyListDisplay : MonoBehaviour
     {
         ClearElements();
         LobbySender.Instance.GetLobbies();
+    }
+
+    public void GetRandomLobby()
+    {
+        LobbySender.Instance.CreateRandomLobby();
+        ClearAndUpdate();
+    }
+
+    public void DeleteRandomLobby()
+    {
+        LobbySender.Instance.DeleteRandomLobby();
+        ClearAndUpdate();
     }
 
     public void ClearAndUpdate()

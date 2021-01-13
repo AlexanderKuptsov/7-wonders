@@ -1,17 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhiteTeam.Network.ServerModules;
+using Random = System.Random;
 
 public class FakeLobbyServer : Singleton<FakeLobbyServer>
 {
+    private int lastLobbyId = 2;
+    private static Random random = new Random();
+    private List<int> availableLobbies = new List<int>();
+    
+    private static string RandomString(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
+        return new string(Enumerable.Repeat(chars, length)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
     public void FakeGetLobbiesAnswer()
     {
         var lobbyListMessage =
-            "{\"status\": \"SUCCESS\",\"results\": {\"lobbyList\":[{\"lobbyId\": \"1\",\"lobbyName\":\"Game 1\", \"maxPlayers\": \"7\", \"moveTime\": \"30\", \"ownerInfo\": {\"playerName\": \"creator\", \"playerId\": \"1\", \"state\": \"READY\"}, \"connectedUsers\": [{\"playerName\": \"player1\", \"playerId\": \"2\", \"state\": \"WAITING\"},{\"playerName\": \"player2\", \"playerId\": \"3\", \"state\": \"WAITING\"}]},{\"lobbyId\": \"2\",\"lobbyName\":\"Game 2\", \"maxPlayers\": \"6\", \"moveTime\": \"45\", \"ownerInfo\": {\"playerName\": \"creator\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [{\"playerName\": \"player1\", \"playerId\": \"2\", \"state\": \"WAITING\"},{\"playerName\": \"player2\", \"playerId\": \"3\", \"state\": \"WAITING\"}]}]},\"module\":\"Lobby\",\"type\":\"getLobby\"}";
+            "{\"status\": \"SUCCESS\",\"results\": {\"lobbyList\":[{\"lobbyId\": \"1\",\"lobbyName\":\"Game 1\", \"maxPlayers\": \"7\", \"moveTime\": \"30\", \"ownerInfo\": {\"playerName\": \"creator\", \"playerId\": \"1\", \"state\": \"READY\"}, \"connectedUsers\": [{\"playerName\": \"player1\", \"playerId\": \"2\", \"state\": \"WAITING\"},{\"playerName\": \"player2\", \"playerId\": \"3\", \"state\": \"WAITING\"}]},{\"lobbyId\": \"2\",\"lobbyName\":\"Game to start\", \"maxPlayers\": \"4\", \"moveTime\": \"45\", \"ownerInfo\": {\"playerName\": \"admin\", \"playerId\": \"1\", \"state\": \"READY\"}, \"connectedUsers\": [{\"playerName\": \"player1\", \"playerId\": \"2\", \"state\": \"READY\"},{\"playerName\": \"player2\", \"playerId\": \"3\", \"state\": \"READY\"}]}]},\"module\":\"Lobby\",\"type\":\"getLobby\"}";
         ServerLobbyHandler.Instance.FakeOnMessageReceived(lobbyListMessage);
     }
+    
+    public void CreateRandomLobby()
+    {
+        var rndName = RandomString(4);
+        var rndMaxPlayers = random.Next(3, 7);
+        var rndCreatorName = RandomString(random.Next(3, 7));
+        var createMessage =
+            "{\"status\": \"SUCCESS\",\"results\": {\"lobbyInfo\":{\"lobbyId\": \""+ lastLobbyId +"\",\"lobbyName\":\""+ rndName +"\", \"maxPlayers\": \""+ rndMaxPlayers +"\", \"moveTime\": \"45\", \"ownerInfo\": {\"playerName\": \""+ rndCreatorName +"\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [], \"accessToken\": \"asdasdasdasd123123123\"}}, \"module\":\"Lobby\",\"type\":\"create\"}";
+        lastLobbyId += 1;
+        availableLobbies.Add(lastLobbyId);
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(createMessage);
+    }
 
+    public void DeleteRandomLobby()
+    {
+        var index = random.Next(0, availableLobbies.Count);
+        Debug.Log($"DELETING LOBBY A; INDEX: {index} AND COUNT: {availableLobbies.Count}");
+        if (availableLobbies.Count > 0)
+        {
+            Debug.Log("DELETING LOBBY");
+            var lobbyId = availableLobbies[index];
+            var deleteMessage = 
+                "{\"status\":\"SUCCESS\",\"results\":{\"deleteInfo\": {\"lobbyId\": \"" + lobbyId + "\"}},\"module\":\"Lobby\",\"type\":\"delete\"}";
+            ServerLobbyHandler.Instance.FakeOnMessageReceived(deleteMessage);
+            availableLobbies.Remove(index);
+        }
+    }
+    
     public void FakeCreateAnswer()
     {
         var createMessage =
