@@ -1,15 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChanger : MonoBehaviour
+namespace WhiteTeam.ConnectingUI
 {
-    [Scene]
-    public string lobbyScene;
-    
-    public void OpenLobbyScene()
+    public class SceneChanger : MonoBehaviour
     {
-        SceneManager.LoadScene(lobbyScene, LoadSceneMode.Single);
+        [Scene] public string authScene;
+
+        [Scene] public string lobbyScene;
+
+        [Scene] public string gameScene;
+
+        public void OpenAuthScene()
+        {
+            SceneManager.LoadScene(authScene, LoadSceneMode.Single);
+        }
+
+        public void OpenLobbyScene()
+        {
+            SceneManager.LoadScene(lobbyScene, LoadSceneMode.Single);
+        }
+
+        public void OpenGameScene()
+        {
+            SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+        }
     }
 }

@@ -84,7 +84,7 @@ namespace WhiteTeam.GameLogic
             public ScoreBoard(IEnumerable<PlayerData> players)
             {
                 _elements = players.Select(player => new ScoreData {Player = player, Score = GetPlayerScore(player)})
-                    .OrderBy(data => data.Score)
+                    .OrderByDescending(data => data.Score)
                     .ToArray();
             }
 

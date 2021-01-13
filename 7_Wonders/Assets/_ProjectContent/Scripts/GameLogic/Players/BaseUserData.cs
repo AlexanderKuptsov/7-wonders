@@ -21,6 +21,11 @@ namespace WhiteTeam.GameLogic
             this.name = name;
         }
 
+        public void AssignId(string newId)
+        {
+            id = newId;
+        }
+
         public IdentifierInfo GetIdentifierInfo()
         {
             return _identifierInfo ?? (_identifierInfo = new IdentifierInfo(Id, Name));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WhiteTeam.ConnectingUI;
 using WhiteTeam.GameLogic.Auth;
 
 public class AuthSceneChanger : SceneChanger

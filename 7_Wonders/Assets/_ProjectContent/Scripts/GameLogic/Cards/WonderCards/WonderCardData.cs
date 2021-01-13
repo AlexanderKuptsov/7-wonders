@@ -1,19 +1,22 @@
 ﻿using System.Linq;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
     public abstract class WonderCardData : CardData
     {
+        public Resource.CurrencyItem StartCurrencyEffect { get; private set; }
+        
         protected StepBuild[] StepBuilds;
-
         private int _completedSteps;
 
         public StepBuild CurrentStepBuild => _completedSteps < StepBuilds.Length ? StepBuilds[_completedSteps] : null;
 
         public bool IsCompleted => StepBuilds.All(build => build.IsCompleted);
 
-        public WonderCardData(string id, string name) : base(id, name)
+        public WonderCardData(string id, string name, Resource.CurrencyItem startCurrencyItem) : base(id, name)
         {
+            StartCurrencyEffect = startCurrencyItem;
             _completedSteps = 0;
         }
 

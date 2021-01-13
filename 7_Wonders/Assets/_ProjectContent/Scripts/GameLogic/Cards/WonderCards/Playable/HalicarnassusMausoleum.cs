@@ -1,5 +1,6 @@
 ﻿using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Cards.Visualization;
+using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder
 {
@@ -8,7 +9,8 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
     {
         public HalicarnassusMausoleum(string id, string name, StepBuildWithEffect<VictoryEffect> stepBuild1,
             StepBuildWithEffect<ThrownCardOverviewEffect> stepBuild2, StepBuildWithEffect<VictoryEffect> stepBuild3) :
-            base(id, name, stepBuild1, stepBuild2, stepBuild3)
+            base(id, name, new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLOTH, Amount = 1},
+                stepBuild1, stepBuild2, stepBuild3)
         {
         }
 

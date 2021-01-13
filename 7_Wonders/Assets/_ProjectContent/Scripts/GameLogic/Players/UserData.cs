@@ -6,17 +6,22 @@ namespace WhiteTeam.GameLogic
     [Serializable]
     public class UserData : BaseUserData
     {
-        public ReadyState state; // TODO
+        public ReadyState state;
+        
+        public enum ReadyState
+        {
+            READY,
+            WAITING
+        }
 
         public UserData(string id, string name, ReadyState state) : base(id, name)
         {
             this.state = state;
         }
 
-        public enum ReadyState
+        public UserData(string name) : base("", name)
         {
-            READY,
-            WAITING
+            state = ReadyState.WAITING;
         }
     }
 }

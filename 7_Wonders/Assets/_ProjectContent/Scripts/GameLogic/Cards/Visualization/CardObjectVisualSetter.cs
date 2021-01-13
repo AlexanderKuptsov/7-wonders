@@ -1,31 +1,52 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardObjectVisualSetter : MonoBehaviour
     {
+        [SerializeField] private TMP_Text nameHolder;
+        [SerializeField] private Image costHolder;
+        [SerializeField] private Image backgroundHolder;
+        [SerializeField] private Image currentEffectHolder;
+        [SerializeField] private Image endGameEffectHolder;
+
         public void SetName(string cardName)
         {
-            throw new NotImplementedException();
+            Debug.Log($"cardName: {cardName}");
+            nameHolder.text = cardName;
         }
 
         public void SetColor(Color cardColor)
         {
-            
-            throw new NotImplementedException();
+            Debug.Log($"cardColor: {cardColor}");
+            nameHolder.color = cardColor; // TODO
         }
 
-        public void SetEffect(Sprite effect)
+        public void SetCostEffect(Sprite cost)
         {
-            throw new NotImplementedException();
+            Debug.Log($"cost: {cost != null}");
+            costHolder.sprite = cost;
         }
 
-        public void SetCostEffect (Sprite effect)
+        public void SetBackground(Sprite background)
         {
-             throw new NotImplementedException();
+            Debug.Log($"background: {background != null}");
+            backgroundHolder.sprite = background;
         }
 
-        // TODO ...
+        public void SetCurrentEffect(Sprite currentEffect)
+        {
+            Debug.Log($"currentEffect: {currentEffect != null}");
+            currentEffectHolder.sprite = currentEffect;
+        }
+
+        public void SetEndGameEffect(Sprite endGameEffect)
+        {
+            Debug.Log($"endGameEffect: {endGameEffect != null}");
+            endGameEffectHolder.sprite = endGameEffect;
+        }
     }
 }
