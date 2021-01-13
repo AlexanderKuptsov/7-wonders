@@ -1055,7 +1055,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366023489
 GameObject:
@@ -3077,6 +3077,70 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 830660360}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &859088290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 859088293}
+  - component: {fileID: 859088292}
+  - component: {fileID: 859088291}
+  m_Layer: 0
+  m_Name: WondercardSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &859088291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859088290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0d114a3119400e9463485f18e497c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameHolder: {fileID: 0}
+  backgroundHolder: {fileID: 2016799377}
+  costFirstEraHolder: {fileID: 436659999}
+  costSecondEraHolder: {fileID: 400405605}
+  costThirdEraHolder: {fileID: 1239218236}
+  initialBonusHolder: {fileID: 2015128495}
+  currentEffectStepTwoHolder: {fileID: 400405605}
+--- !u!114 &859088292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859088290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3836ee549d09cbd48a6fbbcdd81d3ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardObjectVisualSetter: {fileID: 859088291}
+--- !u!4 &859088293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859088290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945501776
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,8 +4995,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c20e4e9ffc049e59400f0c6d0c4129e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardVisualizer: {fileID: 0}
-  cardHolder: {fileID: 966432084}
+  cardVisualizer: {fileID: 1664838831004041062, guid: 307c124d9629f894782e910d0cec19b2,
+    type: 3}
+  cardHolder: {fileID: 1628115579}
   wonderCardVisualizer: {fileID: 0}
   wonderCardHolder: {fileID: 0}
 --- !u!4 &1899725129
@@ -5142,7 +5207,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016799373}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca6f39ae5c3be8641bbbfcbbbbd0b3e3, type: 3}
   m_Name: 

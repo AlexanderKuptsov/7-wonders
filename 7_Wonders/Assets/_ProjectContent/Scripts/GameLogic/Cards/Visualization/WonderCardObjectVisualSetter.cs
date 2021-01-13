@@ -18,6 +18,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public void SetName(string cardName)
         {
+            if (nameHolder == null) return;
             // Debug.Log($"cardName: {cardName}");
             nameHolder.text = cardName;
         }
