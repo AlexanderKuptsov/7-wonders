@@ -7,13 +7,11 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
     {
         [Header("Common cards")]
         [SerializeField] private GameObject cardVisualizer;
-        [SerializeField] private GameObject cardHolder;
         
         [Header("Wonder cards")]
         [SerializeField] private GameObject wonderCardVisualizer;
-        [SerializeField] private GameObject wonderCardHolder;
 
-        public GameObject Visualize(CommonCard card) // Common card visualization
+        public GameObject Visualize(CommonCard card, Transform cardHolder) // Common card visualization
         {
             var visualizer = card.Data.GetVisualizer();
 
@@ -26,7 +24,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var endGameEffect = visualizer.GetEndGameEffect();
 
 
-            var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
+            var cardObject = Instantiate(cardVisualizer, cardHolder);
             var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
 
             cardObjectVisualSetter.SetName(cardName);
@@ -39,7 +37,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             return cardObject;
         }
 
-        public GameObject Visualize(WonderCard card) // Wonder card visualization
+        public GameObject Visualize(WonderCard card, Transform cardHolder) // Wonder card visualization
         {
             var visualizer = card.Data.GetWonderVisualizer();
 
@@ -52,7 +50,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var initialBonus = visualizer.GetInitialBonus();
             var stepTwoEffect = visualizer.GetCurrentEffectStepTwo();
 
-            var cardObject = Instantiate(wonderCardVisualizer, cardHolder.transform);
+            var cardObject = Instantiate(wonderCardVisualizer, cardHolder);
             var cardObjectVisualSetter = cardObject.GetComponent<WonderCardObjectVisualSetter>();
 
             cardObjectVisualSetter.SetName(name);

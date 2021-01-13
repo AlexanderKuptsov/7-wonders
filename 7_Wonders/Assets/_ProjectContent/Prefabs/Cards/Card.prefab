@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 1664838831004041066}
   - component: {fileID: 1664838831004041061}
   - component: {fileID: 1664838831004041067}
+  - component: {fileID: 6046677887886383703}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -174,6 +175,18 @@ MonoBehaviour:
   backgroundHolder: {fileID: 1664838832124997692}
   currentEffectHolder: {fileID: 1664838831735701292}
   endGameEffectHolder: {fileID: 1664838830884075752}
+--- !u!114 &6046677887886383703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664838831004041062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26bc6898244a4b0dbad87828cbee197e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664838831102603622
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Visualization;
 
 namespace WhiteTeam.ConnectingUI.Cards
 {
-    public class CardsList : Singleton<CardsList>
+    public class CardsList : MonoBehaviour
     {
-        [SerializeField] private GameObject cardElement;
         [SerializeField] private Transform cardsHolder;
 
         public void AddCards(IEnumerable<CommonCard> cards)
@@ -28,7 +28,7 @@ namespace WhiteTeam.ConnectingUI.Cards
 
         private void AddCard(CommonCard card)
         {
-            var cardObject = Instantiate(cardElement.gameObject, cardsHolder);
+            var cardObject = CardVisualizationController.Instance.Visualize(card, cardsHolder);
             var playerElement = cardObject.GetComponent<CardElement>();
             playerElement.Setup(card);
         }

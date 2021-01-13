@@ -33,7 +33,7 @@ public class CardsCreationTest : MonoBehaviour
         var card = CardCreator.Create(cardData);
 
         // card visualisation
-        CardVisualizationController.Instance.Visualize(card);
+        CardVisualizationController.Instance.Visualize(card, transform);
     }
 
     private void CreateWonderCard()

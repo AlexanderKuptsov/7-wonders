@@ -13,14 +13,6 @@ namespace WhiteTeam.ConnectingUI.Cards
         public void Setup(CommonCard card)
         {
             Card = card;
-            Create();
-        }
-
-        private void Create()
-        {
-            var cardVisualObject = CardVisualizationController.Instance.Visualize(Card);
-            _cardObject = Instantiate(cardVisualObject, transform);
-            // _cardObject.transform.position = Vector3.zero; // TODO
         }
     }
 }
