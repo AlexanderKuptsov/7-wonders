@@ -122,9 +122,16 @@ namespace WhiteTeam.GameLogic
         public void OnUserConnectToLobby(string lobbyId, string playerId, string playerName, string sessionId)
         {
             var newUser = new UserData(playerId, playerName, UserData.ReadyState.WAITING);
+           
+            
             if (FindLobbyById(lobbyId, out var lobby))
             {
                 lobby.Connect(newUser);
+                
+                
+                //FAKE CUZ WE NEED TO CONNECT US TODO TODO TODO
+                _selectedLobby = lobby;
+                LocalUserData.AssignId(playerId);
             }
 
             if (sessionId == TokenHolder.Instance.Token)
@@ -174,6 +181,10 @@ namespace WhiteTeam.GameLogic
                 lobby.FindUserById(playerId, out var user))
             {
                 user.state = AssistanceFunctions.GetEnumByName<UserData.ReadyState>(state);
+                if (user.Id == LocalUserData.Id && lobbyId == lobby.Id)
+                {
+                    LocalUserData.state = AssistanceFunctions.GetEnumByName<UserData.ReadyState>(state);
+                }
                 Events.OnUpdateLobbies.TriggerEvents(lobbyId);
 
                 if (lobby.AllUsersReady)
