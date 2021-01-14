@@ -115,18 +115,19 @@ namespace WhiteTeam.GameLogic
         public void EndUpMove()
         {
             resources.HandleTemp();
+            resources.HandleLocked();
             TradeInfo.Reset();
             HandleTempActiveCard();
             ResetMoveState();
 
             cardsToMove.Clear();
-            cardsToMove = inHandCards.ToList();
+            cardsToMove = inHandCards.Select(card => card).ToList();
             inHandCards.Clear();
 
             Events.NextMoveEffects.Trigger(this);
         }
 
-        public void EndUpEpoch() // TODO -- EndUpMove?
+        public void EndUpEpoch()
         {
             foreach (var activeCard in activeCards)
             {

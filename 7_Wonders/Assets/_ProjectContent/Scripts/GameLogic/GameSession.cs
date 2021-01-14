@@ -112,10 +112,6 @@ namespace WhiteTeam.GameLogic
                     ? player.RightPlayerData
                     : player.LeftPlayerData).GiveCards(player.CardsToMove);
             }
-
-            _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
-                ? PlayerDirection.LEFT
-                : PlayerDirection.RIGHT;
         }
 
         public void Trade(PlayerData player, PlayerDirection playerDirection, Resource.CurrencyProducts currency)
@@ -140,6 +136,10 @@ namespace WhiteTeam.GameLogic
             {
                 player.EndUpEpoch();
             }
+            
+            _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
+                ? PlayerDirection.LEFT
+                : PlayerDirection.RIGHT;
         }
 
         public void EndUpGame()

@@ -33,6 +33,11 @@ namespace WhiteTeam.GameLogic.Resources
 
         private ProductionResources _tempProduction = new ProductionResources();
 
+        // LOCKED
+        private Resource _lockedMoney = new Resource();
+
+        private ProductionResources _lockedProduction = new ProductionResources();
+
         // NO TRADE
         private ProductionResources _noTradeProduction = new ProductionResources();
 
@@ -55,10 +60,12 @@ namespace WhiteTeam.GameLogic.Resources
             if (requiredCurrencyType == Resource.CurrencyProducts.MONEY)
             {
                 _money.Decrease(requiredCurrencyAmount);
+                _lockedMoney.Increase(requiredCurrencyAmount);
             }
             else
             {
                 _production.Storage[requiredCurrencyType] -= requiredCurrencyAmount;
+                _lockedProduction.Storage[requiredCurrencyType] += requiredCurrencyAmount;
             }
         }
 
@@ -198,6 +205,23 @@ namespace WhiteTeam.GameLogic.Resources
 
             // PRODUCTION
             _tempProduction.Reset();
+        }
+
+        public void HandleLocked()
+        {
+            ChangeMoney(_lockedMoney.Value);
+            _lockedMoney.Clear();
+
+            foreach (var productionResource in _lockedProduction.Storage)
+            {
+                AddProduction(
+                    new Resource.CurrencyItem
+                    {
+                        Currency = productionResource.Key, Amount = productionResource.Value
+                    });
+            }
+
+            _lockedProduction.Storage.Clear();
         }
 
         #endregion
