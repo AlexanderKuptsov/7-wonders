@@ -15,6 +15,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         [SerializeField] private Image initialBonusHolder;
         [SerializeField] private Image currentEffectStepTwoHolder;
+        [SerializeField] private WonderCardCostAndBonusLayoutController layoutController;
 
         public void SetName(string cardName)
         {
@@ -34,6 +35,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         {
             // Debug.Log($"cost 1 era: {cost != null}");
             costFirstEraHolder.sprite = cost;
+            Debug.Log($"WIDTH: {cost.rect.width}");
+            layoutController.SetLayoutSize((int)cost.rect.width, 1);
             costFirstEraHolder.enabled = cost != null;
         }
 
@@ -41,6 +44,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         {
             // Debug.Log($"cost 2 era: {cost != null}");
             costSecondEraHolder.sprite = cost;
+            layoutController.SetLayoutSize((int)cost.rect.width, 2);
             costSecondEraHolder.enabled = cost != null;
         }
 
@@ -48,6 +52,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         {
             // Debug.Log($"cost 3 era: {cost != null}");
             costThirdEraHolder.sprite = cost;
+            layoutController.SetLayoutSize((int)cost.rect.width, 3);
             costThirdEraHolder.enabled = cost != null;
         }
 
@@ -62,6 +67,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         {
             // Debug.Log($"CurrentEffectStepTwo: {currentEffect != null}");
             currentEffectStepTwoHolder.sprite = currentEffect;
+            layoutController.SetLayoutSize((int)currentEffect.rect.width, 4);
             currentEffectStepTwoHolder.enabled = currentEffect != null;
         }
     }

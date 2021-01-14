@@ -3620,7 +3620,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32dc81142a1c7ee4caf7a3686e86448f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authScene: 
   lobbyScene: 20.12.4_LobbyUI
+  gameScene: 
 --- !u!4 &1377122227
 Transform:
   m_ObjectHideFlags: 0
