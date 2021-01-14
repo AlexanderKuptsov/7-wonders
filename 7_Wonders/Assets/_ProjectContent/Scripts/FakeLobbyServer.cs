@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhiteTeam.GameLogic;
 using WhiteTeam.Network.ServerModules;
 using Random = System.Random;
 
 public class FakeLobbyServer : Singleton<FakeLobbyServer>
 {
-    private int lastLobbyId = 2;
+    private int lastLobbyId = 3;
     private static Random random = new Random();
     private List<int> availableLobbies = new List<int>();
     
@@ -51,12 +52,21 @@ public class FakeLobbyServer : Singleton<FakeLobbyServer>
         }
     }
     
+    public void FakeOurCreate(string ourName, GameSettings lobbySettings)
+    {
+        
+        var createMessage =
+            "{\"status\": \"SUCCESS\",\"results\": {\"lobbyInfo\":{\"lobbyId\": \"3\",\"lobbyName\":\"" + lobbySettings.Name +"\", \"maxPlayers\": \"" + lobbySettings.MaxPlayers +"\", \"moveTime\": \"" + lobbySettings.MoveTime +"\", \"ownerInfo\": {\"playerName\": \"" + ourName +"\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [], \"accessToken\": \"asdasdasdasd123123123\"}}, \"module\":\"Lobby\",\"type\":\"create\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(createMessage);
+    }
+    
     public void FakeCreateAnswer()
     {
         var createMessage =
             "{\"status\": \"SUCCESS\",\"results\": {\"lobbyInfo\":{\"lobbyId\": \"3\",\"lobbyName\":\"BestGame\", \"maxPlayers\": \"6\", \"moveTime\": \"45\", \"ownerInfo\": {\"playerName\": \"Aleksei\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [], \"accessToken\": \"asdasdasdasd123123123\"}}, \"module\":\"Lobby\",\"type\":\"create\"}";
         ServerLobbyHandler.Instance.FakeOnMessageReceived(createMessage);
     }
+    
 
     public void FakeDeleteAnswer()
     {

@@ -12,4 +12,9 @@ public class LobbyAndButtonConnector : MonoBehaviour
         playerListDisplay.DisplayPlayers(lobbyListElement.GetCurrentLobby());
         playerListDisplay.SetCurrentLobby(lobbyListElement.GetCurrentLobby());
     }
+
+    public void GetFakeConnect()
+    {
+        
+    }
 }
