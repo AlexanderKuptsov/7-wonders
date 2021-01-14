@@ -3,8 +3,11 @@ using WhiteTeam.GameLogic;
 using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.GameLogic.Resources;
 
-public class UpdateNeighboursResources : MonoBehaviour
+public class UpdateNeighboursResources : Singleton<UpdateNeighboursResources>
 {
+    [SerializeField] private NeigboursVisualizer leftVisualizer;
+    [SerializeField] private NeigboursVisualizer rightVisualizer;
+    
     private PlayerData _leftPlayer;
     private PlayerData _rightPlayer;
 
@@ -19,8 +22,8 @@ public class UpdateNeighboursResources : MonoBehaviour
 
     private void UpdateVisualizer()
     {
-        LocalPlayerVisualizer.Instance.Show(GetLeftResources());
-        LocalPlayerVisualizer.Instance.Show(GetRightResources());
+        leftVisualizer.Show(_leftPlayer.Name, GetLeftResources());
+        rightVisualizer.Show(_rightPlayer.Name, GetRightResources());
     }
 
     private void Update()

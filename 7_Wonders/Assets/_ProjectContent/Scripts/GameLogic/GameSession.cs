@@ -110,7 +110,7 @@ namespace WhiteTeam.GameLogic
             {
                 (_swipeDirection == PlayerDirection.RIGHT
                     ? player.RightPlayerData
-                    : player.LeftPlayerData).GiveCards(player.InHandCards);
+                    : player.LeftPlayerData).GiveCards(player.CardsToMove);
             }
 
             _swipeDirection = _swipeDirection == PlayerDirection.RIGHT

@@ -1,4 +1,6 @@
-﻿namespace WhiteTeam.GameLogic
+﻿using System;
+
+namespace WhiteTeam.GameLogic
 {
     public class GameState
     {
@@ -19,7 +21,23 @@
 
         private void NextEpoch()
         {
-            Epoch = (EpochType) (int) Epoch++;
+            //Epoch = (EpochType) (int) Epoch++;
+            switch (Epoch)
+            {
+                case EpochType.FIRST:
+                    Epoch = EpochType.SECOND;
+                    break;
+                case EpochType.SECOND:
+                    Epoch = EpochType.THIRD;
+                    break;
+                case EpochType.THIRD:
+                    Epoch = EpochType.COMPLETED;
+                    break;
+                case EpochType.COMPLETED:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public enum EpochType

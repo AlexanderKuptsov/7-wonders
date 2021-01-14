@@ -136,6 +136,8 @@ namespace WhiteTeam.GameLogic.Managers
             WonderCardGameSetup.Instance.GlobalSetup(CurrentSession.LocalPlayerData.WonderCard);
 
             UpdateLocalResources.Instance.Sync();
+            UpdateNeighboursResources.Instance.Sync();
+            UpdateNeighboursResources.Instance.Sync();
         }
 
         private void NextMove()
@@ -151,7 +153,7 @@ namespace WhiteTeam.GameLogic.Managers
                 {
                     NextEpochRequest();
                 }
-                else // new epoch
+                else
                 {
                     EndGameRequest();
                 }
@@ -168,6 +170,9 @@ namespace WhiteTeam.GameLogic.Managers
             CurrentSession.StartWar();
             GiveCardsInCurrentSession(rawPlayersCardsData);
 
+            CardVisualizationController.Instance.AddInHandCards(CurrentSession.LocalPlayerData.InHandCards);
+            Debug.Log($"In hand {CurrentSession.LocalPlayerData.InHandCards.Count}");
+            
             SetupTimer();
         }
 
@@ -214,21 +219,28 @@ namespace WhiteTeam.GameLogic.Managers
 
         public void NextMoveRequest()
         {
-            if (!IsAdmin()) return;
+            //if (!IsAdmin()) return;
 
             //ServerGameHandler.Instance.NextMoveRequest(); // TODO put game id here
+
+            FakeGameServer.Instance.NextMove(CurrentSession);
         }
 
         public void NextEpochRequest()
         {
-            if (!IsAdmin()) return;
+            //if (!IsAdmin()) return;
 
             //ServerGameHandler.Instance.NextEpochRequest(); // TODO put game id here
+
+            FakeGameServer.Instance.NextEpoch(CurrentSession);
         }
 
         private void EndGameRequest()
         {
+            //if (!IsAdmin()) return;
             //ServerGameHandler.Instance.EndGameRequest(); // TODO
+
+            FakeGameServer.Instance.EndGame(CurrentSession);
         }
 
         public void PlayerActionRequest(INetworkAction action)
@@ -272,7 +284,7 @@ namespace WhiteTeam.GameLogic.Managers
             Events.OnGameStart.TriggerEvents();
         }
 
-        private void OnNextMove()
+        public void OnNextMove()
         {
             NextMove();
             // TODO
@@ -280,27 +292,21 @@ namespace WhiteTeam.GameLogic.Managers
             Events.OnNextMove.TriggerEvents();
         }
 
-        private void OnNextEpoch()
+        public void OnNextEpoch(Dictionary<string, IEnumerable<string>> rawPlayersCardsData)
         {
-            // TODO - EXAMPLE
-            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>
-            {
-                {"234", new[] {"56465", "6436324"}}
-            };
-
             NextEpoch(rawPlayersCardsData);
             // TODO
 
             Events.OnNextEpoch.TriggerEvents();
         }
 
-        private void OnEndGame()
+        public void OnEndGame()
         {
             EndGame();
             Events.OnEndGame.TriggerEvents();
         }
 
-        private void OnPlayerCardAction()
+        public void OnPlayerCardAction()
         {
             // TODO - EXAMPLE
             var playerIdJson = "35215";
@@ -333,7 +339,7 @@ namespace WhiteTeam.GameLogic.Managers
             }
         }
 
-        private void OnPlayerWonderCardAction()
+        public void OnPlayerWonderCardAction()
         {
             // TODO - EXAMPLE
             var playerIdJson = "35215";
@@ -370,7 +376,7 @@ namespace WhiteTeam.GameLogic.Managers
             }
         }
 
-        private void OnPlayerTradeAction()
+        public void OnPlayerTradeAction()
         {
             // TODO - EXAMPLE
             var playerIdJson = "35215";

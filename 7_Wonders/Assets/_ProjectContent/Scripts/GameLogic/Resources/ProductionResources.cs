@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WhiteTeam.GameLogic.Resources
 {
@@ -21,7 +22,8 @@ namespace WhiteTeam.GameLogic.Resources
         
         public void Reset()
         {
-            foreach (var currency in Storage.Keys)
+            var keys = Storage.Keys.ToArray();
+            foreach (var currency in keys)
             {
                 Storage[currency] = START_RESOURCE_AMOUNT;
             }

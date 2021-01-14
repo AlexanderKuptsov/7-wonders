@@ -7,6 +7,7 @@ namespace _ProjectContent.Scripts.GameLogic
         public override void Awake()
         {
             base.Awake();
+            Time.timeScale = 5f;
 #if UNITY_EDITOR
             Debug.unityLogger.logEnabled = true;
 #else

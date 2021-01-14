@@ -12,11 +12,6 @@ namespace _ProjectContent.Scripts.Network
     {
         private const int CARD_NUMBER = 7;
 
-        private string GenerateId()
-        {
-            return $"{Random.Range(0, 9)}{Random.Range(0, 9)}{Random.Range(0, 9)}";
-        }
-
         public void GameInit(GameSession session)
         {
             // Wonder card
@@ -56,12 +51,66 @@ namespace _ProjectContent.Scripts.Network
 
         public void GameStart(GameSession session)
         {
-            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>(); // playerId - common cardsId
             var rawPlayersWonderCardData = new Dictionary<string, string>(); // playerId - wonder cardId
+
+            var rawPlayersCardsData = GetRandomCards(session.Players);
 
             for (var index = 0; index < session.Players.Count; index++)
             {
                 var player = session.Players[index];
+                rawPlayersWonderCardData.Add(player.Id, CardsStack.Instance.WonderCards[index].Data.Id);
+            }
+
+            GameManager.Instance.OnGameStart(rawPlayersCardsData, rawPlayersWonderCardData);
+        }
+
+        public void NextMove(GameSession session)
+        {
+            foreach (var player in session.Players.Where(data => data.MoveState == PlayerData.MoveStateType.IN_PROGRESS)
+            )
+            {
+                var card = player.InHandCards[Random.Range(0, player.InHandCards.Count)];
+                if (Random.Range(0, 2) == 0)
+                {
+                    Debug.Log($"Player ({player.Name}) use card ({card.Data.Name})");
+                    card.Use(player);
+                }
+                else
+                {
+                    Debug.Log($"Player ({player.Name}) exchange card ({card.Data.Name})");
+                    card.Exchange(player);
+                }
+            }
+
+            Debug.Log($"Next move ({session.GameState.Move})");
+            GameManager.Instance.OnNextMove();
+        }
+
+        public void NextEpoch(GameSession session)
+        {
+            var rawPlayersCardsData = GetRandomCards(session.Players);
+
+            Debug.Log($"Next epoch ({session.GameState.Epoch.ToString()})");
+            GameManager.Instance.OnNextEpoch(rawPlayersCardsData);
+        }
+
+        public void EndGame(GameSession session)
+        {
+            GameManager.Instance.OnEndGame();
+        }
+
+        private string GenerateId()
+        {
+            return $"{Random.Range(0, 9)}{Random.Range(0, 9)}{Random.Range(0, 9)}";
+        }
+
+        private Dictionary<string, IEnumerable<string>> GetRandomCards(List<PlayerData> players)
+        {
+            Debug.Log($"Players count {players.Count}");
+            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>();
+            for (var index = 0; index < players.Count; index++)
+            {
+                var player = players[index];
                 var commonCardsIds = new List<string>();
                 for (var i = 0; i < CARD_NUMBER; i++)
                 {
@@ -70,10 +119,11 @@ namespace _ProjectContent.Scripts.Network
                 }
 
                 rawPlayersCardsData.Add(player.Id, commonCardsIds);
-                rawPlayersWonderCardData.Add(player.Id, CardsStack.Instance.WonderCards[index].Data.Id);
+                Debug.Log($"commonCardsIds count {commonCardsIds.Count}");
             }
+            Debug.Log($"rawPlayersCardsData count {rawPlayersCardsData.Count}");
 
-            GameManager.Instance.OnGameStart(rawPlayersCardsData, rawPlayersWonderCardData);
+            return rawPlayersCardsData;
         }
     }
 }
