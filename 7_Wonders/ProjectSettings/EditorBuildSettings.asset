@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ProjectContent/Scenes/Development/GameLogic/2020_11_01_GameSession.unity
     guid: b1b7e9dc4e6155b4bbad4c833b7ded8b
+  - enabled: 1
+    path: Assets/_ProjectContent/Scenes/Development/UI/20.12.4_LobbyUI.unity
+    guid: b1f5106895b3d5448a9805a6170ec740
+  - enabled: 1
+    path: Assets/_ProjectContent/Scenes/Development/UI/21.01.14_GameUI.unity
+    guid: c6fedea28bcbb7d41bdffee08d1a4a5c
   m_configObjects: {}
