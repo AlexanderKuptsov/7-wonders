@@ -1,15 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using WhiteTeam.ConnectingUI.Cards;
 using WhiteTeam.GameLogic.Cards.Wonder;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
-        [Header("Common cards")]
-        [SerializeField] private GameObject cardVisualizer;
-        
-        [Header("Wonder cards")]
-        [SerializeField] private GameObject wonderCardVisualizer;
+        [Header("Common cards")] [SerializeField]
+        private GameObject cardVisualizer;
+
+        [Header("Wonder cards")] [SerializeField]
+        private GameObject wonderCardVisualizer;
+
+
+        [SerializeField] private CardsList inHandCardsList;
+
+        public void AddInHandCards(IEnumerable<CommonCard> cards)
+        {
+            inHandCardsList.AddCards(cards);
+        }
 
         public GameObject Visualize(CommonCard card, Transform cardHolder) // Common card visualization
         {

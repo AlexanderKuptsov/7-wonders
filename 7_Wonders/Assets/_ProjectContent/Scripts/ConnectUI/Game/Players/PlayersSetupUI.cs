@@ -5,8 +5,6 @@ using WhiteTeam.GameLogic.Resources;
 
 public class PlayersSetupUI : MonoBehaviour
 {
-    [SerializeField] private PlayerList playerList;
-
     private void Start()
     {
         var players = new[]
@@ -23,6 +21,6 @@ public class PlayersSetupUI : MonoBehaviour
         players[0].Resources.AddProduction(new Resource.CurrencyItem
             {Currency = Resource.CurrencyProducts.ORE, Amount = 5});
 
-        playerList.AddPlayers(players);
+        PlayerList.Instance.AddPlayers(players);
     }
 }

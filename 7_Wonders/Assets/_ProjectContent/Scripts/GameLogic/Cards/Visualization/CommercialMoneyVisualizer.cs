@@ -34,8 +34,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetEndGameEffect()
         {
-            // return cardData.EndGameEffect.Coins 
-            throw new System.NotImplementedException();
+            return null;
+            //throw new System.NotImplementedException();
         }
     }
 }

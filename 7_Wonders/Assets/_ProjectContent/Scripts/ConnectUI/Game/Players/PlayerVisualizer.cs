@@ -35,11 +35,6 @@ namespace WhiteTeam.ConnectingUI.Players
         [SerializeField] private TMP_Text ClothText;
         [SerializeField] private TMP_Text GlassText;
 
-        [Header("Cards")] [SerializeField] private CardsList cardsList;
-
-        [Header("Wonder card")] [SerializeField]
-        private CardsList wonderCardList; // TODO
-
         public void Show(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
         {
             // STATS
