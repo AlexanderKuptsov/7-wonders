@@ -12,8 +12,8 @@ public class UpDown : MonoBehaviour
    public Button down_time_round;
    public Button up_time_round;
    public TextMeshProUGUI round_time;
-    int i =3;
-    int j = 15;
+   private int i =3;
+   private int j = 15;
     
     public void downCountPlayer()
     {
@@ -62,6 +62,28 @@ public class UpDown : MonoBehaviour
             j+=15;
             round_time.text = j.ToString() +" s";
         }
-
     }
+
+    public void resetTime()
+    {
+        j = 15;
+        round_time.text = j.ToString() +" s";
+    }
+
+    public void resetMaxPlayers()
+    {
+        i = 3;
+        countPlayer.text = i.ToString();
+    }
+
+    public int getTime()
+    {
+        return j;
+    }
+    
+    public int getMaxPlayers()
+    {
+        return i;
+    }
+    
 }

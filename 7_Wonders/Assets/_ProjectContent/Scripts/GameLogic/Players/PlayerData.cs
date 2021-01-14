@@ -33,6 +33,9 @@ namespace WhiteTeam.GameLogic
 
         [SerializeField] private CommonCard tempActiveCard;
 
+        private List<CommonCard> cardsToMove = new List<CommonCard>();
+        public List<CommonCard> CardsToMove => cardsToMove;
+
         // ----- RESOURCES -----
         [SerializeField] private PlayerResources resources = new PlayerResources();
         public PlayerResources Resources => resources;
@@ -96,6 +99,7 @@ namespace WhiteTeam.GameLogic
 
         public void GiveCards(IEnumerable<CommonCard> cards)
         {
+            inHandCards.Clear();
             foreach (var card in cards)
             {
                 inHandCards.Add(card);
@@ -114,6 +118,10 @@ namespace WhiteTeam.GameLogic
             TradeInfo.Reset();
             HandleTempActiveCard();
             ResetMoveState();
+
+            cardsToMove.Clear();
+            cardsToMove = inHandCards.ToList();
+            inHandCards.Clear();
 
             Events.NextMoveEffects.Trigger(this);
         }
@@ -168,6 +176,7 @@ namespace WhiteTeam.GameLogic
 
         private void HandleTempActiveCard()
         {
+            if (tempActiveCard == null) return;
             activeCards.Add(tempActiveCard);
             tempActiveCard.Data.Activate();
             tempActiveCard = null;

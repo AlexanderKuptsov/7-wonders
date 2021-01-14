@@ -21,12 +21,12 @@ public class MainInfo
 {
     public CreationLobbyInfo lobbyInfo { get; set; }
     public LobbyInfo deleteInfo { get; set; }
-    public LobbyInfo startCommandInfo { get; set; }
+    public LobbyInfo startInfo { get; set; }
     public LobbyInfo disconnectInfo { get; set; }
 
     public LobbyInfo updateInfo { get; set; }
 
-    public LobbyInfo connectInfo { get; set; }
+    public ConnectInfo connectInfo { get; set; }
     public CreationLobbyInfo[] lobbyList { get; set; }
 }
 
@@ -43,12 +43,18 @@ public class CreationLobbyInfo : LobbyInfo
     public string maxPlayers { get; set; }
     public string moveTime { get; set; }
     public UserInfo ownerInfo { get; set; }
+    public string accessToken { get; set; }
 }
 
 public class UserInfo
 {
-    public string playerName;
-    public string playerId;
-    public string state;
+    public string playerName { get; set; }
+    public string playerId { get; set; }
+    public string state { get; set; }
+}
+
+public class ConnectInfo : LobbyInfo
+{
+    public string accessToken { get; set; }
 }
 

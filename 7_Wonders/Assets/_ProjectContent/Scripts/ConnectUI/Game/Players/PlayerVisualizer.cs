@@ -3,14 +3,19 @@ using TMPro;
 using UnityEngine;
 using WhiteTeam.ConnectingUI.Cards;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.ConnectingUI.Players
 {
-    public class PlayerVisualizer : MonoBehaviour
+    public class PlayerVisualizer : Singleton<PlayerVisualizer>
     {
-        [Header("Stats")] [SerializeField] private TMP_Text MoneyText;
+        [SerializeField] private GameObject holder;
+
+        [Header("Stats")] 
+        [SerializeField] private TMP_Text NameText;
+        [SerializeField] private TMP_Text MoneyText;
 
         [SerializeField] private TMP_Text MilitaryText;
         [SerializeField] private TMP_Text VictoryText;
@@ -31,14 +36,16 @@ namespace WhiteTeam.ConnectingUI.Players
         [SerializeField] private TMP_Text ClothText;
         [SerializeField] private TMP_Text GlassText;
 
-        [Header("Cards")] [SerializeField] private CardsList cardsList;
+        [Header("Cards")] 
+        [SerializeField] private CardsList cardsList;
+        
+        [SerializeField] private WonderCardObjectVisualSetter cardObjectVisualSetter;
 
-        [Header("Wonder card")] [SerializeField]
-        private CardsList wonderCardList; // TODO
-
-        public void Setup(OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
+        public void Show(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
         {
             // STATS
+            NameText.text = playerName;
+            
             MoneyText.text = resources.Money.ToString();
 
             MilitaryText.text = resources.Military.ToString();
@@ -65,6 +72,26 @@ namespace WhiteTeam.ConnectingUI.Players
 
             // WONDER CARD
             //wonderCardList.AddCards(wonderCard); TODO -- Add wonder card object
+            WonderCardGameSetup.Instance.Setup(wonderCard, cardObjectVisualSetter);
+
+            holder.SetActive(true);
+        }
+
+        public void Close()
+        {
+            holder.SetActive(false);
+        }
+
+        public void SwitchWindow(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
+        {
+            if (holder.activeSelf)
+            {
+                Close();
+            }
+            else
+            {
+                Show(playerName, resources, cards, wonderCard);
+            }
         }
     }
 }

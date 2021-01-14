@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WhiteTeam.GameLogic.Resources
 {
@@ -25,7 +26,8 @@ namespace WhiteTeam.GameLogic.Resources
 
         public void Reset()
         {
-            foreach (var currencyKey in _info.Keys)
+            var keys = _info.Keys.ToArray();
+            foreach (var currencyKey in keys)
             {
                 _info[currencyKey] = true;
             }

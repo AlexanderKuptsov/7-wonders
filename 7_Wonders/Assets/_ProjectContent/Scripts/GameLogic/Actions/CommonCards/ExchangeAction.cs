@@ -1,4 +1,6 @@
 ﻿using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Managers;
+using WhiteTeam.Network.ServerModules;
 
 namespace WhiteTeam.GameLogic.Actions
 {
@@ -10,7 +12,7 @@ namespace WhiteTeam.GameLogic.Actions
 
         protected override void SendRequest(CommonCard card, string command)
         {
-            throw new System.NotImplementedException();
+            ServerGameHandler.Instance.CardActionRequest(GameManager.Instance.CurrentSession.gameId,card.Data.Id, command);
         }
 
         public override string GetCommand() => Command.EXCHANGE.ToString();

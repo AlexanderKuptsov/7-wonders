@@ -3,49 +3,25 @@ using System.Collections.Generic;
 using Network.Json;
 using Newtonsoft.Json;
 using UnityEngine;
+using WhiteTeam.GameLogic.Actions;
 
-public class CardsJsonCreator
+public static class CardsJsonCreator
 {
-    public enum CardActionType
-    {
-        activate,
-        sell,
-        choose,
-        drop
-    }
     
-    private static string CreateCardJson(CardActionType cardActionType, string cardId)
+    public static string CreateCardJson(string gameId, string cardId, string command)
     {
         var authAttributes = new CardActionAttributes()
         {
-            cardId = cardId,
+            gameId = gameId,
+            cardId = cardId
         };
         var jsonString = JsonConvert.SerializeObject(authAttributes);
-        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(cardActionType.ToString(), jsonString));
+        return JsonCreator.RemoveSlash(JsonCreator.CreateJson(command, jsonString));
     }
 
-    public static string CreateActivateCardJson(string cardId)
-    {
-        return CreateCardJson(CardActionType.activate, cardId);
-    }
     
-    public static string CreateSellCardJson(string cardId)
-    {
-        return CreateCardJson(CardActionType.sell, cardId);
-    }
-    
-    public static string CreateChooseCardJson(string cardId)
-    {
-        return CreateCardJson(CardActionType.choose, cardId);
-    }
-    
-    public static string CreateThrowCardJson(string cardId)
-    {
-        return CreateCardJson(CardActionType.drop, cardId);
-    }
-
-
     private class CardActionAttributes    {
         public string cardId { get; set; }
+        public string gameId { get; set; }
     }
 }

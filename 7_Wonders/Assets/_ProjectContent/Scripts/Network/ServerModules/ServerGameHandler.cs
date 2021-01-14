@@ -1,4 +1,5 @@
 ﻿using System;
+using Network.Json;
 using SK_Engine;
 using WhiteTeam.GameLogic;
 using WhiteTeam.GameLogic.Cards;
@@ -60,29 +61,34 @@ namespace WhiteTeam.Network.ServerModules
             }
         }
         
-        public void GameInitRequest()
+        public void GameInitRequest(string lobbyId)
         {
-            throw new NotImplementedException();
+            GameJsonCreator.CreateInitJson(lobbyId);
         }
 
-        public void GameStartRequest()
+        public void GameStartRequest(string gameId)
         {
-            throw new NotImplementedException();
+            GameJsonCreator.CreateStartJson(gameId);
         }
 
-        public void NextMoveRequest()
+        public void NextMoveRequest(string gameId)
         {
-            throw new NotImplementedException();
+            GameJsonCreator.CreateNextMoveJson(gameId);
         }
 
-        public void NextEpochRequest()
+        public void NextEpochRequest(string gameId)
         {
-            throw new NotImplementedException();
+            GameJsonCreator.CreateNextEpochJson(gameId);
         }
 
-        public void EndGameRequest()
+        public void EndGameRequest(string gameId)
         {
-            throw new NotImplementedException();
+            GameJsonCreator.CreateEndGameJson(gameId);
+        }
+        
+        public void CardActionRequest(string gameId, string cardId, string command)
+        {
+            GameJsonCreator.CardActionJson(gameId, cardId, command);
         }
     }
 }

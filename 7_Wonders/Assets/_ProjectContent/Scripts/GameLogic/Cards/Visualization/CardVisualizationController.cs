@@ -1,19 +1,25 @@
-﻿using UnityEngine;
-using WhiteTeam.GameLogic.Cards.Wonder;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using WhiteTeam.ConnectingUI.Cards;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
-        [SerializeField] private GameObject cardVisualizer;
+        [Header("Common cards")] [SerializeField]
+        private GameObject cardVisualizer;
 
-        [SerializeField] private GameObject cardHolder;
+        [SerializeField] private CardsList inHandCardsList;
 
-        public GameObject Visualize(CommonCard card) // Common card visualization
+        public void AddInHandCards(IEnumerable<CommonCard> cards)
+        {
+            inHandCardsList.AddCards(cards);
+        }
+
+        public GameObject Visualize(CommonCard card, Transform cardHolder) // Common card visualization
         {
             var visualizer = card.Data.GetVisualizer();
 
-            // Example
             var cardName = visualizer.GetNameCard();
             var color = visualizer.GetColor();
             var cost = visualizer.GetCost();
@@ -23,7 +29,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var endGameEffect = visualizer.GetEndGameEffect();
 
 
-            var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
+            var cardObject = Instantiate(cardVisualizer, cardHolder);
             var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
 
             cardObjectVisualSetter.SetName(cardName);
@@ -34,36 +40,6 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             cardObjectVisualSetter.SetEndGameEffect(endGameEffect);
 
             return cardObject;
-        }
-
-        public void Visualize(WonderCard card) // Wonder card visualization
-        {
-            var visualizer = card.Data.GetVisualizer();
-
-            /* TODO
-            
-            GetName
-            GetCost
-            GetColor
-            GetEffect
-            ...
-            
-         */
-
-
-            var name = visualizer.GetNameCard();
-
-            var effect = visualizer.GetCurrentEffect();
-
-            var cost = visualizer.GetCost();
-
-
-            var cardObject = Instantiate(cardVisualizer, cardHolder.transform);
-            var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
-
-            cardObjectVisualSetter.SetName(name);
-            cardObjectVisualSetter.SetCurrentEffect(effect);
-            cardObjectVisualSetter.SetCostEffect(cost);
         }
     }
 }

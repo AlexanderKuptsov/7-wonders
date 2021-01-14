@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,7 +12,16 @@ public class CurrentLobbyDisplay : MonoBehaviour
     public TMP_Text playersCountText;
     public TMP_Text moveTimeText;
     public GameObject ScrollView;
-    
+    private Lobby currentLobby;
+
+
+    private void Awake()
+    {
+        LobbyManager.Instance.Events.OnUpdateLobbies.Subscribe(OnLobbyUpdate);
+        LobbyManager.Instance.Events.OnUserConnectToLobby.Subscribe(OnLobbyUpdate);
+        LobbyManager.Instance.Events.OnUserDisconnectFromLobby.Subscribe(OnLobbyUpdate);
+    }
+
     public void DisplayPlayers(Lobby lobby)
     {
         foreach (var user in lobby.ConnectedUsers)
@@ -23,15 +33,47 @@ public class CurrentLobbyDisplay : MonoBehaviour
             Debug.Log(user.state);
             infoFields.setReadyState(user.state);
         }
+
         playersCountText.text = lobby.ConnectedUsersCount.ToString();
         moveTimeText.text = lobby.Settings.MoveTime.ToString();
     }
-    
+
     public void ClearElements()
     {
         foreach (var element in ScrollView.GetComponentsInChildren<PlayerListElement>())
         {
             Destroy(element.transform.gameObject);
+        }
+    }
+
+    public void OnLobbyUpdate(string lobbyId)
+    {
+        if (lobbyId == currentLobby.Id)
+        {
+            ClearElements();
+            DisplayPlayers(currentLobby);
+        }
+    }
+
+    public void SetCurrentLobby(Lobby currentLobby)
+    {
+        this.currentLobby = currentLobby;
+    }
+
+    public void DisconnectFromCurrentLobby()
+    {
+        FakeLobbyServer.Instance.FakeGetDisconnect(currentLobby, LobbyManager.Instance.LocalUserData.Id);
+    }
+
+    public void ReadyUnreadyButton()
+    {
+        if (LobbyManager.Instance.LocalUserData.state == UserData.ReadyState.READY)
+        {
+            FakeLobbyServer.Instance.FakeWeNotReadyLobbyAnswer(currentLobby, LobbyManager.Instance.LocalUserData.Id);
+        }
+        else
+        {
+            FakeLobbyServer.Instance.FakeWeReadyLobbyAnswer(currentLobby, LobbyManager.Instance.LocalUserData.Id);
         }
     }
 }

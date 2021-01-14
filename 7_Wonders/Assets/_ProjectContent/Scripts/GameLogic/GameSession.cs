@@ -14,6 +14,7 @@ namespace WhiteTeam.GameLogic
     public class GameSession : MonoBehaviour, INetworkEntity
     {
         public string Id { get; private set; }
+        public string gameId { get; private set; }
         public GameSettings Settings { get; private set; }
         public PlayerData LocalPlayerData { get; private set; }
         public List<PlayerData> Players = new List<PlayerData>();
@@ -109,7 +110,7 @@ namespace WhiteTeam.GameLogic
             {
                 (_swipeDirection == PlayerDirection.RIGHT
                     ? player.RightPlayerData
-                    : player.LeftPlayerData).GiveCards(player.InHandCards);
+                    : player.LeftPlayerData).GiveCards(player.CardsToMove);
             }
 
             _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
