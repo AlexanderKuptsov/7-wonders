@@ -21,7 +21,7 @@ public class MainInfo
 {
     public CreationLobbyInfo lobbyInfo { get; set; }
     public LobbyInfo deleteInfo { get; set; }
-    public LobbyInfo startCommandInfo { get; set; }
+    public LobbyInfo startInfo { get; set; }
     public LobbyInfo disconnectInfo { get; set; }
 
     public LobbyInfo updateInfo { get; set; }

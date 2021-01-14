@@ -95,6 +95,9 @@ namespace WhiteTeam.GameLogic
             {
                 var json = LobbyJsonCreator.CreateStartLobbyJson(lobby.Id);
                 ServerLobbyHandler.Instance.Send(json);
+                
+                
+                
             }
         }
 
@@ -187,9 +190,15 @@ namespace WhiteTeam.GameLogic
                 }
                 Events.OnUpdateLobbies.TriggerEvents(lobbyId);
 
+                
+                Debug.Log("IS ALL READY??");
                 if (lobby.AllUsersReady)
                 {
-                    StartLobbyRequest(lobby);
+                    Debug.Log("YES");
+                    //StartLobbyRequest(lobby);
+                    
+                    // TODO TODO TODO FAKE 
+                    FakeLobbyServer.Instance.OurFakeStart(lobby);
                 }
             }
         }
@@ -200,13 +209,14 @@ namespace WhiteTeam.GameLogic
             {
                 if (lobbyToStart == _selectedLobby)
                 {
+                    Debug.Log($"STARTING GAME: {lobbyToStart.Settings.Name} AND {lobbyToStart.Id}");
                     //GameManager.Instance.CreateGameSession(lobbyToStart);
                     TokenHolder.Instance.SavePlayableLobby(lobbyToStart);
                 }
-
-                OnDeleteLobby(lobbyId); // TODO
-
+                
+                //OnDeleteLobby(lobbyId); // TODO
                 Events.OnStartLobby.TriggerEvents();
+                
             }
         }
 

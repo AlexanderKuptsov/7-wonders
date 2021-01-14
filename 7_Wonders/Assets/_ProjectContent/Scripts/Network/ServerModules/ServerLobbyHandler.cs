@@ -55,7 +55,7 @@ namespace WhiteTeam.Network.ServerModules
                             LobbyManager.Instance.OnDeleteLobby(result.results.deleteInfo.lobbyId);
                             break;
                         case LobbyType.start:
-                            LobbyManager.Instance.OnStartLobby(result.results.startCommandInfo.lobbyId);
+                            LobbyManager.Instance.OnStartLobby(result.results.startInfo.lobbyId);
                             break;
                         case LobbyType.update:
                             LobbyManager.Instance.OnUpdateLobbies(result.results.updateInfo.lobbyId,

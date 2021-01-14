@@ -3617,12 +3617,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1377122225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32dc81142a1c7ee4caf7a3686e86448f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f3ee698fb12191429e3826de7d3e634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   authScene: 
   lobbyScene: 20.12.4_LobbyUI
-  gameScene: 
+  gameScene: 21.01.14_GameUI
 --- !u!4 &1377122227
 Transform:
   m_ObjectHideFlags: 0

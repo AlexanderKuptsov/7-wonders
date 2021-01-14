@@ -90,6 +90,13 @@ public class FakeLobbyServer : Singleton<FakeLobbyServer>
             "{\"status\":\"SUCCESS\",\"results\":{\"updateInfo\": {\"lobbyId\": \"" + lobby.Id +"\", \"connectedUsers\": [{\"playerId\":\"" + playerId +"\", \"state\": \"WAITING\"}]}},\"module\":\"Lobby\",\"type\":\"update\"}";
         ServerLobbyHandler.Instance.FakeOnMessageReceived(updateMessage);
     }
+
+    public void OurFakeStart(Lobby lobby)
+    {
+        var startMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"startInfo\": {\"lobbyId\": \"" + lobby.Id +"\"}},\"module\":\"Lobby\",\"type\":\"start\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(startMessage);
+    }
     
     public void FakeCreateAnswer()
     {
