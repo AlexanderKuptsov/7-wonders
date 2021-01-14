@@ -4,10 +4,10 @@ namespace WhiteTeam.GameLogic.Token
 {
     public class TokenHolder : Singleton<TokenHolder>
     {
-        public string Token { get; private set; }
-        public UserData LocalUser { get; private set; }
+        public string Token;// { get; private set; }
+        public UserData LocalUser; //{ get; private set; }
         
-        public Lobby PlayableLobby { get; private set; }
+        public Lobby PlayableLobby;// { get; private set; }
 
         public void SaveToken(string tokenValue)
         {

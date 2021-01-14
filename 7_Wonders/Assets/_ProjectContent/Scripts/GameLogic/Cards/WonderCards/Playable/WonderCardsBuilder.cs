@@ -1,4 +1,5 @@
-﻿using WhiteTeam.GameLogic.Cards.Effects;
+﻿using UnityEngine;
+using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards.Wonder

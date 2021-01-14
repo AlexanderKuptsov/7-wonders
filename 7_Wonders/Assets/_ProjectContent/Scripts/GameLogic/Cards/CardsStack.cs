@@ -12,6 +12,9 @@ namespace WhiteTeam.GameLogic.Cards
 
         private readonly List<CommonCard> _thrownCards = new List<CommonCard>();
 
+        public List<WonderCard> WonderCards => _wonderCards;
+        public List<CommonCard> CommonCards => _cards;
+
         public void LoadWonderCards(IEnumerable<WonderCardData> cards)
         {
             foreach (var cardData in cards)

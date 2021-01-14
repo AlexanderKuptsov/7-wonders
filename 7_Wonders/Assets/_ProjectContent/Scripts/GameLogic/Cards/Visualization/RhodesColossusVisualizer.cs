@@ -24,12 +24,12 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetCostSecondEra()
         {
-            return UnityEngine.Resources.Load<Sprite>("Effects/ore_ore_ore_ore");
+            return UnityEngine.Resources.Load<Sprite>("Effects/clay_clay_papyrus");
         }
 
         public override Sprite GetCostThirdEra()
         {
-            return null;
+            return UnityEngine.Resources.Load<Sprite>("Effects/ore_ore_ore_ore");
         }
 
         public override Sprite GetInitialBonus()

@@ -37,7 +37,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetCurrentEffectStepTwo()
         {
-            return null;
+            return UnityEngine.Resources.Load<Sprite>("Effects/chevron-down");
         }
     }
 }

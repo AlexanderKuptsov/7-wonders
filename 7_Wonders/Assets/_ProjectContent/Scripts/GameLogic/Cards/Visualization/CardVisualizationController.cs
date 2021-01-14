@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using WhiteTeam.ConnectingUI.Cards;
-using WhiteTeam.GameLogic.Cards.Wonder;
 
 namespace WhiteTeam.GameLogic.Cards.Visualization
 {
@@ -9,10 +8,6 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
     {
         [Header("Common cards")] [SerializeField]
         private GameObject cardVisualizer;
-
-        [Header("Wonder cards")] [SerializeField]
-        private GameObject wonderCardVisualizer;
-
 
         [SerializeField] private CardsList inHandCardsList;
 
@@ -43,33 +38,6 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             cardObjectVisualSetter.SetBackground(background);
             cardObjectVisualSetter.SetCurrentEffect(currentEffect);
             cardObjectVisualSetter.SetEndGameEffect(endGameEffect);
-
-            return cardObject;
-        }
-
-        public GameObject Visualize(WonderCard card, Transform cardHolder) // Wonder card visualization
-        {
-            var visualizer = card.Data.GetWonderVisualizer();
-
-            var name = visualizer.GetNameCard();
-            var background = visualizer.GetBackground();
-            var costFirstEra = visualizer.GetCostFirstEra();
-            var costSecondEra = visualizer.GetCostSecondEra();
-            var costThirdEra = visualizer.GetCostThirdEra();
-
-            var initialBonus = visualizer.GetInitialBonus();
-            var stepTwoEffect = visualizer.GetCurrentEffectStepTwo();
-
-            var cardObject = Instantiate(wonderCardVisualizer, cardHolder);
-            var cardObjectVisualSetter = cardObject.GetComponent<WonderCardObjectVisualSetter>();
-
-            cardObjectVisualSetter.SetName(name);
-            cardObjectVisualSetter.SetBackground(background);
-            cardObjectVisualSetter.SetCostFirstEra(costFirstEra);
-            cardObjectVisualSetter.SetCostSecondEra(costSecondEra);
-            cardObjectVisualSetter.SetCostThirdEra(costThirdEra);
-            cardObjectVisualSetter.SetInitialBonus(initialBonus);
-            cardObjectVisualSetter.SetCurrentEffectStepTwo(stepTwoEffect);
 
             return cardObject;
         }

@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WhiteTeam.Network.Entity;
 
 namespace WhiteTeam.GameLogic.Managers
 {
+    [Serializable]
     public class Lobby : INetworkEntity
     {
         public string Id { get; private set; }
         public UserData Owner { get; private set; }
         public GameSettings Settings { get; private set; }
-        public List<UserData> ConnectedUsers { get; private set; }
+        public List<UserData> ConnectedUsers;//{ get; private set; }
 
         private IdentifierInfo _identifierInfo;
 

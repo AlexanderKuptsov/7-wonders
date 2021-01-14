@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using _ProjectContent.Scripts.Network;
 using SK_Engine;
 using UnityEngine;
 using WhiteTeam.ConnectingUI;
@@ -108,7 +110,8 @@ namespace WhiteTeam.GameLogic.Managers
             CurrentSession = gameSessionObject.GetComponent<GameSession>();
             CurrentSession.CreateFromLobby(lobby);
 
-            GameStartRequest();
+            //GameStartRequest();
+            GameInitRequest();
         }
 
         private void StartGame(Dictionary<string, IEnumerable<string>> rawPlayersCardsData,
@@ -127,9 +130,12 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void SetupUI()
         {
-            PlayerList.Instance.AddPlayers(CurrentSession.Players);
+            PlayerList.Instance.AddPlayers(
+                CurrentSession.Players.Where(data => data.Id != CurrentSession.LocalPlayerData.Id));
             CardVisualizationController.Instance.AddInHandCards(CurrentSession.LocalPlayerData.InHandCards);
             WonderCardGameSetup.Instance.GlobalSetup(CurrentSession.LocalPlayerData.WonderCard);
+
+            UpdateLocalResources.Instance.Sync();
         }
 
         private void NextMove()
@@ -190,16 +196,20 @@ namespace WhiteTeam.GameLogic.Managers
 
         public void GameInitRequest()
         {
-            if (!IsAdmin()) return;
+            //if (!IsAdmin()) return;
 
             //ServerGameHandler.Instance.GameInitRequest(); // TODO put lobby id here
+
+            FakeGameServer.Instance.GameInit(CurrentSession);
         }
 
         public void GameStartRequest()
         {
-            if (!IsAdmin()) return;
+            //if (!IsAdmin()) return;
 
             //ServerGameHandler.Instance.GameStartRequest(); // TODO put game id here
+
+            FakeGameServer.Instance.GameStart(CurrentSession);
         }
 
         public void NextMoveRequest()
@@ -242,18 +252,10 @@ namespace WhiteTeam.GameLogic.Managers
 
         #region NETWORK EVENTS
 
-        public void OnGameInit()
+        public void OnGameInit(List<WonderCardData> wonderCards, List<CommonCardData> commonCards, string[] seats)
         {
-            // Wonder card
-            var wonderCards = new List<WonderCardData>(); // TODO - EXAMPLE
             CardsStack.Instance.LoadWonderCards(wonderCards);
-
-            // Common Cards
-            var commonCards = new List<CommonCardData>(); // TODO - EXAMPLE
             CardsStack.Instance.LoadCards(commonCards);
-
-            // Seats
-            var seats = new[] {"2", "4", "1", "6"}; // TODO - EXAMPLE - ids
             CurrentSession.ProvideSeats(seats);
 
             // TODO
@@ -262,12 +264,9 @@ namespace WhiteTeam.GameLogic.Managers
             Events.OnGameInit.TriggerEvents();
         }
 
-        public void OnGameStart()
+        public void OnGameStart(Dictionary<string, IEnumerable<string>> rawPlayersCardsData,
+            Dictionary<string, string> rawPlayersWonderCardData)
         {
-            // TODO - EXAMPLE
-            var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>(); // playerId - common cardsId
-            var rawPlayersWonderCardData = new Dictionary<string, string>(); // playerId - wonder cardId
-
             StartGame(rawPlayersCardsData, rawPlayersWonderCardData);
             // TODO
             Events.OnGameStart.TriggerEvents();
