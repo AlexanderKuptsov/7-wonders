@@ -38,8 +38,10 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
         {
             foreach (var currencyItem in CostInfo)
             {
-                player.Resources.SpendProduction(currencyItem);
+                //player.Resources.SpendProduction(currencyItem);
+                player.Resources.Buy(currencyItem);
             }
+            
         }
 
         protected abstract void Activate(PlayerData player);

@@ -120,7 +120,6 @@ namespace _ProjectContent.Scripts.Network
 
         private Dictionary<string, IEnumerable<string>> GetRandomCards(List<PlayerData> players)
         {
-            Debug.Log($"Players count {players.Count}");
             var rawPlayersCardsData = new Dictionary<string, IEnumerable<string>>();
             for (var index = 0; index < players.Count; index++)
             {
@@ -133,10 +132,7 @@ namespace _ProjectContent.Scripts.Network
                 }
 
                 rawPlayersCardsData.Add(player.Id, commonCardsIds);
-                Debug.Log($"commonCardsIds count {commonCardsIds.Count}");
             }
-
-            Debug.Log($"rawPlayersCardsData count {rawPlayersCardsData.Count}");
 
             return rawPlayersCardsData;
         }

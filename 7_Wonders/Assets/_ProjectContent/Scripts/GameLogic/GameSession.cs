@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.GlobalParameters;
 using WhiteTeam.GameLogic.Managers;
@@ -112,6 +113,8 @@ namespace WhiteTeam.GameLogic
                     ? player.RightPlayerData
                     : player.LeftPlayerData).GiveCards(player.CardsToMove);
             }
+
+            CardVisualizationController.Instance.AddInHandCards(LocalPlayerData.InHandCards);
         }
 
         public void Trade(PlayerData player, PlayerDirection playerDirection, Resource.CurrencyProducts currency)
@@ -136,7 +139,9 @@ namespace WhiteTeam.GameLogic
             {
                 player.EndUpEpoch();
             }
-            
+
+            EpochChanger.Instance.ChangeEpoch();
+
             _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
                 ? PlayerDirection.LEFT
                 : PlayerDirection.RIGHT;
