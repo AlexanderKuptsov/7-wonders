@@ -113,7 +113,7 @@ namespace WhiteTeam.GameLogic
                     ? player.RightPlayerData
                     : player.LeftPlayerData).GiveCards(player.CardsToMove);
             }
-            
+
             CardVisualizationController.Instance.AddInHandCards(LocalPlayerData.InHandCards);
         }
 
@@ -139,7 +139,9 @@ namespace WhiteTeam.GameLogic
             {
                 player.EndUpEpoch();
             }
-            
+
+            EpochChanger.Instance.ChangeEpoch();
+
             _swipeDirection = _swipeDirection == PlayerDirection.RIGHT
                 ? PlayerDirection.LEFT
                 : PlayerDirection.RIGHT;
