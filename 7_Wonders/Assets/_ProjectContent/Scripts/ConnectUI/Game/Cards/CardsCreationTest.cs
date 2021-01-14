@@ -8,6 +8,8 @@ using WhiteTeam.GameLogic.Resources;
 
 public class CardsCreationTest : MonoBehaviour
 {
+    [SerializeField] private WonderCardObjectVisualSetter cardObjectVisualSetter;
+    
     private void Start()
     {
         CreateCommonCard();
@@ -87,7 +89,7 @@ public class CardsCreationTest : MonoBehaviour
         // card visualisation
         //CardVisualizationController.Instance.Visualize(card, transform);
 
-        CardVisualizationController.Instance.AddInHandCards(new[] {card1, card2, card3, card4});
+        CardVisualizationController.Instance.AddInHandCards(new[] {card1, card2, card3, card4, card1, card2, card3});
     }
 
     private void CreateWonderCard()
@@ -100,6 +102,6 @@ public class CardsCreationTest : MonoBehaviour
         // card visualisation
         //CardVisualizationController.Instance.Visualize(wonderCard);
 
-        WonderCardGameSetup.Instance.Setup(wonderCard);
+        WonderCardGameSetup.Instance.GlobalSetup(wonderCard);
     }
 }

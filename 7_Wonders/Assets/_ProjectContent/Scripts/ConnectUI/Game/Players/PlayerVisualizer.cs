@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using WhiteTeam.ConnectingUI.Cards;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.Resources;
 
@@ -35,6 +36,11 @@ namespace WhiteTeam.ConnectingUI.Players
         [SerializeField] private TMP_Text ClothText;
         [SerializeField] private TMP_Text GlassText;
 
+        [Header("Cards")] 
+        [SerializeField] private CardsList cardsList;
+        
+        [SerializeField] private WonderCardObjectVisualSetter cardObjectVisualSetter;
+
         public void Show(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
         {
             // STATS
@@ -62,10 +68,11 @@ namespace WhiteTeam.ConnectingUI.Players
             GlassText.text = resources.Glass.ToString();
 
             // CARDS
-            //cardsList.AddCards(cards); TODO
+            cardsList.AddCards(cards);
 
             // WONDER CARD
             //wonderCardList.AddCards(wonderCard); TODO -- Add wonder card object
+            WonderCardGameSetup.Instance.Setup(wonderCard, cardObjectVisualSetter);
 
             holder.SetActive(true);
         }

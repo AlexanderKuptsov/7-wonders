@@ -66,8 +66,6 @@ MonoBehaviour:
   PapyrusText: {fileID: 4079460651313873180}
   ClothText: {fileID: 4079460651647741834}
   GlassText: {fileID: 4079460652443780690}
-  cardsList: {fileID: 0}
-  wonderCardList: {fileID: 0}
 --- !u!1 &4079460650492026004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,7 +2988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4079460651928290458
 RectTransform:
   m_ObjectHideFlags: 0

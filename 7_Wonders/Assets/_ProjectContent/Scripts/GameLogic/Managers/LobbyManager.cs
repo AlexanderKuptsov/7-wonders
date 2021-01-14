@@ -189,7 +189,8 @@ namespace WhiteTeam.GameLogic
             {
                 if (lobbyToStart == _selectedLobby)
                 {
-                    GameManager.Instance.CreateGameSession(lobbyToStart);
+                    //GameManager.Instance.CreateGameSession(lobbyToStart);
+                    TokenHolder.Instance.SavePlayableLobby(lobbyToStart);
                 }
 
                 OnDeleteLobby(lobbyId); // TODO
