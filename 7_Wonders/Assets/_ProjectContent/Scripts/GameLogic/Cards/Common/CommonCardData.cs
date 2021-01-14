@@ -47,7 +47,7 @@ namespace WhiteTeam.GameLogic.Cards
 
         public void Buy(PlayerData player)
         {
-            if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard))
+            if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard) || CostInfo == null)
             {
                 return;
             }
@@ -65,6 +65,8 @@ namespace WhiteTeam.GameLogic.Cards
 
         public bool CanBuy(PlayerData player)
         {
+            if (CostInfo == null) return true;
+
             // Check special requirement for free card activation 
             if (player.FindActiveCardById(RequirementBuildCardId, out var foundCard))
             {

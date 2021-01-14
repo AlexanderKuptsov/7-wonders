@@ -69,16 +69,25 @@ namespace _ProjectContent.Scripts.Network
             foreach (var player in session.Players.Where(data => data.MoveState == PlayerData.MoveStateType.IN_PROGRESS)
             )
             {
-                var card = player.InHandCards[Random.Range(0, player.InHandCards.Count)];
-                if (Random.Range(0, 2) == 0)
+                CommonCard card;
+                var availableCards = player.InHandCards.Where(commonCard => commonCard.Data.CanBuy(player))
+                    .ToArray();
+                if (Random.Range(0, 2) == 0 && availableCards.Length > 0)
                 {
+                    card = availableCards[Random.Range(0, availableCards.Length)];
                     Debug.Log($"Player ({player.Name}) use card ({card.Data.Name})");
                     card.Use(player);
                 }
                 else
                 {
+                    card = player.InHandCards[Random.Range(0, player.InHandCards.Count)];
                     Debug.Log($"Player ({player.Name}) exchange card ({card.Data.Name})");
                     card.Exchange(player);
+                }
+
+                if (player.Id == session.LocalPlayerData.Id)
+                {
+                    CardActionsControllerUI.Instance.RemoveLocalInHandCard(card);
                 }
             }
 
@@ -121,6 +130,7 @@ namespace _ProjectContent.Scripts.Network
                 rawPlayersCardsData.Add(player.Id, commonCardsIds);
                 Debug.Log($"commonCardsIds count {commonCardsIds.Count}");
             }
+
             Debug.Log($"rawPlayersCardsData count {rawPlayersCardsData.Count}");
 
             return rawPlayersCardsData;

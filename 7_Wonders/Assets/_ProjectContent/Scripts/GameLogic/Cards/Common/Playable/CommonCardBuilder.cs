@@ -12,15 +12,15 @@ namespace WhiteTeam.GameLogic.Cards
             switch (rndMethod)
             {
                 case 0:
-                    return CreateScientificCard(id);
+                    return CreateCivilianCard(id);
                 case 1:
-                    return CreateScientificCard(id);
+                    return CreateCivilianCard(id);
                 case 2:
-                    return CreateScientificCard(id);
+                    return CreateCivilianCard(id);
                 case 3:
-                    return CreateScientificCard(id);
+                    return CreateCivilianCard(id);
                 case 4:
-                    return CreateScientificCard(id);
+                    return CreateCivilianCard(id);
                 case 5:
                     return CreateScientificCard(id);
                 case 6:
@@ -30,21 +30,90 @@ namespace WhiteTeam.GameLogic.Cards
             }
         }
 
-        public static ScientificCard CreateScientificCard(string id)
+        private static CivilianCard CreateCivilianCard(string id)
         {
-            var cardData = new ScientificCard(
-                id,
-                "Science",
-                CommonCardData.CardType.COMMERCIAL_TRADE,
-                1,
-                new[]
-                {
-                    new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
-                },
-                "",
-                new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_2, Amount = 1}));
+            var cardsData = new[]
+            {
+                new CivilianCard(
+                    id,
+                    "Pawnshop",
+                    CommonCardData.CardType.CIVILIAN,
+                    1,
+                    null,
+                    "",
+                    new VictoryEffect(3)),
+                new CivilianCard(
+                    id,
+                    "Baths",
+                    CommonCardData.CardType.CIVILIAN,
+                    1,
+                    new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.STONE, Amount = 1}
+                    },
+                    "",
+                    new VictoryEffect(3)),
+                new CivilianCard(
+                    id,
+                    "Altar",
+                    CommonCardData.CardType.CIVILIAN,
+                    1,
+                    null,
+                    "",
+                    new VictoryEffect(2)),
+                new CivilianCard(
+                    id,
+                    "Theater",
+                    CommonCardData.CardType.CIVILIAN,
+                    1,
+                    null,
+                    "",
+                    new VictoryEffect(2)),
+            };
 
-            return cardData;
+            return cardsData[Random.Range(0, cardsData.Length)];
+        }
+
+        private static ScientificCard CreateScientificCard(string id)
+        {
+            var cardsData = new[]
+            {
+                new ScientificCard(
+                    id,
+                    "Apothecary",
+                    CommonCardData.CardType.SCIENTIFIC,
+                    1,
+                    new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLOTH, Amount = 1}
+                    },
+                    "",
+                    new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_1, Amount = 1})),
+                new ScientificCard(
+                    id,
+                    "Workshop",
+                    CommonCardData.CardType.SCIENTIFIC,
+                    1,
+                    new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.GLASS, Amount = 1}
+                    },
+                    "",
+                    new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_2, Amount = 1})),
+                new ScientificCard(
+                    id,
+                    "Scriptorium",
+                    CommonCardData.CardType.SCIENTIFIC,
+                    1,
+                    new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.PAPYRUS, Amount = 1}
+                    },
+                    "",
+                    new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_3, Amount = 1}))
+            };
+
+            return cardsData[Random.Range(0, cardsData.Length)];
         }
     }
 }

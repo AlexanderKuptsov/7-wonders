@@ -7,6 +7,7 @@ namespace WhiteTeam.ConnectingUI.Cards
 {
     public class CardsList : MonoBehaviour
     {
+        [SerializeField] private GameObject cardPrototype;
         [SerializeField] private Transform cardsHolder;
 
         public void AddCards(IEnumerable<CommonCard> cards)
@@ -26,10 +27,10 @@ namespace WhiteTeam.ConnectingUI.Cards
             }
         }
 
-        private void AddCard(CommonCard card)
+        public void AddCard(CommonCard card)
         {
-            var cardObject = CardVisualizationController.Instance.Visualize(card, cardsHolder);
-            var playerElement = cardObject.GetComponent<CardElement>();
+            var cardObject = CardVisualizationController.Instance.Visualize(card, cardPrototype, cardsHolder);
+            var playerElement = cardObject.GetComponentInChildren<CardElement>();
             playerElement.Setup(card);
         }
     }

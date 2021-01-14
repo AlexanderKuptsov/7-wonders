@@ -6,9 +6,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 {
     public class CardVisualizationController : Singleton<CardVisualizationController>
     {
-        [Header("Common cards")] [SerializeField]
-        private GameObject cardVisualizer;
-
+        [Header("Common cards")]
         [SerializeField] private CardsList inHandCardsList;
 
         public void AddInHandCards(IEnumerable<CommonCard> cards)
@@ -16,7 +14,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             inHandCardsList.AddCards(cards);
         }
 
-        public GameObject Visualize(CommonCard card, Transform cardHolder) // Common card visualization
+        public GameObject Visualize(CommonCard card, GameObject cardPrototype, Transform cardHolder) // Common card visualization
         {
             var visualizer = card.Data.GetVisualizer();
 
@@ -29,8 +27,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
             var endGameEffect = visualizer.GetEndGameEffect();
 
 
-            var cardObject = Instantiate(cardVisualizer, cardHolder);
-            var cardObjectVisualSetter = cardObject.GetComponent<CardObjectVisualSetter>();
+            var cardObject = Instantiate(cardPrototype, cardHolder);
+            var cardObjectVisualSetter = cardObject.GetComponentInChildren<CardObjectVisualSetter>();
 
             cardObjectVisualSetter.SetName(cardName);
             cardObjectVisualSetter.SetColor(color);
