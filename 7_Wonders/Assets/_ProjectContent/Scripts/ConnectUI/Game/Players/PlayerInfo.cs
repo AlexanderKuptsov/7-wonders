@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using WhiteTeam.GameLogic;
 using WhiteTeam.GameLogic.Cards;
@@ -10,19 +10,29 @@ namespace WhiteTeam.ConnectingUI.Players
 {
     public class PlayerInfo : MonoBehaviour
     {
-        [SerializeField] private PlayerVisualizer visualizer;
+        [SerializeField] private TMP_Text playerNameHolder;
 
         public PlayerData Data { get; private set; }
 
         public void Setup(PlayerData data)
         {
             Data = data;
-            UpdateVisualizer();
+            playerNameHolder.text = Data.Name;
         }
 
-        public void UpdateVisualizer()
+        public void ShowVisualizer()
         {
-            visualizer.Setup(GetResources(), GetCards(), GetWonderCard());
+            PlayerVisualizer.Instance.Show(Data.Name, GetResources(), GetCards(), GetWonderCard());
+        }
+
+        public void CloseVisualizer()
+        {
+            PlayerVisualizer.Instance.Close();
+        }
+
+        public void SwitchVisualizer()
+        {
+            PlayerVisualizer.Instance.SwitchWindow(Data.Name, GetResources(), GetCards(), GetWonderCard());
         }
 
         public OutputResources GetResources() => Data.Resources.GetCurrentResourcesState();

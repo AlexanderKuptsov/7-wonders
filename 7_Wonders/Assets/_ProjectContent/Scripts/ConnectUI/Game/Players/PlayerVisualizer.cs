@@ -8,9 +8,13 @@ using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.ConnectingUI.Players
 {
-    public class PlayerVisualizer : MonoBehaviour
+    public class PlayerVisualizer : Singleton<PlayerVisualizer>
     {
-        [Header("Stats")] [SerializeField] private TMP_Text MoneyText;
+        [SerializeField] private GameObject holder;
+
+        [Header("Stats")] 
+        [SerializeField] private TMP_Text NameText;
+        [SerializeField] private TMP_Text MoneyText;
 
         [SerializeField] private TMP_Text MilitaryText;
         [SerializeField] private TMP_Text VictoryText;
@@ -36,9 +40,11 @@ namespace WhiteTeam.ConnectingUI.Players
         [Header("Wonder card")] [SerializeField]
         private CardsList wonderCardList; // TODO
 
-        public void Setup(OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
+        public void Show(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
         {
             // STATS
+            NameText.text = playerName;
+            
             MoneyText.text = resources.Money.ToString();
 
             MilitaryText.text = resources.Military.ToString();
@@ -61,10 +67,29 @@ namespace WhiteTeam.ConnectingUI.Players
             GlassText.text = resources.Glass.ToString();
 
             // CARDS
-            cardsList.AddCards(cards);
+            //cardsList.AddCards(cards); TODO
 
             // WONDER CARD
             //wonderCardList.AddCards(wonderCard); TODO -- Add wonder card object
+
+            holder.SetActive(true);
+        }
+
+        public void Close()
+        {
+            holder.SetActive(false);
+        }
+
+        public void SwitchWindow(string playerName, OutputResources resources, IEnumerable<CommonCard> cards, WonderCard wonderCard)
+        {
+            if (holder.activeSelf)
+            {
+                Close();
+            }
+            else
+            {
+                Show(playerName, resources, cards, wonderCard);
+            }
         }
     }
 }

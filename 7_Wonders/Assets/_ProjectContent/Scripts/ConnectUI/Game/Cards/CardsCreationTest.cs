@@ -39,7 +39,7 @@ public class CardsCreationTest : MonoBehaviour
     private void CreateWonderCard()
     {
         // Data from server
-        var wonderCardData = WonderCardsBuilder.CreateAlexandriaLighthouse("1234");
+        var wonderCardData = WonderCardsBuilder.CreateHangingGardens("1234");
         //logic card creation
         var wonderCard = CardCreator.Create(wonderCardData);
 
