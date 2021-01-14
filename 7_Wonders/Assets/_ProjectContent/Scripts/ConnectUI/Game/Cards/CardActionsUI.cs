@@ -54,5 +54,23 @@ namespace WhiteTeam.ConnectingUI.Cards
             Close();
             Destroy(cardObject);
         }
+
+        public void BuildWonder()
+        {
+            if (localPlayerIsMoved) return;
+
+            var wonderCard = localPlayer.WonderCard;
+            if (wonderCard.Data.CanBuildCurrentStep(localPlayer))
+            {
+                wonderCard.Build(localPlayer, cardElement.Card);
+                
+                Close();
+                Destroy(cardObject);
+            }
+            else
+            {
+                Close();
+            }
+        }
     }
 }

@@ -178,7 +178,7 @@ namespace WhiteTeam.GameLogic
         private void HandleTempActiveCard()
         {
             if (tempActiveCard == null) return;
-            activeCards.Add(tempActiveCard);
+            //activeCards.Add(tempActiveCard);
             tempActiveCard.Data.Activate();
             tempActiveCard = null;
         }

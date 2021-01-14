@@ -34,6 +34,12 @@ namespace WhiteTeam.GameLogic.Cards.Wonder
 
         #region ACTIONS
 
+        public void Build(PlayerData player, CommonCard cardToThrow)
+        {
+            Data.Build(player, cardToThrow);
+            player.CompleteMove();
+        }
+        
         public override void Use(PlayerData player)
         {
             Data.Use(player);
