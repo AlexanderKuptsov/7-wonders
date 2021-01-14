@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhiteTeam.GameLogic;
+using WhiteTeam.GameLogic.Managers;
 using WhiteTeam.Network.ServerModules;
 using Random = System.Random;
 
@@ -51,13 +52,43 @@ public class FakeLobbyServer : Singleton<FakeLobbyServer>
             availableLobbies.Remove(index);
         }
     }
+
+    public void FakeGetConnect(Lobby lobby, string ourName)
+    {
+        var nextIndex = lobby.ConnectedUsersCount + 1;
+        var lobbyId = lobby.Id;
+        var connectMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"connectInfo\": {\"lobbyId\": \"" + lobbyId + "\", \"connectedUsers\": [{\"playerId\":\"" + nextIndex + "\", \"playerName\": \"" + ourName + "\"}]}, \"accessToken\": \"asdasdasd123123123\"},\"module\":\"Lobby\",\"type\":\"connect\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(connectMessage);
+    }
     
+    public void FakeGetDisconnect(Lobby lobby, string playerId)
+    {
+        var lobbyId = lobby.Id;
+        var ourPlayerId = playerId;
+        var disconnectMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"disconnectInfo\": {\"lobbyId\": \"" + lobbyId + "\", \"connectedUsers\": [{\"playerId\":\"" + ourPlayerId + "\"}]}},\"module\":\"Lobby\",\"type\":\"disconnect\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(disconnectMessage);
+    }
     public void FakeOurCreate(string ourName, GameSettings lobbySettings)
     {
-        
         var createMessage =
             "{\"status\": \"SUCCESS\",\"results\": {\"lobbyInfo\":{\"lobbyId\": \"3\",\"lobbyName\":\"" + lobbySettings.Name +"\", \"maxPlayers\": \"" + lobbySettings.MaxPlayers +"\", \"moveTime\": \"" + lobbySettings.MoveTime +"\", \"ownerInfo\": {\"playerName\": \"" + ourName +"\", \"playerId\": \"1\", \"state\": \"WAITING\"}, \"connectedUsers\": [], \"accessToken\": \"asdasdasdasd123123123\"}}, \"module\":\"Lobby\",\"type\":\"create\"}";
         ServerLobbyHandler.Instance.FakeOnMessageReceived(createMessage);
+    }
+    
+    public void FakeWeReadyLobbyAnswer(Lobby lobby, string playerId)
+    {
+        var updateMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"updateInfo\": {\"lobbyId\": \"" + lobby.Id +"\", \"connectedUsers\": [{\"playerId\":\"" + playerId +"\", \"state\": \"READY\"}]}},\"module\":\"Lobby\",\"type\":\"update\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(updateMessage);
+    }
+    
+    public void FakeWeNotReadyLobbyAnswer(Lobby lobby, string playerId)
+    {
+        var updateMessage =
+            "{\"status\":\"SUCCESS\",\"results\":{\"updateInfo\": {\"lobbyId\": \"" + lobby.Id +"\", \"connectedUsers\": [{\"playerId\":\"" + playerId +"\", \"state\": \"WAITING\"}]}},\"module\":\"Lobby\",\"type\":\"update\"}";
+        ServerLobbyHandler.Instance.FakeOnMessageReceived(updateMessage);
     }
     
     public void FakeCreateAnswer()

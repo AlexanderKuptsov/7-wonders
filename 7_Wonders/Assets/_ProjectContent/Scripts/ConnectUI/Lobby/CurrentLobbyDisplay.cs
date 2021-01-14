@@ -20,7 +20,6 @@ public class CurrentLobbyDisplay : MonoBehaviour
         LobbyManager.Instance.Events.OnUpdateLobbies.Subscribe(OnLobbyUpdate);
         LobbyManager.Instance.Events.OnUserConnectToLobby.Subscribe(OnLobbyUpdate);
         LobbyManager.Instance.Events.OnUserDisconnectFromLobby.Subscribe(OnLobbyUpdate);
-        
     }
 
     public void DisplayPlayers(Lobby lobby)
@@ -34,10 +33,11 @@ public class CurrentLobbyDisplay : MonoBehaviour
             Debug.Log(user.state);
             infoFields.setReadyState(user.state);
         }
+
         playersCountText.text = lobby.ConnectedUsersCount.ToString();
         moveTimeText.text = lobby.Settings.MoveTime.ToString();
     }
-    
+
     public void ClearElements()
     {
         foreach (var element in ScrollView.GetComponentsInChildren<PlayerListElement>())
@@ -58,5 +58,22 @@ public class CurrentLobbyDisplay : MonoBehaviour
     public void SetCurrentLobby(Lobby currentLobby)
     {
         this.currentLobby = currentLobby;
+    }
+
+    public void DisconnectFromCurrentLobby()
+    {
+        FakeLobbyServer.Instance.FakeGetDisconnect(currentLobby, LobbyManager.Instance.LocalUserData.Id);
+    }
+
+    public void ReadyUnreadyButton()
+    {
+        if (LobbyManager.Instance.LocalUserData.state == UserData.ReadyState.READY)
+        {
+            FakeLobbyServer.Instance.FakeWeNotReadyLobbyAnswer(currentLobby, LobbyManager.Instance.LocalUserData.Id);
+        }
+        else
+        {
+            FakeLobbyServer.Instance.FakeWeReadyLobbyAnswer(currentLobby, LobbyManager.Instance.LocalUserData.Id);
+        }
     }
 }

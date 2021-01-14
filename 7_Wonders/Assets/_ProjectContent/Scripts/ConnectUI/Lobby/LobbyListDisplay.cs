@@ -64,6 +64,7 @@ public class LobbyListDisplay : MonoBehaviour
     public void UpdateLobbyListUI()
     {
         Debug.Log("Updating UI");
+        ClearLobbyListUI();
         foreach (var lobby in LobbyManager.Instance._lobbies)
         {
             var newElement = Instantiate(lobbyListElement, ScrollView.transform);
