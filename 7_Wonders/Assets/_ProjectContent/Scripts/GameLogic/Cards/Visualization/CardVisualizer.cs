@@ -31,6 +31,8 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         {
             var cost = cardData.CostInfo;
 
+            if (cost == null || cost.Length == 0) return null;
+
             if (cost.Length == 1)
             {
                 foreach (var costinfo in cost)
@@ -500,7 +502,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                 Cost = UnityEngine.Resources.Load<Sprite>("Effects/brick_brick_loom_glass_ore_papyrus");
             }
 
-            //GLASS 1 PAPYRUS 1 LOOM 1 WOOD 1 ORE 1 STONE 1
+            //GLASS 1 PAPYRUS 1 LOOM 1 WOOD 1 ORE 1 STONE 1 BRICK 1
             if (cost.Length == 7)
             {
                 Cost = UnityEngine.Resources.Load<Sprite>("Effects/glass_papyrus_loom_brick_wood_ore_stone");

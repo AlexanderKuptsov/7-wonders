@@ -8,25 +8,25 @@ namespace WhiteTeam.GameLogic.Resources
     public class PlayerResources
     {
         // ----- MAIN -----
-        private Resource _money = new Resource(GameParameters.Instance.DefaultResources.Money);
+        private Resource _money = new Resource(3);
 
-        private Resource _military = new Resource(GameParameters.Instance.DefaultResources.Military);
-        private Resource _victory = new Resource(GameParameters.Instance.DefaultResources.Victory);
+        private Resource _military = new Resource(0);
+        private Resource _victory = new Resource(0);
 
-        private Resource _warVictoryTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
-        public Resource _warLoseTokens = new Resource(GameParameters.Instance.DefaultResources.WarLoseTokens);
+        private Resource _warVictoryTokens = new Resource(0);
+        public Resource _warLoseTokens = new Resource(0);
 
         private Dictionary<Resource.Science, int> _science = new Dictionary<Resource.Science, int>
         {
-            {Resource.Science.RUNE_1, GameParameters.Instance.DefaultResources.Science},
-            {Resource.Science.RUNE_2, GameParameters.Instance.DefaultResources.Science},
-            {Resource.Science.RUNE_3, GameParameters.Instance.DefaultResources.Science},
+            {Resource.Science.RUNE_1, 0},
+            {Resource.Science.RUNE_2, 0},
+            {Resource.Science.RUNE_3, 0},
         };
 
         private ProductionResources _production = new ProductionResources();
 
         // SPECIAL
-        private Resource _freeBuildTokens = new Resource(GameParameters.Instance.DefaultResources.FreeBuildTokens);
+        private Resource _freeBuildTokens = new Resource(0);
 
         // ----- TEMP -----
         private Resource _tempMoney = new Resource();

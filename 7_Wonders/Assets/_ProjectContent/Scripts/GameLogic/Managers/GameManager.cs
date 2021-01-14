@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using SK_Engine;
 using UnityEngine;
 using WhiteTeam.ConnectingUI;
+using WhiteTeam.ConnectingUI.Cards;
+using WhiteTeam.ConnectingUI.Players;
 using WhiteTeam.GameLogic.Actions;
 using WhiteTeam.GameLogic.Cards;
+using WhiteTeam.GameLogic.Cards.Visualization;
 using WhiteTeam.GameLogic.Cards.Wonder;
 using WhiteTeam.GameLogic.Resources;
+using WhiteTeam.GameLogic.Token;
 using WhiteTeam.GameLogic.Utils;
 using WhiteTeam.Network.Entity;
 using WhiteTeam.Network.ServerModules;
@@ -18,7 +22,7 @@ namespace WhiteTeam.GameLogic.Managers
         [SerializeField] private GameObject gameSessionPrototype;
 
         [SerializeField] private Timer timer;
-        
+
         [SerializeField] private ScoreBoardDisplay scoreBoardDisplay;
 
         public readonly ActionsEvents Events = new ActionsEvents();
@@ -39,6 +43,8 @@ namespace WhiteTeam.GameLogic.Managers
         private void Start()
         {
             timer.OnTimerEnd.Subscribe(NextMoveRequest);
+
+            CreateGameSession(TokenHolder.Instance.PlayableLobby);
         }
 
         #region METHODS
@@ -115,6 +121,15 @@ namespace WhiteTeam.GameLogic.Managers
 
             // TODO
             SetupTimer();
+
+            SetupUI();
+        }
+
+        private void SetupUI()
+        {
+            PlayerList.Instance.AddPlayers(CurrentSession.Players);
+            CardVisualizationController.Instance.AddInHandCards(CurrentSession.LocalPlayerData.InHandCards);
+            WonderCardGameSetup.Instance.GlobalSetup(CurrentSession.LocalPlayerData.WonderCard);
         }
 
         private void NextMove()
@@ -155,7 +170,7 @@ namespace WhiteTeam.GameLogic.Managers
             CurrentSession.EndUpGame();
 
             var scoreBoard = ScoreHandler.GetScoreBoard(CurrentSession);
-           
+
             scoreBoardDisplay.Show(scoreBoard);
             var winner = scoreBoard.GetWinner();
             // TODO

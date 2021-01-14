@@ -8,7 +8,12 @@ namespace WhiteTeam.ConnectingUI.Cards
     {
         [SerializeField] private WonderCardObjectVisualSetter cardObjectVisualSetter;
 
-        public void Setup(WonderCard wonderCard)
+        public void GlobalSetup(WonderCard wonderCard)
+        {
+            Setup(wonderCard, cardObjectVisualSetter);
+        }
+
+        public void Setup(WonderCard wonderCard, WonderCardObjectVisualSetter cardSetter)
         {
             var visualizer = wonderCard.Data.GetWonderVisualizer();
 
@@ -21,13 +26,13 @@ namespace WhiteTeam.ConnectingUI.Cards
             var initialBonus = visualizer.GetInitialBonus();
             var stepTwoEffect = visualizer.GetCurrentEffectStepTwo();
 
-            cardObjectVisualSetter.SetName(name);
-            cardObjectVisualSetter.SetBackground(background);
-            cardObjectVisualSetter.SetCostFirstEra(costFirstEra);
-            cardObjectVisualSetter.SetCostSecondEra(costSecondEra);
-            cardObjectVisualSetter.SetCostThirdEra(costThirdEra);
-            cardObjectVisualSetter.SetInitialBonus(initialBonus);
-            cardObjectVisualSetter.SetCurrentEffectStepTwo(stepTwoEffect);
+            cardSetter.SetName(name);
+            cardSetter.SetBackground(background);
+            cardSetter.SetCostFirstEra(costFirstEra);
+            cardSetter.SetCostSecondEra(costSecondEra);
+            cardSetter.SetCostThirdEra(costThirdEra);
+            cardSetter.SetInitialBonus(initialBonus);
+            cardSetter.SetCurrentEffectStepTwo(stepTwoEffect);
         }
     }
 }
