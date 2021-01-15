@@ -178,6 +178,7 @@ namespace WhiteTeam.GameLogic.Managers
 
         private void EndGame()
         {
+            //CurrentSession.StartWar();
             CurrentSession.EndUpGame();
 
             var scoreBoard = ScoreHandler.GetScoreBoard(CurrentSession);
