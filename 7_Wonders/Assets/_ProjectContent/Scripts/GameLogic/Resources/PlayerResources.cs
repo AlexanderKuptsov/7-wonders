@@ -221,7 +221,7 @@ namespace WhiteTeam.GameLogic.Resources
                     });
             }
 
-            _lockedProduction.Storage.Clear();
+            _lockedProduction.Reset();
         }
 
         #endregion

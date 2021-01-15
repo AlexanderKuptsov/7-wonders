@@ -19,7 +19,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
         public override Sprite GetBackground()
         {
             return UnityEngine.Resources.Load<Sprite>(
-                "Assets/_ProjectContent/UI/Resources/Pictures/raw_material_symbol");
+                "Pictures/raw_material_symbol");
         }
 
         public override Sprite GetCurrentEffect()
@@ -41,14 +41,14 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                     if (action.Currency == Resources.Resource.CurrencyProducts.WOOD && action.Amount == 2)
                     {
                         effectRawMaterials =
-                            UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/wood_wood");
+                            UnityEngine.Resources.Load<Sprite>("Effects/wood_wood");
                     }
 
                     //STONE 1
                     if (action.Currency == Resources.Resource.CurrencyProducts.STONE && action.Amount == 1)
                     {
                         effectRawMaterials =
-                            UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/stone");
+                            UnityEngine.Resources.Load<Sprite>("Effects/stone");
                     }
 
                     //STONE 2
@@ -56,14 +56,14 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                     {
                         effectRawMaterials =
                             UnityEngine.Resources.Load<Sprite>(
-                                "Assets/_ProjectContent/UI/Resources/Effects/stone_stone");
+                                "Effects/stone_stone");
                     }
 
                     //CLAY 1
                     if (action.Currency == Resources.Resource.CurrencyProducts.CLAY && action.Amount == 1)
                     {
                         effectRawMaterials =
-                            UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/brick");
+                            UnityEngine.Resources.Load<Sprite>("Effects/brick");
                     }
 
                     //CLAY 2
@@ -71,21 +71,21 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                     {
                         effectRawMaterials =
                             UnityEngine.Resources.Load<Sprite>(
-                                "Assets/_ProjectContent/UI/Resources/Effects/brick_brick");
+                                "Effects/brick_brick");
                     }
 
                     //ORE 1
                     if (action.Currency == Resources.Resource.CurrencyProducts.ORE && action.Amount == 1)
                     {
                         effectRawMaterials =
-                            UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/Gold ore");
+                            UnityEngine.Resources.Load<Sprite>("Effects/Gold ore");
                     }
 
                     //ORE 2
                     if (action.Currency == Resources.Resource.CurrencyProducts.ORE && action.Amount == 2)
                     {
                         effectRawMaterials =
-                            UnityEngine.Resources.Load<Sprite>("Assets/_ProjectContent/UI/Resources/Effects/ore_ore");
+                            UnityEngine.Resources.Load<Sprite>("Effects/ore_ore");
                     }
                 }
             }
@@ -104,7 +104,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/wood_brick");
+                                    "Effects/wood_brick");
                         }
                     }
 
@@ -117,7 +117,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/stone_brick");
+                                    "Effects/stone_brick");
                         }
                     }
 
@@ -130,7 +130,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/brick_ore");
+                                    "Effects/brick_ore");
                         }
                     }
 
@@ -143,7 +143,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/stone_wood");
+                                    "Effects/stone_wood");
                         }
                     }
 
@@ -156,7 +156,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/wood_ore");
+                                    "Effects/wood_ore");
                         }
                     }
 
@@ -169,7 +169,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
                         {
                             effectRawMaterials =
                                 UnityEngine.Resources.Load<Sprite>(
-                                    "Assets/_ProjectContent/UI/Resources/Effects/ore_stone");
+                                    "Effects/ore_stone");
                         }
                     }
                 }
@@ -181,7 +181,7 @@ namespace WhiteTeam.GameLogic.Cards.Visualization
 
         public override Sprite GetEndGameEffect()
         {
-            throw null;
+            return null;
         }
     }
 }
