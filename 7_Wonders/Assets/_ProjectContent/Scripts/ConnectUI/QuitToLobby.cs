@@ -9,6 +9,6 @@ public class QuitToLobby : MonoBehaviour
 
     public void ChangeSceneToLobby()
     {
-        SceneChanger.Instance.OpenLobbyScene();
+        SceneManager.LoadScene("20.12.4_LobbyUI", LoadSceneMode.Single);
     }
 }
