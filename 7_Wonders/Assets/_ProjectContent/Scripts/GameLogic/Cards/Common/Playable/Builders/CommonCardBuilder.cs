@@ -32,6 +32,8 @@ namespace WhiteTeam.GameLogic.Cards
         {
             var cards = new List<CommonCardData>();
             cards.AddRange(CreateEpochCards(new Epoch1CommonCardBuilder()));
+            //cards.AddRange(CreateEpochCards(new Epoch2CommonCardBuilder()));
+            //cards.AddRange(CreateEpochCards(new Epoch3CommonCardBuilder()));
             return cards;
         }
 

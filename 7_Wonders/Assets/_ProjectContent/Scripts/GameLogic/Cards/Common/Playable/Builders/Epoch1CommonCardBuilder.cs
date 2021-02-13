@@ -61,34 +61,51 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
                     })),
                 
-                new RawMaterialsCard(
-                GenerateId(),
-                "Tree Farm",
-                CommonCardData.CardType.PRODUCTION,
-                1,
-                new[]
-                {
-                    new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
-                },
-                "",
-                new ProductionCardEffect(new[]
-                {
-                    new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
-                })),
-                (CommonCardData) new SelectableProductionCard(
-                    GenerateId(),
-                    "Excavation",
-                    CommonCardData.CardType.PRODUCTION,
-                    1,
-                    new[]
-                    {
-                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
-                    },
-                    "",
-                    new SelectableProductionEffect(new[]
-                    {
-                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
-                    })),
+                // (CommonCardData) new SelectableProductionCard(
+                // GenerateId(),
+                // "Tree Farm",
+                // CommonCardData.CardType.PRODUCTION,
+                // 1,
+                // new[]
+                // {
+                //     new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
+                // },
+                // "",
+                // new SelectableProductionEffect(new[]
+                // {
+                //     new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.WOOD, Amount = 1},
+                //     new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLAY, Amount = 1}
+                // })),
+                // (CommonCardData) new SelectableProductionCard(
+                //     GenerateId(),
+                //     "Excavation",
+                //     CommonCardData.CardType.PRODUCTION,
+                //     1,
+                //     new[]
+                //     {
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
+                //     },
+                //     "",
+                //     new SelectableProductionEffect(new[]
+                //     {
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.STONE, Amount = 1},
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLAY, Amount = 1}
+                //     })),
+                // (CommonCardData) new SelectableProductionCard(
+                //     GenerateId(),
+                //     "Clay Pit",
+                //     CommonCardData.CardType.PRODUCTION,
+                //     1,
+                //     new[]
+                //     {
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
+                //     },
+                //     "",
+                //     new SelectableProductionEffect(new[]
+                //     {
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLAY, Amount = 1},
+                //         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
+                //     })),
             };
 
             return cardsData;

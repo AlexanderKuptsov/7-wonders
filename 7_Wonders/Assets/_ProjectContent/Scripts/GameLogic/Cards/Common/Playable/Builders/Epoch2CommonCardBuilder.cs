@@ -12,6 +12,7 @@ namespace WhiteTeam.GameLogic.Cards
         {
             return $"{Random.Range(0, 9)}{Random.Range(0, 9)}{Random.Range(0, 9)}";
         }
+        
         public IEnumerable<CommonCardData> CreateRawMaterialsCard()
         {
             var cardsData = new[]
