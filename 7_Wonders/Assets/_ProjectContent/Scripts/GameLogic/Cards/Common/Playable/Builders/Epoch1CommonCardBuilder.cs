@@ -1,39 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using WhiteTeam.GameLogic.Cards.Effects;
 using WhiteTeam.GameLogic.Resources;
 
 namespace WhiteTeam.GameLogic.Cards
 {
-    public static class CommonCardBuilder
+    public class Epoch1CommonCardBuilder : ICommonCardBuilder
     {
-        public static CommonCardData CreateRandomCard(string id)
+        private static string GenerateId()
         {
-            var rndMethod = Random.Range(0, 6);
-            switch (rndMethod)
-            {
-                case 0:
-                    return CreateRawMaterialsCard(id);
-                case 1:
-                    return CreateProductionCard(id);
-                case 2:
-                    return CreateCivilianCard(id);
-                case 3:
-                    return CreateMilitaryCard(id);
-                case 4:
-                    return CreateTradeCard(id);
-                case 5:
-                    return CreateScientificCard(id);
-                default:
-                    return CreateRawMaterialsCard(id);
-            }
+            return $"{Random.Range(0, 9)}{Random.Range(0, 9)}{Random.Range(0, 9)}";
         }
-
-        private static RawMaterialsCard CreateRawMaterialsCard(string id)
+        
+        public IEnumerable<RawMaterialsCard> CreateRawMaterialsCard()
         {
             var cardsData = new[]
             {
                 new RawMaterialsCard(
-                    id,
+                    GenerateId(),
                     "Lumber Yard",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -44,7 +28,7 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.WOOD, Amount = 1}
                     })),
                 new RawMaterialsCard(
-                    id,
+                    GenerateId(),
                     "Stone pit",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -55,7 +39,7 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.STONE, Amount = 1}
                     })),
                 new RawMaterialsCard(
-                    id,
+                    GenerateId(),
                     "Clay pool",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -66,7 +50,7 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLAY, Amount = 1}
                     })),
                 new RawMaterialsCard(
-                    id,
+                    GenerateId(),
                     "Ore vein",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -75,18 +59,33 @@ namespace WhiteTeam.GameLogic.Cards
                     new ProductionCardEffect(new[]
                     {
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
-                    }))
+                    })),
+                
+                new RawMaterialsCard(
+                GenerateId(),
+                "Tree Farm",
+                CommonCardData.CardType.PRODUCTION,
+                1,
+                new[]
+                {
+                    new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
+                },
+                "",
+                new ProductionCardEffect(new[]
+                {
+                    new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
+                })),
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
 
-        private static ProductionCard CreateProductionCard(string id)
+        public IEnumerable<ProductionCard> CreateProductionCard()
         {
             var cardsData = new[]
             {
                 new ProductionCard(
-                    id,
+                    GenerateId(),
                     "Loom",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -97,7 +96,7 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.CLOTH, Amount = 1}
                     })),
                 new ProductionCard(
-                    id,
+                    GenerateId(),
                     "Glassworks",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -108,7 +107,7 @@ namespace WhiteTeam.GameLogic.Cards
                         new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.GLASS, Amount = 1}
                     })),
                 new ProductionCard(
-                    id,
+                    GenerateId(),
                     "Press",
                     CommonCardData.CardType.PRODUCTION,
                     1,
@@ -120,15 +119,15 @@ namespace WhiteTeam.GameLogic.Cards
                     }))
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
 
-        private static CivilianCard CreateCivilianCard(string id)
+        public IEnumerable<CivilianCard> CreateCivilianCard()
         {
             var cardsData = new[]
             {
                 new CivilianCard(
-                    id,
+                    GenerateId(),
                     "Pawnshop",
                     CommonCardData.CardType.CIVILIAN,
                     1,
@@ -136,7 +135,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new VictoryEffect(3)),
                 new CivilianCard(
-                    id,
+                    GenerateId(),
                     "Baths",
                     CommonCardData.CardType.CIVILIAN,
                     1,
@@ -147,7 +146,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new VictoryEffect(3)),
                 new CivilianCard(
-                    id,
+                    GenerateId(),
                     "Altar",
                     CommonCardData.CardType.CIVILIAN,
                     1,
@@ -155,7 +154,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new VictoryEffect(2)),
                 new CivilianCard(
-                    id,
+                    GenerateId(),
                     "Theater",
                     CommonCardData.CardType.CIVILIAN,
                     1,
@@ -164,15 +163,15 @@ namespace WhiteTeam.GameLogic.Cards
                     new VictoryEffect(2)),
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
 
-        private static MilitaryCard CreateMilitaryCard(string id)
+        public IEnumerable<MilitaryCard> CreateMilitaryCard()
         {
             var cardsData = new[]
             {
                 new MilitaryCard(
-                    id,
+                    GenerateId(),
                     "Stockade",
                     CommonCardData.CardType.MILITARY,
                     1,
@@ -183,7 +182,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new MilitaryEffect(1)),
                 new MilitaryCard(
-                    id,
+                    GenerateId(),
                     "Barracks",
                     CommonCardData.CardType.MILITARY,
                     1,
@@ -194,7 +193,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new MilitaryEffect(1)),
                 new MilitaryCard(
-                    id,
+                    GenerateId(),
                     "Guard tower",
                     CommonCardData.CardType.MILITARY,
                     1,
@@ -206,15 +205,15 @@ namespace WhiteTeam.GameLogic.Cards
                     new MilitaryEffect(1)),
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
 
-        private static CommercialMoneyCard CreateTradeCard(string id)
+        public IEnumerable<CommercialMoneyCard> CreateTradeCard()
         {
             var cardsData = new[]
             {
                 new CommercialMoneyCard(
-                    id,
+                    GenerateId(),
                     "Tavern",
                     CommonCardData.CardType.COMMERCIAL_MONEY,
                     1,
@@ -223,15 +222,15 @@ namespace WhiteTeam.GameLogic.Cards
                     new MoneyEffect(1)),
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
 
-        private static ScientificCard CreateScientificCard(string id)
+        public IEnumerable<ScientificCard> CreateScientificCard()
         {
             var cardsData = new[]
             {
                 new ScientificCard(
-                    id,
+                    GenerateId(),
                     "Apothecary",
                     CommonCardData.CardType.SCIENTIFIC,
                     1,
@@ -242,7 +241,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_1, Amount = 1})),
                 new ScientificCard(
-                    id,
+                    GenerateId(),
                     "Workshop",
                     CommonCardData.CardType.SCIENTIFIC,
                     1,
@@ -253,7 +252,7 @@ namespace WhiteTeam.GameLogic.Cards
                     "",
                     new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_2, Amount = 1})),
                 new ScientificCard(
-                    id,
+                    GenerateId(),
                     "Scriptorium",
                     CommonCardData.CardType.SCIENTIFIC,
                     1,
@@ -265,7 +264,7 @@ namespace WhiteTeam.GameLogic.Cards
                     new ScienceEffect(new Resource.ScienceItem {Currency = Resource.Science.RUNE_3, Amount = 1}))
             };
 
-            return cardsData[Random.Range(0, cardsData.Length)];
+            return cardsData;
         }
     }
 }

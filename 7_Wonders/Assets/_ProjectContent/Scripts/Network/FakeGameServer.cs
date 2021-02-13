@@ -37,10 +37,11 @@ namespace _ProjectContent.Scripts.Network
 
             foreach (var player in session.Players)
             {
-                for (var i = 0; i < CARD_NUMBER; i++)
-                {
-                    commonCards.Add(CommonCardBuilder.CreateRandomCard(GenerateId()));
-                }
+                // for (var i = 0; i < CARD_NUMBER; i++)
+                // {
+                //     commonCards.Add(CommonCardBuilder.CreateRandomCard(GenerateId()));
+                // }
+                commonCards.AddRange(CommonCardBuilder.CreateAllEpochCards());
             }
 
             // Seats
@@ -77,7 +78,7 @@ namespace _ProjectContent.Scripts.Network
                     card = availableCards[Random.Range(0, availableCards.Length)];
                     Debug.Log($"Player ({player.Name}) use card ({card.Data.Name})");
                     card.Use(player);
-                    
+
                     if (player.Id == session.LocalPlayerData.Id)
                     {
                         CardActionsControllerUI.Instance.ActivateCard(card);
