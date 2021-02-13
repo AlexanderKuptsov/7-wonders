@@ -12,7 +12,7 @@ namespace WhiteTeam.GameLogic.Cards
             return $"{Random.Range(0, 9)}{Random.Range(0, 9)}{Random.Range(0, 9)}";
         }
         
-        public IEnumerable<RawMaterialsCard> CreateRawMaterialsCard()
+        public IEnumerable<CommonCardData> CreateRawMaterialsCard()
         {
             var cardsData = new[]
             {
@@ -75,12 +75,26 @@ namespace WhiteTeam.GameLogic.Cards
                 {
                     new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
                 })),
+                (CommonCardData) new SelectableProductionCard(
+                    GenerateId(),
+                    "Excavation",
+                    CommonCardData.CardType.PRODUCTION,
+                    1,
+                    new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.MONEY, Amount = 1}
+                    },
+                    "",
+                    new SelectableProductionEffect(new[]
+                    {
+                        new Resource.CurrencyItem {Currency = Resource.CurrencyProducts.ORE, Amount = 1}
+                    })),
             };
 
             return cardsData;
         }
 
-        public IEnumerable<ProductionCard> CreateProductionCard()
+        public IEnumerable<CommonCardData> CreateProductionCard()
         {
             var cardsData = new[]
             {
@@ -122,7 +136,7 @@ namespace WhiteTeam.GameLogic.Cards
             return cardsData;
         }
 
-        public IEnumerable<CivilianCard> CreateCivilianCard()
+        public IEnumerable<CommonCardData> CreateCivilianCard()
         {
             var cardsData = new[]
             {
@@ -166,7 +180,7 @@ namespace WhiteTeam.GameLogic.Cards
             return cardsData;
         }
 
-        public IEnumerable<MilitaryCard> CreateMilitaryCard()
+        public IEnumerable<CommonCardData> CreateMilitaryCard()
         {
             var cardsData = new[]
             {
@@ -208,7 +222,7 @@ namespace WhiteTeam.GameLogic.Cards
             return cardsData;
         }
 
-        public IEnumerable<CommercialMoneyCard> CreateTradeCard()
+        public IEnumerable<CommonCardData> CreateTradeCard()
         {
             var cardsData = new[]
             {
@@ -225,7 +239,7 @@ namespace WhiteTeam.GameLogic.Cards
             return cardsData;
         }
 
-        public IEnumerable<ScientificCard> CreateScientificCard()
+        public IEnumerable<CommonCardData> CreateScientificCard()
         {
             var cardsData = new[]
             {
