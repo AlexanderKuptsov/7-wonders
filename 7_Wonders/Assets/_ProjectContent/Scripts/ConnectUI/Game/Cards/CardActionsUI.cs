@@ -63,7 +63,7 @@ namespace WhiteTeam.ConnectingUI.Cards
             if (wonderCard.Data.CanBuildCurrentStep(localPlayer))
             {
                 wonderCard.Build(localPlayer, cardElement.Card);
-                
+                WonderCardGameSetup.Instance.WonderBuild();
                 Close();
                 Destroy(cardObject);
             }

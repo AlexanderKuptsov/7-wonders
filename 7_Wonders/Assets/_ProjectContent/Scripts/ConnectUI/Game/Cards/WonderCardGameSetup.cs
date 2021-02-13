@@ -7,6 +7,10 @@ namespace WhiteTeam.ConnectingUI.Cards
     public class WonderCardGameSetup : Singleton<WonderCardGameSetup>
     {
         [SerializeField] private WonderCardObjectVisualSetter cardObjectVisualSetter;
+        [SerializeField] private GameObject firstWonderBuiltPanel;
+        [SerializeField] private GameObject secondWonderBuiltPanel;
+        [SerializeField] private GameObject thirdWonderBuiltPanel;
+        private int wonderStepCounter = 0;
 
         public void GlobalSetup(WonderCard wonderCard)
         {
@@ -33,6 +37,25 @@ namespace WhiteTeam.ConnectingUI.Cards
             cardSetter.SetCostThirdEra(costThirdEra);
             cardSetter.SetInitialBonus(initialBonus);
             cardSetter.SetCurrentEffectStepTwo(stepTwoEffect);
+        }
+
+        public void WonderBuild()
+        {
+            switch (wonderStepCounter)
+            {
+                case 0:
+                    firstWonderBuiltPanel.gameObject.SetActive(true);
+                    break;
+                case 1:
+                    secondWonderBuiltPanel.gameObject.SetActive(true);
+                    break;
+                case 2:
+                    thirdWonderBuiltPanel.gameObject.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
+            wonderStepCounter += 1;
         }
     }
 }
