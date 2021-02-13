@@ -4,11 +4,11 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public interface ICommonCardBuilder
     {
-        IEnumerable<RawMaterialsCard> CreateRawMaterialsCard();
-        IEnumerable<ProductionCard> CreateProductionCard();
-        IEnumerable<CivilianCard> CreateCivilianCard();
-        IEnumerable<MilitaryCard> CreateMilitaryCard();
-        IEnumerable<CommercialMoneyCard> CreateTradeCard();
-        IEnumerable<ScientificCard> CreateScientificCard();
+        IEnumerable<CommonCardData> CreateRawMaterialsCard();
+        IEnumerable<CommonCardData> CreateProductionCard();
+        IEnumerable<CommonCardData> CreateCivilianCard();
+        IEnumerable<CommonCardData> CreateMilitaryCard();
+        IEnumerable<CommonCardData> CreateTradeCard();
+        IEnumerable<CommonCardData> CreateScientificCard();
     }
 }

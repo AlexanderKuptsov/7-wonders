@@ -4,32 +4,32 @@ namespace WhiteTeam.GameLogic.Cards
 {
     public class Epoch3CommonCardBuilder: ICommonCardBuilder
     {
-        public IEnumerable<RawMaterialsCard> CreateRawMaterialsCard()
+        public IEnumerable<CommonCardData> CreateRawMaterialsCard()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<ProductionCard> CreateProductionCard()
+        public IEnumerable<CommonCardData> CreateProductionCard()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<CivilianCard> CreateCivilianCard()
+        public IEnumerable<CommonCardData> CreateCivilianCard()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<MilitaryCard> CreateMilitaryCard()
+        public IEnumerable<CommonCardData> CreateMilitaryCard()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<CommercialMoneyCard> CreateTradeCard()
+        public IEnumerable<CommonCardData> CreateTradeCard()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<ScientificCard> CreateScientificCard()
+        public IEnumerable<CommonCardData> CreateScientificCard()
         {
             throw new System.NotImplementedException();
         }
